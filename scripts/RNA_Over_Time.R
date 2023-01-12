@@ -115,10 +115,10 @@ ggplot(fly_fc, aes(x = week)) +
              ncol = 2) +
   labs(x = 'Weeks After Collection', y = "Relative change", fill = "Target")
 
-ggsave("plots/Relative_fly.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/Relative_fly_log10.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/Relative_fly.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/Relative_fly_log10.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Relative_fly_log2.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/Relative_fly_sqrt.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/Relative_fly_sqrt.pdf", units = "in", width = 10, height = 8)
 
 # delta ct fold change
 ggplot(fly_fc, aes(x = week)) +
@@ -151,7 +151,7 @@ mosquito_data <- mosquito %>%
 
 # determine delta ct, use average of time 4 week as starting ct
 # calculate fold change by taking 2^-(delta_ct)
-write_xlsx(mosquito_data, "tidy_formats/mosquito_data.xlsx")
+#write_xlsx(mosquito_data, "tidy_formats/mosquito_data.xlsx")
 
 #read back in the data
 mosquito_data <- read_xlsx("tidy_formats/mosquito_data.xlsx")
@@ -160,7 +160,9 @@ mosquito_data <- read_xlsx("tidy_formats/mosquito_data.xlsx")
 mosquito_data <- mosquito_data %>% 
   group_by(target, group, week) %>% 
   mutate(mean_fc = mean(fold_change, na.rm = TRUE),
-         sd_fc = sd(fold_change, na.rm = TRUE))
+         sd_fc = sd(fold_change, na.rm = TRUE),
+         mean_dct = mean(delta_ct, na.rm = TRUE),
+         sd_dct = sd(delta_ct, na.rm = TRUE))
 
 hline_max_mos <- data.frame(group = c("Dry", "Dry", "Dry", "Frozen", "Frozen", 
                                       "Frozen"), 
@@ -204,6 +206,23 @@ ggplot(mosquito_data, aes(x = week)) +
              scales = "free_y") +
   labs(x = 'Weeks After Collection', y = "Relative change", fill = "Target")
 
-ggsave("plots/Relative_Mosquito_log10.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/Relative_Mosquito_log2.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/Relative_Mosquito_log10.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/Relative_Mosquito_log2.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Relative_Mosquito_sqrt.pdf", units = "in", width = 10, height = 8)
+
+# delta ct fold change
+ggplot(mosquito_data, aes(x = week)) +
+  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1, 
+             stroke = 0.1, color = "black", alpha = 0.5) +
+  scale_fill_manual(values = c("turquoise3", "purple")) +
+  geom_line(aes(y = mean_dct, group = group, linetype = group)) +
+  geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
+                width = 1, color = "grey50", alpha = 0.25) + 
+  theme_few(base_size = 11) +
+  facet_wrap(~factor(target, levels = c("Verdadero", "Rennavirus", "Actin")),
+             ncol = 1) +
+  labs(x = 'Weeks After Collection', 
+       y = "Fold Change Relative to Time Point 4 Week Mosquito", 
+       fill = "Target", linetype = "Group")
+
+ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
