@@ -5,24 +5,24 @@ library(ggthemes)
 library(writexl)
 
 # read in data
-fly <- read_xlsx("tidy_formats/fly_data.xlsx")
+#fly <- read_xlsx("tidy_formats/fly_data.xlsx")
 
-mosquito <- read_xlsx("tidy_formats/mosquito_data.xlsx")
+#mosquito <- read_xlsx("tidy_formats/mosquito_data.xlsx")
 
 # fly data figures
 
 # pre-processing 
-fly_data <- fly %>%
-  filter(present == "y") %>% 
-  type_convert() %>% 
-  group_by(target, group, week, length) %>%
-  mutate(mean_ct = mean(ct, na.rm = TRUE),
-         sd_ct = sd(ct, na.rm = TRUE),
-         sample_length = paste(target, length, sep = "_")) 
+#fly_data <- fly %>%
+#  filter(present == "y") %>% 
+#  type_convert() %>% 
+#  group_by(target, group, week, length) %>%
+#  mutate(mean_ct = mean(ct, na.rm = TRUE),
+#         sd_ct = sd(ct, na.rm = TRUE),
+#         sample_length = paste(target, length, sep = "_")) 
 
 # determine delta ct, use average of time 2 week fresh as starting ct
 # calculate fold change by taking 2^-(delta_ct)
-write_xlsx(fly_data, "tidy_formats/fly_data.xlsx")
+#write_xlsx(fly_data, "tidy_formats/fly_data.xlsx")
 
 #read back in the data
 fly_data <- read_xlsx("tidy_formats/fly_data.xlsx")
@@ -94,29 +94,48 @@ ggplot(filter(fly_data, sample_length %in% c("Galbut_long", "Galbut_short",
 ggsave("plots/Mean_GalbutRpL32.pdf", units = "in", width = 10, height = 8)
 
 # get mean fold change, remove fresh samples & short samples
-fly_data <- fly_data %>% 
+fly_fc <- fly_data %>% 
   group_by(target, group, week) %>% 
   mutate(mean_fc = mean(fold_change, na.rm = TRUE),
-         sd_fc = sd(fold_change, na.rm = TRUE)) %>% 
+         sd_fc = sd(fold_change, na.rm = TRUE),
+         mean_dct = mean(delta_ct, na.rm = TRUE),
+         sd_dct = sd(delta_ct, na.rm = TRUE)) %>% 
   filter(group != "Fresh") %>% 
   filter(length != "short")
 
 # relative change for all fly targets
-ggplot(fly_data, aes(x = week)) +
+ggplot(fly_fc, aes(x = week)) +
   geom_point(aes(y = fold_change, fill = group), shape = 21, size = 1, 
              stroke = 0.1, color = "black", alpha = 0.5) +
   scale_fill_manual(values = c("turquoise3", "purple")) +
   geom_line(aes(y = mean_fc, group = group, linetype = group)) +
   scale_y_continuous(trans = "log2") +
   theme_few(base_size = 11) +
-  facet_wrap(~factor(target, levels = c("Galbut", "La Jolla", "Nora", "Thika", "RpL32")), 
-             scales = "free_y", ncol = 2) +
+  facet_wrap(~factor(target, levels = c("Galbut", "La Jolla", "Nora", "Thika", "RpL32")),
+             ncol = 2) +
   labs(x = 'Weeks After Collection', y = "Relative change", fill = "Target")
 
 ggsave("plots/Relative_fly.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Relative_fly_log10.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Relative_fly_log2.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Relative_fly_sqrt.pdf", units = "in", width = 10, height = 8)
+
+# delta ct fold change
+ggplot(fly_fc, aes(x = week)) +
+  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1, 
+             stroke = 0.1, color = "black", alpha = 0.35) +
+  scale_fill_manual(values = c("turquoise3", "purple")) +
+  geom_line(aes(y = mean_dct, group = group, linetype = group)) +
+  geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
+                width = 1, color = "grey50", alpha = 0.25) +  
+  theme_few(base_size = 11) +
+  facet_wrap(~factor(target, levels = c("Galbut", "La Jolla", "Nora", "Thika", 
+                                        "RpL32")), ncol = 2) +
+  labs(x = 'Weeks After Collection', 
+       y = "Fold Change Relative to Time Point 0 Fresh FoCo-17", 
+       fill = "Target", linetype = "Group")
+
+ggsave("plots/Relative_fly_dct.pdf", units = "in", width = 10, height = 8)
 
 # Mosquito data figures
 
