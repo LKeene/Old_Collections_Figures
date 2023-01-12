@@ -1,0 +1,12 @@
+FileName,Well,Sample Description,Size [nt],Calibrated Conc. [pg/µl],Assigned Conc. [pg/µl],Peak Molarity [pmol/l],% Integrated Area,Peak Comment,Observations
+2022-08-05 - 11.49.24.HSRNA,EL1,Electronic Ladder,25,700,700,82400,,,Lower Marker
+2022-08-05 - 11.49.24.HSRNA,EL1,Electronic Ladder,200,189,,2770,5.98,,
+2022-08-05 - 11.49.24.HSRNA,EL1,Electronic Ladder,500,638,,3760,20.25,,
+2022-08-05 - 11.49.24.HSRNA,EL1,Electronic Ladder,1000,557,,1640,17.66,,
+2022-08-05 - 11.49.24.HSRNA,EL1,Electronic Ladder,2000,580,,854,18.42,,
+2022-08-05 - 11.49.24.HSRNA,EL1,Electronic Ladder,4000,634,,466,20.11,,
+2022-08-05 - 11.49.24.HSRNA,EL1,Electronic Ladder,6000,554,,272,17.58,,
+2022-08-05 - 11.49.24.HSRNA,A1,P3 F1,25,700,700,82400,,,Lower Marker
+2022-08-05 - 11.49.24.HSRNA,A1,P3 F1,692,12.3,,52.3,100.00,,18S
+2022-08-05 - 11.49.24.HSRNA,B1,P3 H8,25,700,700,82400,,,Lower Marker
+2022-08-05 - 11.49.24.HSRNA,B1,P3 H8,725,13.9,,56.2,100.00,,18S

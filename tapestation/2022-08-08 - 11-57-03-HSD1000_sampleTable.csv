@@ -1,0 +1,16 @@
+Well,Conc. [pg/µl],Sample Description,Alert,Observations
+EL1,2350,Electronic Ladder,,Ladder
+A1,1450,B1,,
+B1,682,B3,,
+C1,1110,B4,,
+D1,1230,B5,!,Peak out of Sizing Range
+E1,2010,B6,,
+F1,395,B7,,
+G1,728,C1,,
+H1,1050,C4,,
+A2,1310,C7,,
+B2,1050,C10,!,Peak out of Sizing Range
+C2,1320,F1,,
+D2,1390,F2,,
+E2,1870,F3,!,Peak out of Sizing Range
+F2,1510,F8,,

@@ -1,0 +1,18 @@
+Well,RINe,28S/18S (Area),Conc. [pg/µl],Sample Description,Alert,Observations
+EL1,,,3750,Electronic Ladder,,Ladder
+A1,,,148,A6,!!,Sample concentration outside functional range for RINe and the assay
+B1,,,177,A9,!!,Sample concentration outside functional range for RINe and the assay
+C1,2.0,,812,B4,!,The lower ribosomal fragment is missing; RNA concentration outside recommended range for RINe
+D1,1.6,,704,B7,!,The lower ribosomal fragment is missing; RNA concentration outside recommended range for RINe
+E1,1.8,,1110,B8,!,The lower ribosomal fragment is missing
+F1,1.8,,1140,B9,!,The lower ribosomal fragment is missing
+G1,,,70.5,B10,!!,Sample concentration outside functional range for RINe and the assay
+H1,1.4,,2370,B12,!,The lower ribosomal fragment is missing
+A2,1.9,,5570,C8,!,The lower ribosomal fragment is missing
+B2,1.4,,2640,C12,!,The lower ribosomal fragment is missing
+C2,1.4,,2270,D3,!,The lower ribosomal fragment is missing
+D2,,,273,D9,!!,Sample concentration outside functional range for RINe and the assay
+E2,,,80.5,E1,!!,Sample concentration outside functional range for RINe and the assay
+F2,,,142,E2,!!,Sample concentration outside functional range for RINe and the assay
+G2,,,170,E3,!!,Sample concentration outside functional range for RINe and the assay
+H2,,,117,E8,!!,Sample concentration outside functional range for RINe and the assay
