@@ -26,43 +26,43 @@ short <- all_data %>%
   filter(!str_detect(sample_name, "Ctrl|cDNA|qPCR"))
 
 # remove misc. samples (OC/Tests/Fresh)
-cleaned_all <- all_data %>% 
-  filter(!str_detect(sample_name, paste("Ctrl|cDNA|qPCR|1919|1004|Half|short|",
+cleaned_noshort <- all_data %>% 
+  filter(!str_detect(sample_name, paste("Ctrl|cDNA|qPCR|1919|short|",
                                         "|NoDest|ET|FoCo17|cDAN|Frozen_M|", 
-                                        "|Frozen_F|EtOH|Vera")))
+                                        "|Frozen_F|EtOH|Vera|1004")))
 
 # separate sample name into week, group, target, sex and replicate 
-cleaned_all <- cleaned_all %>% 
+cleaned_noshort <- cleaned_noshort %>% 
   mutate(sample = sample_name) %>% 
   separate(col = sample_name, into = c("weekgroup", "target", "sex", "rep")) %>% 
   separate(col = weekgroup, into = c("week", "group"), sep = "wk|Wk|W")
 
 cleaned_short <- short %>% 
   mutate(sample = sample_name) %>% 
-  filter(!str_detect(sample_name, "Frozen")) %>% 
+  filter(!str_detect(sample_name, "Frozen")) %>% # short primers used on frozen 72 wk only
   separate(col = sample_name, into = c("weekgroup", "target", "length", "sex",
                                        "rep")) %>% 
   separate(col = weekgroup, into = c("week", "group"), sep = "Wk") %>% 
   mutate(target = str_replace(target, "Rpl", "RpL32"))
 
 # separate into fly & mosquito data  
-fly_data <- cleaned_all %>% 
-  filter(target %in% c("Galbut", "Gal", "Galbutbut", "Rpl", "RpL", "Thika", 
-                            "LaJolla", "Nora")) %>% 
+fly_data1 <- cleaned_noshort %>% 
+  filter(target %in% c("Galbut", "Gal", "Galbutbut", "galbut", "Rpl", "RpL", 
+                       "Thika", "LaJolla", "Nora")) %>% 
   mutate(length = "long") %>% 
   mutate(target = str_replace(target, "Rpl|RpL", "RpL32")) %>% 
-  mutate(target = str_replace(target, "^Gal$|^Galbutbut$", "Galbut")) %>% 
+  mutate(target = str_replace(target, "^Gal$|^Galbutbut$|galbut", "Galbut")) %>% 
   mutate(target = str_replace(target, "LaJolla", "La Jolla"))
 # fly data w/ long primers is ready!
 
-mosquito_data <- cleaned_all %>% 
+mosquito_data1 <- cleaned_noshort %>% 
   filter(target %in% c("Verdadero", "Act", "Actin", "Renna")) %>% 
   mutate(target = str_replace(target, "^Act$", "Actin")) %>% 
   mutate(target = str_replace(target, "Renna", "Rennavirus"))
 # mosquito df is ready!
 
 # add back short data
-fly_data <- rbind(fly_data, cleaned_short)
+fly_data1 <- rbind(fly_data1, cleaned_short)
 # fly df is ready!
 
 # write both df's to manually determine presence of absence. Tm values followed:
@@ -78,6 +78,6 @@ fly_data <- rbind(fly_data, cleaned_short)
 # Rennavirus: 83.5
 # samples will be determined to be present (y) by being within 1 Tm of these controls.
 
-write_xlsx(fly_data, "tidy_formats/fly_data.xlsx")
+write_xlsx(fly_data1, "tidy_formats/fly_data1.xlsx")
 
-write_xlsx(mosquito_data, "tidy_formats/mosquito_data.xlsx")
+write_xlsx(mosquito_data1, "tidy_formats/mosquito_data1.xlsx")
