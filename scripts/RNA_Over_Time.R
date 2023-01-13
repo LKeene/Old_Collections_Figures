@@ -3,6 +3,7 @@ library(tidyverse)
 library(readxl)
 library(ggthemes)
 library(writexl)
+library(ggrepel)
 
 # read in data
 fly <- read_xlsx("tidy_formats/fly_data2.xlsx")
@@ -140,7 +141,40 @@ ggplot(fly_fc, aes(x = week)) +
 # remove # to save plot
 #ggsave("plots/Relative_fly_dct.pdf", units = "in", width = 10, height = 8)
 
-# pre-processing 
+# short vs long Galbut & Rpl
+short_v_long <- fly_data3 %>% 
+  filter(target %in% c("Galbut", "RpL32")) %>% 
+  filter(group == "Dry") %>% 
+  select(week, group, target, length, mean_ct) %>% 
+  group_by(week, target, group, length, mean_ct) %>% 
+  summarise() %>% 
+  pivot_wider(names_from = length, values_from = mean_ct) %>% 
+  ungroup()
+
+short_v_long$week <- as.factor(short_v_long$week)
+
+#Plot min and max
+plot_min_x <- 16
+plot_max_x <- 30
+plot_min_y <- 16
+plot_max_y <- 30
+
+ggplot(short_v_long) +
+  geom_point(aes(x = long, y = short, fill = week), shape = 21, size = 5, stroke = 0.25, alpha = 0.75) +
+  facet_wrap(~ target) +
+  theme_few(base_size = 11) +
+  scale_x_log10(limits=c(plot_min_x, plot_max_x)) +
+  scale_y_log10(limits=c(plot_min_y, plot_max_y)) +
+  coord_fixed() +
+  geom_text_repel(aes(x = long, y = short, label = week), size = 4, colour = "grey30") +
+  geom_abline(intercept = 0, slope = 1, color="grey40", alpha=0.5, linewidth=0.5, linetype=2) +
+  labs(x = "Mean Ct of Each Time Point (long primer)", 
+       y = "Mean Ct of Each Time Point (short primer)", fill = "Week")
+
+# remove # to save plot
+ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
+
+# pre-processing mosquito plots
 mosquito_data2 <- mosquito %>% 
   filter(present == "y") %>% 
   type_convert() %>% 
