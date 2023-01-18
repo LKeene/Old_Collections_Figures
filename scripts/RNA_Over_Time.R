@@ -22,25 +22,35 @@ fly_data2 <- fly %>%
          sample_length = paste(target, length, sep = "_")) 
 
 # determine delta ct, use average of time 2 week fresh as starting ct
-write_xlsx(fly_data2, "tidy_formats/fly_data3.xlsx")
+#write_xlsx(fly_data2, "tidy_formats/fly_data3.xlsx")
 
 #read back in the data
 fly_data3 <- read_xlsx("tidy_formats/fly_data3.xlsx")
 
-hline_max1 <- data.frame(group = c("Dry", "Frozen"), target = c("La Jolla", "Nora", 
-                                                               "Thika"), 
+fly_data3 <- fly_data3 %>% 
+  mutate(target = str_replace(target, "Galbut", "Galbut virus"),
+         target = str_replace(target, "RpL32", "RpL32 mRNA"),
+         target = str_replace(target, "La Jolla", "La Jolla virus"),
+         target = str_replace(target, "Nora", "Nora virus"),
+         target = str_replace(target, "Thika", "Thika virus"))
+
+hline_max1 <- data.frame(group = c("Dry", "Frozen"), target = c("La Jolla virus", 
+                                                                "Nora virus",
+                                                                "Thika virus"), 
                         hline_1 = c(30.81469, 27.84886, 32.70908, 28.27032,
                                     27.49015, 30.87427))
 
 
-hline_min1 <- data.frame(group = c("Dry", "Frozen"), target = c("La Jolla", "Nora",
-                                                               "Thika"),
+hline_min1 <- data.frame(group = c("Dry", "Frozen"), target = c("La Jolla virus", 
+                                                                "Nora virus", 
+                                                                "Thika virus"),
                         hline_2 = c(16.96781, 17.54493, 26.47017, 22.34384,
                                     18.78465, 22.54356))
 
 
 # Mean line bar of La Jolla, Nora & Thika targets
-ggplot(filter(fly_data3, target %in% c("La Jolla", "Nora", "Thika"), 
+ggplot(filter(fly_data3, target %in% c("La Jolla virus", "Nora virus", 
+                                       "Thika virus"), 
               group != "Fresh"), aes(x=week)) + 
   geom_hline(data = hline_max1, aes(yintercept = hline_1), alpha = 0.5) +
   geom_hline(data = hline_min1, aes(yintercept = hline_2), alpha = 0.5) +
@@ -113,9 +123,11 @@ ggplot(fly_fc, aes(x = week)) +
   geom_line(aes(y = mean_fc, group = group, linetype = group)) +
   scale_y_continuous(trans = "log2") +
   theme_few(base_size = 11) +
-  facet_wrap(~factor(target, levels = c("Galbut", "La Jolla", "Nora", "Thika", "RpL32")),
-             ncol = 2) +
-  labs(x = 'Weeks After Collection', y = "Relative change", fill = "Target")
+  facet_wrap(~factor(target, levels = c("Galbut virus", "La Jolla virus", 
+                                        "Nora virus", "Thika virus", 
+                                        "RpL32 mRNA")), ncol = 2) +
+  labs(x = 'Weeks After Collection', y = "Relative change", fill = "Target", 
+       linetype = "Group")
 
 # remove # based on what transformation was used in scale_y_continuous
 #ggsave("plots/Relative_fly.pdf", units = "in", width = 10, height = 8)
@@ -126,29 +138,30 @@ ggplot(fly_fc, aes(x = week)) +
 # delta ct fold change
 ggplot(fly_fc, aes(x = week)) +
   geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1, 
-             stroke = 0.1, color = "black", alpha = 0.35) +
+             stroke = 0.1, color = "black", alpha = 0.4) +
   scale_fill_manual(values = c("turquoise3", "purple")) +
   geom_line(aes(y = mean_dct, group = group, linetype = group)) +
   geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
-                width = 1, color = "grey50", alpha = 0.25) +  
+                width = 1, color = "grey50", alpha = 0.4) +  
   theme_few(base_size = 11) +
-  facet_wrap(~factor(target, levels = c("Galbut", "La Jolla", "Nora", "Thika", 
-                                        "RpL32")), ncol = 2) +
+  facet_wrap(~factor(target, levels = c("Galbut virus", "La Jolla virus", 
+                                        "Nora virus", "Thika virus", 
+                                        "RpL32 mRNA")), ncol = 2) +
   labs(x = 'Weeks After Collection', 
-       y = "Fold Change Relative to Time Point 0 Fresh FoCo-17", 
-       fill = "Target", linetype = "Group")
+       y = "Log(2) Fold Change Relative to Time Point 0 Fresh FoCo-17", 
+       fill = "Target", linetype = "Sample Storage")
 
 # remove # to save plot
-#ggsave("plots/Relative_fly_dct.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_fly_dct.pdf", units = "in", width = 10, height = 8)
 
 # short vs long Galbut & Rpl
 short_v_long <- fly_data3 %>% 
-  filter(target %in% c("Galbut", "RpL32")) %>% 
+  filter(target %in% c("Galbut virus", "RpL32 mRNA")) %>% 
   filter(group == "Dry") %>% 
-  select(week, group, target, length, mean_ct) %>% 
-  group_by(week, target, group, length, mean_ct) %>% 
+  select(week, group, target, length, mean_ct, sd_ct) %>% 
+  group_by(week, target, group, length, mean_ct, sd_ct) %>% 
   summarise() %>% 
-  pivot_wider(names_from = length, values_from = mean_ct) %>% 
+  pivot_wider(names_from = length, values_from = c(mean_ct, sd_ct)) %>% 
   ungroup()
 
 short_v_long$week <- as.factor(short_v_long$week)
@@ -160,14 +173,27 @@ plot_min_y <- 16
 plot_max_y <- 30
 
 ggplot(short_v_long) +
-  geom_point(aes(x = long, y = short, fill = week), shape = 21, size = 5, stroke = 0.25, alpha = 0.75) +
+  geom_point(aes(x = mean_ct_long, y = mean_ct_short, fill = week), shape = 21, 
+             size = 5, stroke = 0.25, alpha = 0.75) +
+  geom_errorbarh(aes(xmin = if_else((mean_ct_long - sd_ct_long) < plot_min_x, 
+                     plot_min_x,(mean_ct_long - sd_ct_long)), 
+                 xmax = if_else((mean_ct_long + sd_ct_long) > plot_max_x,
+                                plot_max_x,(mean_ct_long + sd_ct_long)), 
+                 y = mean_ct_short), 
+                height = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.5) +
+  geom_errorbar(aes(ymin = if_else((mean_ct_short - sd_ct_short) < plot_min_y, 
+                                   plot_min_y,(mean_ct_short - sd_ct_short)), 
+                    ymax = if_else((mean_ct_short + sd_ct_short) > plot_max_y, 
+                                   plot_max_y,(mean_ct_short + sd_ct_short)), 
+                    x = mean_ct_long), 
+                width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.5) +
   facet_wrap(~ target) +
   theme_few(base_size = 11) +
-  scale_x_log10(limits=c(plot_min_x, plot_max_x)) +
-  scale_y_log10(limits=c(plot_min_y, plot_max_y)) +
   coord_fixed() +
-  geom_text_repel(aes(x = long, y = short, label = week), size = 4, colour = "grey30") +
-  geom_abline(intercept = 0, slope = 1, color="grey40", alpha=0.5, linewidth=0.5, linetype=2) +
+  geom_text_repel(aes(x = mean_ct_long, y = mean_ct_short, label = week), 
+                  size = 4, colour = "grey30") +
+  geom_abline(intercept = 0, slope = 1, color="grey40", alpha=0.5, linewidth=0.5,
+              linetype=2) +
   labs(x = "Mean Ct of Each Time Point (long primer)", 
        y = "Mean Ct of Each Time Point (short primer)", fill = "Week")
 
@@ -185,7 +211,7 @@ mosquito_data2 <- mosquito %>%
   ungroup()
 
 # determine delta ct, use average of time 4 week frozen as starting ct
-write_xlsx(mosquito_data2, "tidy_formats/mosquito_data3.xlsx")
+#write_xlsx(mosquito_data2, "tidy_formats/mosquito_data3.xlsx")
 
 #read back in the data
 mosquito_data3 <- read_xlsx("tidy_formats/mosquito_data3.xlsx")
@@ -197,17 +223,21 @@ mosquito_data3 <- mosquito_data3 %>%
          mean_fc = mean(fold_change, na.rm = TRUE),
          sd_fc = sd(fold_change, na.rm = TRUE),
          mean_dct = mean(delta_ct, na.rm = TRUE),
-         sd_dct = sd(delta_ct, na.rm = TRUE))
+         sd_dct = sd(delta_ct, na.rm = TRUE),
+         target = str_replace(target, "Verdadero", "Verdadero virus"),
+         target = str_replace(target, "Actin", "Actin mRNA"))
 
 hline_max_mos <- data.frame(group = c("Dry", "Dry", "Dry", "Frozen", "Frozen", 
                                       "Frozen"), 
-                            target = c("Verdadero", "Rennavirus", "Actin"), 
+                            target = c("Verdadero virus", "Rennavirus", 
+                                       "Actin mRNA"), 
                             hline_1_mos = c(27.94278, 29.54662, 29.98109,
                                             27.91520, 24.06199, 27.85027))
 
 hline_min_mos <- data.frame(group = c("Dry", "Dry", "Dry", "Frozen", "Frozen", 
                                       "Frozen"), 
-                            target = c("Verdadero", "Rennavirus", "Actin"),
+                            target = c("Verdadero virus", "Rennavirus", 
+                                       "Actin mRNA"),
                             hline_2_mos = c(22.04536, 19.4869, 24.19849,
                                             22.04304, 14.35967, 23.48702))
 
@@ -222,8 +252,8 @@ ggplot(mosquito_data3, aes(x = week)) +
   geom_errorbar(aes(ymin = (mean_ct - sd_ct), ymax = (mean_ct + sd_ct)), 
                 width = 0.2, color = "grey50", alpha = 0.25) +
   theme_few(base_size = 11) +
-  facet_grid(factor(target, levels = c("Verdadero", "Rennavirus", "Actin"))
-             ~ group, scales = "free_y") +
+  facet_grid(factor(target, levels = c("Verdadero virus", "Rennavirus", 
+                                       "Actin mRNA")) ~ group, scales = "free_y") +
   labs(x = "Time Since Sample Collection (weeks)", y = "Ct value", 
        fill = "Target")
 
@@ -238,8 +268,9 @@ ggplot(mosquito_data3, aes(x = week)) +
   geom_line(aes(y = mean_fc, group = group, linetype = group)) +
   scale_y_continuous(trans = "log2") +
   theme_few(base_size = 11) +
-  facet_wrap(~factor(target, levels = c("Verdadero", "Rennavirus", "Actin")), 
-             scales = "free_y", ncol = 1) +
+  facet_wrap(~factor(target, levels = c("Verdadero virus", "Rennavirus", 
+                                        "Actin mRNA")), scales = "free_y",
+             ncol = 1) +
   labs(x = 'Weeks After Collection', y = "Relative change", fill = "Target")
 
 # remove # based on what transformation was used in scale_y_continuous
@@ -250,18 +281,19 @@ ggplot(mosquito_data3, aes(x = week)) +
 
 # delta ct fold change
 ggplot(mosquito_data3, aes(x = week)) +
-  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1, 
-             stroke = 0.1, color = "black", alpha = 0.5) +
-  scale_fill_manual(values = c("turquoise3", "purple")) +
   geom_line(aes(y = mean_dct, group = group, linetype = group)) +
+  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1, 
+             stroke = 0.1, color = "black", alpha = 0.4) +
+  scale_fill_manual(values = c("turquoise3", "purple")) +
   geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
-                width = 1, color = "grey50", alpha = 0.25) + 
+                width = 1, color = "grey50", alpha = 0.4) + 
   theme_few(base_size = 11) +
-  facet_wrap(~factor(target, levels = c("Verdadero", "Rennavirus", "Actin")),
-             ncol = 1) +
+  facet_wrap(~factor(target, levels = c("Verdadero virus", "Rennavirus", 
+                                        "Actin mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
-       y = "Fold Change Relative to Time Point 4 Week Mosquito", 
-       fill = "Target", linetype = "Group")
+       y = "Log(2) Fold Change Relative to Time Point 4 Week Mosquito",
+       linetype = "Sample Storage") +
+  scale_fill_discrete(name = "")
 
 # remove # to save plot
-ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
