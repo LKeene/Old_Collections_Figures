@@ -198,7 +198,7 @@ ggplot(short_v_long) +
        y = "Mean Ct of Each Time Point (short primer)", fill = "Week")
 
 # remove # to save plot
-ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
 
 # pre-processing mosquito plots
 mosquito_data2 <- mosquito %>% 
@@ -297,3 +297,21 @@ ggplot(mosquito_data3, aes(x = week)) +
 
 # remove # to save plot
 #ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
+
+# Percent Positive
+fly_summary <- fly %>% 
+  group_by(target, group, week, length) %>% 
+  count(present) %>% 
+  mutate(percent = (n/6) * 100) %>% 
+  filter(present == "y") %>% 
+  filter(group == "Dry") %>% 
+  filter(target %in% c("Galbut", "RpL32")) 
+
+ggplot(fly_summary) +
+  geom_dotplot(aes(x = percent, fill = length), alpha = 0.75) +
+  scale_fill_manual(values = c("turquoise3", "purple")) +
+  facet_grid(length ~ target) +
+  theme_few(base_size = 11) +
+  labs(x = "Percent of flies positive via qPCR", fill = "Primer Length")
+
+#ggsave("plots/percent_long_short.pdf", units = "in", width = 10, height = 8)
