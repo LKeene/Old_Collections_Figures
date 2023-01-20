@@ -4,6 +4,7 @@ library(readxl)
 library(ggthemes)
 library(writexl)
 library(ggrepel)
+library(ggpmisc)
 
 # read in data
 fly <- read_xlsx("tidy_formats/fly_data2.xlsx")
@@ -161,14 +162,13 @@ short_v_long <- fly_data3 %>%
   filter(group == "Dry") %>% 
   select(week, group, target, length, mean_ct, sd_ct) %>% 
   group_by(week, target, group, length, mean_ct, sd_ct) %>% 
-  summarise() %>% 
+  summarise() 
+
+short_v_long_wide <- short_v_long %>% 
   pivot_wider(names_from = length, values_from = c(mean_ct, sd_ct)) %>% 
   ungroup()
 
-short_v_long$week <- as.factor(short_v_long$week)
-
-# linear regression
-lm_galbut 
+short_v_long_wide$week <- as.factor(short_v_long_wide$week)
 
 #Plot min and max
 plot_min_x <- 16
@@ -176,7 +176,7 @@ plot_max_x <- 30
 plot_min_y <- 16
 plot_max_y <- 30
 
-ggplot(short_v_long) +
+ggplot(short_v_long_wide) +
   geom_point(aes(x = mean_ct_long, y = mean_ct_short, fill = week), shape = 21, 
              size = 5, stroke = 0.25, alpha = 0.75) +
   geom_errorbarh(aes(xmin = if_else((mean_ct_long - sd_ct_long) < plot_min_x, 
@@ -192,8 +192,12 @@ ggplot(short_v_long) +
                     x = mean_ct_long), 
                 width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.5) +
   facet_wrap(~ target) +
+  stat_poly_line(aes(x = mean_ct_long, mean_ct_short), method = "lm", alpha = 0.5, 
+                 se = FALSE, colour = "slategray3", linetype = "dotdash", linewidth = 0.5) +
+  stat_poly_eq(aes(x = mean_ct_long, mean_ct_short, label = paste(after_stat(eq.label),
+                                 after_stat(rr.label), sep = "*\", \"*"))) +
   theme_few(base_size = 11) +
-  coord_fixed() +
+  coord_fixed(xlim = c(plot_min_x, plot_max_x), ylim = c(plot_min_y, plot_max_y)) +
   geom_text_repel(aes(x = mean_ct_long, y = mean_ct_short, label = week), 
                   size = 4, colour = "grey30") +
   geom_abline(intercept = 0, slope = 1, color="grey40", alpha=0.5, linewidth=0.5,
@@ -202,7 +206,7 @@ ggplot(short_v_long) +
        y = "Mean Ct of Each Time Point (short primer)", fill = "Week")
 
 # remove # to save plot
-#ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
 
 # pre-processing mosquito plots
 #mosquito_data2 <- mosquito %>% 
