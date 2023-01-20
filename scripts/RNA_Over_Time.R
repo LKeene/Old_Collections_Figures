@@ -145,7 +145,7 @@ ggplot(fly_fc, aes(x = week)) +
   scale_colour_manual(values = c("turquoise3", "purple")) +
   geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
                 width = 1, color = "grey50", alpha = 0.4) +  
-  theme_few(base_size = 11) +
+  theme_calc(base_size = 11) +
   facet_wrap(~factor(target, levels = c("Galbut virus", "La Jolla virus", 
                                         "Nora virus", "Thika virus", 
                                         "RpL32 mRNA")), nrow = 3) +
@@ -154,7 +154,7 @@ ggplot(fly_fc, aes(x = week)) +
        fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 # remove # to save plot
-ggsave("plots/Relative_fly_dct_byrow.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_fly_dct_calc.pdf", units = "in", width = 10, height = 8)
 
 # short vs long Galbut & Rpl
 short_v_long <- fly_data3 %>% 
@@ -296,9 +296,9 @@ ggplot(mosquito_data3, aes(x = week)) +
   scale_fill_manual(values = c("turquoise3", "purple")) +
   geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
                 width = 1, color = "grey50", alpha = 0.4) + 
-  theme_few(base_size = 11) +
+  theme_calc(base_size = 11) +
   facet_wrap(~factor(target, levels = c("Verdadero virus", "Rennavirus", 
-                                        "Actin mRNA")), nrow = 1) +
+                                        "Actin mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
        y = "Log(2) Fold Change Relative to Time Point 4 Week Frozen Mosquito",
        linetype = "Sample Storage",
@@ -306,7 +306,7 @@ ggplot(mosquito_data3, aes(x = week)) +
        colour = "Sample Storage") 
 
 # remove # to save plot
-ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
 
 # Percent Positive
 fly_summary <- fly %>% 
