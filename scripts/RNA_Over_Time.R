@@ -13,13 +13,13 @@ mosquito <- read_xlsx("tidy_formats/mosquito_data2.xlsx")
 # fly data figures
 
 # pre-processing 
-fly_data2 <- fly %>%
-  filter(present == "y") %>% 
-  type_convert() %>% 
-  group_by(target, group, week, length) %>%
-  mutate(mean_ct = mean(ct, na.rm = TRUE),
-         sd_ct = sd(ct, na.rm = TRUE),
-         sample_length = paste(target, length, sep = "_")) 
+#fly_data2 <- fly %>%
+#  filter(present == "y") %>% 
+#  type_convert() %>% 
+#  group_by(target, group, week, length) %>%
+#  mutate(mean_ct = mean(ct, na.rm = TRUE),
+#         sd_ct = sd(ct, na.rm = TRUE),
+#         sample_length = paste(target, length, sep = "_")) 
 
 # determine delta ct, use average of time 2 week fresh as starting ct
 #write_xlsx(fly_data2, "tidy_formats/fly_data3.xlsx")
@@ -104,7 +104,7 @@ ggplot(filter(fly_data3, sample_length %in% c("Galbut_long", "Galbut_short",
 # remove # to save plot
 #ggsave("plots/Mean_GalbutRpL32.pdf", units = "in", width = 10, height = 8)
 
-# get mean fold change, remove fresh samples & short samples
+# get mean fold change, remove fresh & short samples
 fly_fc <- fly_data3 %>% 
   group_by(target, group, week) %>% 
   mutate(fold_change = 2^-(delta_ct),
@@ -137,19 +137,20 @@ ggplot(fly_fc, aes(x = week)) +
 
 # delta ct fold change
 ggplot(fly_fc, aes(x = week)) +
-  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1, 
-             stroke = 0.1, color = "black", alpha = 0.4) +
+  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.2, 
+             stroke = 0.1, color = "black", alpha = 0.75) +
+  geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group)) +
   scale_fill_manual(values = c("turquoise3", "purple")) +
-  geom_line(aes(y = mean_dct, group = group, linetype = group)) +
+  scale_colour_manual(values = c("turquoise3", "purple")) +
   geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
                 width = 1, color = "grey50", alpha = 0.4) +  
   theme_few(base_size = 11) +
   facet_wrap(~factor(target, levels = c("Galbut virus", "La Jolla virus", 
                                         "Nora virus", "Thika virus", 
-                                        "RpL32 mRNA")), ncol = 2) +
+                                        "RpL32 mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
        y = "Log(2) Fold Change Relative to Time Point 0 Fresh FoCo-17", 
-       fill = "Target", linetype = "Sample Storage")
+       fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 # remove # to save plot
 ggsave("plots/Relative_fly_dct.pdf", units = "in", width = 10, height = 8)
@@ -165,6 +166,9 @@ short_v_long <- fly_data3 %>%
   ungroup()
 
 short_v_long$week <- as.factor(short_v_long$week)
+
+# linear regression
+lm_galbut 
 
 #Plot min and max
 plot_min_x <- 16
@@ -201,14 +205,14 @@ ggplot(short_v_long) +
 #ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
 
 # pre-processing mosquito plots
-mosquito_data2 <- mosquito %>% 
-  filter(present == "y") %>% 
-  type_convert() %>% 
-  group_by(target, group, week) %>%
-  mutate(mean_ct = mean(ct, na.rm = TRUE),
-         sd_ct = sd(ct, na.rm = TRUE),
-         sample_group = paste0(target)) %>% 
-  ungroup()
+#mosquito_data2 <- mosquito %>% 
+#  filter(present == "y") %>% 
+#  type_convert() %>% 
+#  group_by(target, group, week) %>%
+#  mutate(mean_ct = mean(ct, na.rm = TRUE),
+#         sd_ct = sd(ct, na.rm = TRUE),
+#         sample_group = paste0(target)) %>% 
+#  ungroup()
 
 # determine delta ct, use average of time 4 week frozen as starting ct
 #write_xlsx(mosquito_data2, "tidy_formats/mosquito_data3.xlsx")
@@ -281,9 +285,10 @@ ggplot(mosquito_data3, aes(x = week)) +
 
 # delta ct fold change
 ggplot(mosquito_data3, aes(x = week)) +
-  geom_line(aes(y = mean_dct, group = group, linetype = group)) +
-  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1, 
-             stroke = 0.1, color = "black", alpha = 0.4) +
+  geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group)) +
+  scale_colour_manual(values = c("turquoise3", "purple")) +
+  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.2, 
+             stroke = 0.1, color = "black", alpha = 0.75) +
   scale_fill_manual(values = c("turquoise3", "purple")) +
   geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
                 width = 1, color = "grey50", alpha = 0.4) + 
@@ -291,9 +296,10 @@ ggplot(mosquito_data3, aes(x = week)) +
   facet_wrap(~factor(target, levels = c("Verdadero virus", "Rennavirus", 
                                         "Actin mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
-       y = "Log(2) Fold Change Relative to Time Point 4 Week Mosquito",
-       linetype = "Sample Storage") +
-  scale_fill_discrete(name = "")
+       y = "Log(2) Fold Change Relative to Time Point 4 Week Frozen Mosquito",
+       linetype = "Sample Storage",
+       fill = "Sample Storage",
+       colour = "Sample Storage") 
 
 # remove # to save plot
 #ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
