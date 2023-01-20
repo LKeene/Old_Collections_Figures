@@ -148,13 +148,13 @@ ggplot(fly_fc, aes(x = week)) +
   theme_few(base_size = 11) +
   facet_wrap(~factor(target, levels = c("Galbut virus", "La Jolla virus", 
                                         "Nora virus", "Thika virus", 
-                                        "RpL32 mRNA")), ncol = 1) +
+                                        "RpL32 mRNA")), nrow = 3) +
   labs(x = 'Weeks After Collection', 
        y = "Log(2) Fold Change Relative to Time Point 0 Fresh FoCo-17", 
        fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 # remove # to save plot
-ggsave("plots/Relative_fly_dct.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_fly_dct_byrow.pdf", units = "in", width = 10, height = 8)
 
 # short vs long Galbut & Rpl
 short_v_long <- fly_data3 %>% 
@@ -298,7 +298,7 @@ ggplot(mosquito_data3, aes(x = week)) +
                 width = 1, color = "grey50", alpha = 0.4) + 
   theme_few(base_size = 11) +
   facet_wrap(~factor(target, levels = c("Verdadero virus", "Rennavirus", 
-                                        "Actin mRNA")), ncol = 1) +
+                                        "Actin mRNA")), nrow = 1) +
   labs(x = 'Weeks After Collection', 
        y = "Log(2) Fold Change Relative to Time Point 4 Week Frozen Mosquito",
        linetype = "Sample Storage",
@@ -306,7 +306,7 @@ ggplot(mosquito_data3, aes(x = week)) +
        colour = "Sample Storage") 
 
 # remove # to save plot
-#ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
 
 # Percent Positive
 fly_summary <- fly %>% 
