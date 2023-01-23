@@ -1,47 +1,47 @@
-﻿Species,Date Collected,Location,Donating Institution,Storage Type,Extraction Method,Concentration ,260/280,260/230,Galbut virus positive (qPCR),Sample_id
-melanogaster,1896,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,4,2.32,2.11,N,1004284
-melanogaster,1902,"Albany, NY",New York State Museum,Dried,Destructive,152,2.1,2,N,Albany1902_1
-melanogaster,1908,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,54.6,2.08,1.81,N,1004277
-melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,84,1.95,2.46,N,1004279
-melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,6.8,1.99,2.27,N,1004280
-melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,12.7,1.97,2.01,N,1004281
-melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,16.9,2.08,2.32,N,1004282
-melanogaster,1919,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,0,1.51,0.43,?,StPaul1919_1
-melanogaster,1919,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,21.6,1.84,1.77,N,StPaul1919_2
-melanogaster,1919,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,18.9,1.83,1.12,Y,StPaul1919_3
-melanogaster,1927,"Albany, NY",New York State Museum,Dried,Destructive,21,1.92,2.02,N,Albany1927_1
-melanogaster,1930,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,13.6,2.08,1.75,Y,1004283
-melanogaster,1942,New Jersey,Illinois Natural Histroy Survey,Dried,Non-Destructive,10.2,1.9,1.41,N,1004278
-melanogaster,1950,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.95,2.19,N,Oahu1950_1_mel
-melanogaster,1950,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.24,0.24,N,Oahu1950_2_mel
-melanogaster,1951,"Honolulu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.38,0.65,N,Honolulu1951_1_mel
-melanogaster,1951,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.49,1.3,N,Oahu1951_1_mel
-melanogaster,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.95,0.64,N,Kauai1952_1_mel
-melanogaster,1954,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.09,1.94,Y,Kauai1954_1_mel
-melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,66.4,2.12,2.13,N,Frost_03071963
-melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,24.4,1.99,1.09,?,Frost_03211963_1
-melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,84.6,2.09,1.77,N,Frost_03211963_2
-melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,48,2.05,1.53,N,Frost_03271963
-melanogaster,1968,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,13,1.69,0.88,N,StCloud1968_1
-melanogaster,1969,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,38.6,2.03,2.12,N,StCloud1969_1
-melanogaster,1991,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,24.4,1.89,1.67,N,StCloud1991_1
-melanogaster,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,55.4,2.03,1.57,?,SB_2000_mel
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,71.2,2.15,2.29,N,Frost_4908
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,13.9,2.05,1.71,N,Frost_4887
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,42,2.04,0.9,N,Frost_5867
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,120,2.15,2.37,N,Frost_5873
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,25.6,2.1,1.74,N,Frost_5863
-melanogaster,2006,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,19.6,2.01,2.23,N,Davison2006_1
-melanogaster,2006,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,56.8,2.08,2.06,N,Davison2006_2
-melanogaster,2006,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,0,1.91,2,N,Davison2006_3
-melanogaster,2010,"Ontario, CAN",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,0,1.73,1.88,N,PHDIP1072-11
-melanogaster,2010,"Ontario, CAN",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,17.8,1.92,1.39,N,PHDIP946-11
-simulans,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.68,-4.05,N,Kauai1952_1_sim
-simulans,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0,0,N,Kauai1952_2_sim
-simulans,1953,"Kilauea, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.2,-7,?,Kilauea1953_1_sim
-simulans,1958,"Maui, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.99,0.16,N,Maui1958_1_sim
-simulans,1960,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.18,0.8,N,Oahu1960_1_sim
-simulans,1965,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.64,1.76,N,Oahu1965_1_sim
-simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,17.8,1.99,1.77,N,SB_2000_1_sim
-simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,74.2,2.13,2.18,N,BBDIV1549-12
-simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,15.9,1.98,0.94,?,BBDIV1550-12
+﻿Species,Date Collected,Location,Donating Institution,Storage Type,Extraction Method,Concentration ,260/280,260/230,Galbut virus positive (qPCR),Sample_id,I7_index,I5_index
+melanogaster,1896,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,4,2.32,2.11,N,1004284,IDT8_i7_240,IDT8_i5_240
+melanogaster,1902,"Albany, NY",New York State Museum,Dried,Destructive,152,2.1,2,N,Albany1902_1,IDT8_i7_212,IDT8_i5_212
+melanogaster,1908,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,54.6,2.08,1.81,N,1004277,IDT8_i7_233,IDT8_i5_233
+melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,84,1.95,2.46,N,1004279,IDT8_i7_235,IDT8_i5_235
+melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,6.8,1.99,2.27,N,1004280,IDT8_i7_236,IDT8_i5_236
+melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,12.7,1.97,2.01,N,1004281,IDT8_i7_237,IDT8_i5_237
+melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,16.9,2.08,2.32,N,1004282,IDT8_i7_238,IDT8_i5_238
+melanogaster,1919,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,0,1.51,0.43,?,StPaul1919_1,IDT8_i7_231,IDT8_i5_231
+melanogaster,1919,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,21.6,1.84,1.77,N,StPaul1919_2,IDT8_i7_208,IDT8_i5_208
+melanogaster,1919,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,18.9,1.83,1.12,Y,StPaul1919_3,IDT8_i7_193,IDT8_i5_193
+melanogaster,1927,"Albany, NY",New York State Museum,Dried,Destructive,21,1.92,2.02,N,Albany1927_1,IDT8_i7_213,IDT8_i5_213
+melanogaster,1930,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,13.6,2.08,1.75,Y,1004283,IDT8_i7_239,IDT8_i5_239
+melanogaster,1942,New Jersey,Illinois Natural Histroy Survey,Dried,Non-Destructive,10.2,1.9,1.41,N,1004278,IDT8_i7_234,IDT8_i5_234
+melanogaster,1950,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.95,2.19,N,Oahu1950_1_mel,NA,NA
+melanogaster,1950,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.24,0.24,N,Oahu1950_2_mel,NA,NA
+melanogaster,1951,"Honolulu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.38,0.65,N,Honolulu1951_1_mel,NA,NA
+melanogaster,1951,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.49,1.3,N,Oahu1951_1_mel,NA,NA
+melanogaster,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.95,0.64,N,Kauai1952_1_mel,NA,NA
+melanogaster,1954,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.09,1.94,Y,Kauai1954_1_mel,IDT8_i7_201,IDT8_i5_201
+melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,66.4,2.12,2.13,N,Frost_03071963,IDT8_i7_222,IDT8_i5_222
+melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,24.4,1.99,1.09,?,Frost_03211963_1,IDT8_i7_224,IDT8_i5_224
+melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,84.6,2.09,1.77,N,Frost_03211963_2,IDT8_i7_223,IDT8_i5_223
+melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,48,2.05,1.53,N,Frost_03271963,IDT8_i7_195,IDT8_i5_195
+melanogaster,1968,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,13,1.69,0.88,N,StCloud1968_1,IDT8_i7_209,IDT8_i5_209
+melanogaster,1969,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,38.6,2.03,2.12,N,StCloud1969_1,IDT8_i7_210,IDT8_i5_210
+melanogaster,1991,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,24.4,1.89,1.67,N,StCloud1991_1,IDT8_i7_211,IDT8_i5_211
+melanogaster,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,55.4,2.03,1.57,?,SB_2000_mel,IDT8_i7_226,IDT8_i5_226
+melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,71.2,2.15,2.29,N,Frost_4908,IDT8_i7_217,IDT8_i5_217
+melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,13.9,2.05,1.71,N,Frost_4887,IDT8_i7_218,IDT8_i5_218
+melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,42,2.04,0.9,N,Frost_5867,IDT8_i7_219,IDT8_i5_219
+melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,120,2.15,2.37,N,Frost_5873,IDT8_i7_220,IDT8_i5_220
+melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,25.6,2.1,1.74,N,Frost_5863,IDT8_i7_221,IDT8_i5_221
+melanogaster,2006,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,19.6,2.01,2.23,N,Davison2006_1,IDT8_i7_214,IDT8_i5_214
+melanogaster,2006,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,56.8,2.08,2.06,N,Davison2006_2,IDT8_i7_215,IDT8_i5_215
+melanogaster,2006,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,0,1.91,2,N,Davison2006_3,NA,NA
+melanogaster,2010,"Ontario, CAN",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,0,1.73,1.88,N,PHDIP1072-11,IDT8_i7_227,IDT8_i5_227
+melanogaster,2010,"Ontario, CAN",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,17.8,1.92,1.39,N,PHDIP946-11,IDT8_i7_228,IDT8_i5_228
+simulans,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.68,-4.05,N,Kauai1952_1_sim,NA,NA
+simulans,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0,0,N,Kauai1952_2_sim,NA,NA
+simulans,1953,"Kilauea, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.2,-7,?,Kilauea1953_1_sim,IDT8_i7_204,IDT8_i5_204
+simulans,1958,"Maui, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.99,0.16,N,Maui1958_1_sim,NA,NA
+simulans,1960,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.18,0.8,N,Oahu1960_1_sim,NA,NA
+simulans,1965,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.64,1.76,N,Oahu1965_1_sim,IDT8_i7_207,IDT8_i5_207
+simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,17.8,1.99,1.77,N,SB_2000_1_sim,IDT8_i7_225,IDT8_i5_225
+simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,74.2,2.13,2.18,N,BBDIV1549-12,IDT8_i7_229,IDT8_i5_229
+simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,15.9,1.98,0.94,?,BBDIV1550-12,IDT8_i7_230,IDT8_i5_230
