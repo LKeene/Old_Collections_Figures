@@ -4,53 +4,66 @@ library(readxl)
 library(patchwork)
 
 # Load all dried fly data
-dry_fly_rna1 <- read.electrophoresis("2022-08-05 - 11-17-40-HSRNA.xml")
-dry_fly_rna2 <- read.electrophoresis("2022-08-05 - 11-49-24-HSRNA.xml")
-# Add the last time point for dried flies
-#dry_fly_rna3 <- read.electrophoresis("")
+dry_fly_rna1 <- read.electrophoresis("tapestation/2022-08-05 - 11-17-40-HSRNA.xml")
+dry_fly_rna2 <- read.electrophoresis("tapestation/2022-08-05 - 11-49-24-HSRNA.xml")
+dry_fly_rna3 <- read.electrophoresis("tapestation/2022-10-23 - 11-08-02-HSRNA.xml") 
+
 # Load all frozen fly data
-frozen_fly_rna1 <- read.electrophoresis("2022-10-11 - 10-04-51-HSRNA.xml")
-# Add the last time point for frozen flies
-#frozen_fly_rna2 <- read.electrophoresis("")
+frozen_fly_rna1 <- read.electrophoresis("tapestation/2022-10-11 - 10-04-51-HSRNA.xml")
+frozen_fly_rna2 <- read.electrophoresis("tapestation/2022-08-04 - 11-37-28-HSRNA.xml")
+
 # Load fresh fly data
-rna_fresh <- read.electrophoresis("2022-08-25 - 10-03-38[14518]-HSRNA.xml")
+rna_fresh <- read.electrophoresis("tapestation/2022-08-25 - 10-03-38[14518]-HSRNA.xml")
+
 # Load all dried mosquito data
-dry_mos_rna1 <- read.electrophoresis("2022-10-07 - 12-36-06-HSRNA.xml")
-dry_mos_rna2 <- read.electrophoresis("2022-10-10 - 15-01-37-HSRNA.xml")
-dry_mos_rna3 <- read.electrophoresis("2022-10-10 - 15-12-34-HSRNA.xml")
+dry_mos_rna1 <- read.electrophoresis("tapestation/2022-10-07 - 12-36-06-HSRNA.xml")
+dry_mos_rna2 <- read.electrophoresis("tapestation/2022-10-10 - 15-01-37-HSRNA.xml")
+dry_mos_rna3 <- read.electrophoresis("tapestation/2022-10-10 - 15-12-34-HSRNA.xml")
+
 # Load Old Collections data
-oc_samples <- read.electrophoresis("2022-08-04 - 11-37-28-HSRNA.xml")
+oc_samples <- read.electrophoresis("tapestation/2022-08-04 - 11-37-28-HSRNA.xml")
 
 # read in sample metadata for each tape
-metadata_fly <- read_excel("tape_metadata_tidy.xlsx")
-metadata_mos <- read_excel("mos_metadata_tidy.xlsx")
+metadata_fly <- read_excel("tapestation/tape_metadata_tidy.xlsx")
+metadata_mos <- read_excel("tapestation/mos_metadata_tidy.xlsx")
 
 # pull out the actual data
 df1 <- dry_fly_rna1$data
 df2 <- dry_fly_rna2$data
-#df3 <- dry_fly_rna3$data
+df3 <- dry_fly_rna3$data %>% 
+  filter(sample.index == 2)
+
 df4 <- frozen_fly_rna1$data
-#df5 <- frozen_fly_rna2$data
+df5 <- frozen_fly_rna2$data %>% 
+  filter(sample.index == 3)
+
 df6 <- rna_fresh$data
+
 df7 <- dry_mos_rna1$data
 df8 <- dry_mos_rna2$data
 df9 <- dry_mos_rna3$data
+
 df_oc <- oc_samples$data
 
 # these values match tape_id column in metadata excel
 df1$tape_id <- "d1"
 df2$tape_id <- "d2"
-#df3$tape_id <- "d3
-df4$tape_id <- "f1"
-#df5$tape_id <- "f2"
+df3$tape_id <- "d3"
+
+df4$tape_id <- "d4"
+df5$tape_id <- "d5"
+
 df6$tape_id <- "fresh"
+
 df7$tape_id <- "m1"
 df8$tape_id <- "m2"
 df9$tape_id <- "m3"
+
 df_oc$tape_id <- "oc"
 
 # merge the data from different tapes
-fly_data <- rbind(df1, df2, df4, df6, df_oc) #Add df3 & df5
+fly_data <- rbind(df1, df2, df3, df4, df5, df6, df_oc) 
+
 mos_data <- rbind(df7, df8, df9)
 
 # make a joint ID that combines tape_id and sample.index 
@@ -66,27 +79,29 @@ fly_data <- filter(fly_data, id %in% metadata_fly$id)
 mos_data <- filter(mos_data, id %in% metadata_mos$id)
 
 # check we have all the tapes/samples represented as expected
-df %>% group_by(tape_id,sample.index) %>% summarize()
+fly_data %>% 
+  group_by(tape_id,sample.index) %>% 
+  summarize()
 
 # determine cutoff for where the lower marker ends - then check visually
 lower_marker_length_max <- 33
                       
-ggplot(filter(df, tape_id == "1")) +       
-  geom_line(aes(x=length, y=fluorescence, group=sample.index)) +
+#ggplot(fly_data) +       
+#  geom_line(aes(x=length, y=fluorescence, group=sample.index)) +
   # add in coloring under the lines: 
   # length < lower_marker_mlength_max will produce a T/F value, which we can color with scale_fill_manual
-  geom_area(aes(x=length, y=fluorescence, fill = length <= lower_marker_length_max)) +
-  scale_fill_manual(values=c("grey50", "lightsteelblue")) +
+#  geom_area(aes(x=length, y=fluorescence, fill = length <= lower_marker_length_max)) +
+#  scale_fill_manual(values=c("grey50", "lightsteelblue")) +
   # get rid of the ugly legend
-  theme_classic(base_size=10) +
-  scale_x_log10(limits=c(NA,1000)) +
-  xlab("RNA Length (nt)") +
-  ylab("Fluorescence (arbitrary units)") +
-  facet_wrap(~sample.index, ncol=1) +
-  theme(legend.position="none",
-        strip.text.x = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.text.y  = element_blank()) 
+#  theme_classic(base_size=10) +
+#  scale_x_log10(limits=c(NA,1000)) +
+#  xlab("RNA Length (nt)") +
+#  ylab("Fluorescence (arbitrary units)") +
+#  facet_wrap(~id, ncol=1) +
+#  theme(legend.position="none",
+#        strip.text.x = element_blank(),
+#        axis.ticks.y = element_blank(),
+#        axis.text.y  = element_blank()) 
 
 
 # calculate mean from what is essentially histogram data.
@@ -94,49 +109,54 @@ ggplot(filter(df, tape_id == "1")) +
 # https://www.statology.org/histogram-mean-median/
 
 # get rid of rows with no assigned length or below lower marker cutoff
-df <- df %>% filter(!is.na(length) & length > lower_marker_length_max)
+fly_data <- fly_data %>% filter(!is.na(length) & length > lower_marker_length_max)
 
 # only keep fluorescence values if above an arbitrary threshold 
-# this is because legit fluoreseence signals are much larger
+# this is because legit fluorescence signals are much larger
 # and we want to avoid fluorescence signal noise from impacting mean, which it was doing
 min_fluorescence_cutoff <- 10
-df <- df %>% filter(fluorescence > min_fluorescence_cutoff)
+fly_data <- fly_data %>% filter(fluorescence > min_fluorescence_cutoff)
 
 # calculate fluorescence * length for each bin
-df <- df %>% mutate(mn = fluorescence * length)
+fly_data <- fly_data %>% mutate(mn = fluorescence * length)
 
 # calculate mean length from each TS trace data.
 # and put in a new dataframe with just one value per sample
-df_mean <- df %>% group_by(id) %>% summarize(mean_length = sum(mn) / sum(fluorescence))
+df_mean_fly <- fly_data %>% 
+  group_by(id) %>% 
+  summarize(mean_length = sum(mn) / sum(fluorescence))
 
 # merge in metadata
-df_mean <- left_join(df_mean, metadata, by="id")
+df_mean_fly <- left_join(df_mean_fly, metadata_fly, by="id")
 
 # investigate filtering impact
-ggplot(filter(df, tape_id=="oc" & sample.index < 8)) +
-  facet_wrap(~id, scales="free_y", ncol=1) +
-  scale_x_log10() + 
-  geom_point(aes(x=length, y=fluorescence)) 
+#ggplot(filter(df, tape_id=="oc" & sample.index < 8)) +
+#  facet_wrap(~id, scales="free_y", ncol=1) +
+#  scale_x_log10() + 
+#  geom_point(aes(x=length, y=fluorescence)) 
 
 
 # plot oc samples: we'll show these separately from new/experimental samples
-p_oc <- ggplot(filter(df_mean, new_or_old == "old")) +
+p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
   # geom_smooth(aes(x=year, y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
-  geom_point(aes(x=year, y=mean_length), shape=21, size=4, fill="slateblue", color="black", stroke=0.25) +
+  geom_point(aes(x = year, y = mean_length), shape = 21, size = 4, 
+             fill = "violetred3", color = "black", stroke = 0.1) +
   scale_x_reverse(breaks = seq(from=1880, to=2020, by=20))+
-  ylim(c(0,1000)) +
+  ylim(c(0,500)) +
   xlab("Year of sample collection") +
   # we don't need a y-axis label because it's repeated in p_new below
-  # ylab("Mean length of RNA on Tapestation (nt)") +
-  ylab("") +
+  ylab("Mean length of RNA on Tapestation (nt)") +
+  #ylab("") +
   theme_minimal(base_size = 16) 
 
 p_oc
   
 # plot new experimental samples
-p_new <- ggplot(filter(df_mean, new_or_old=="new")) +
+p_new <- ggplot(filter(df_mean_fly, group != "old")) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
-  geom_point(aes(x=as.numeric(weeks), y=mean_length), shape=21, size=4, fill="slateblue", color="black", stroke=0.25) +
+  geom_point(aes(x = as.numeric(weeks), y = mean_length, fill = group), 
+             shape = 21, size = 4, color = "black", stroke = 0.1, alpha = 0.75) +
+  scale_fill_manual(values = c("turquoise3", "gray30", "purple")) +
   ylim(c(0,1000)) +
   xlab("Weeks since sample pinning") +
   ylab("Mean length of RNA on Tapestation (nt)") +
@@ -149,6 +169,9 @@ p_new
 p_new + p_oc +  plot_layout(widths = c(1, 2))
 
 ggsave("RNA_length_vs_time.pdf", width=10, height=7, units="in")
+
+# plot RNA length vs time in dried & pinned samples
+
 
 
 # -----------------------------
