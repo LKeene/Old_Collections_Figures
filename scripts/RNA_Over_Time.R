@@ -156,7 +156,7 @@ ggplot(fly_fc, aes(x = week)) +
        fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 # remove # to save plot
-ggsave("plots/Relative_fly_dct.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/Relative_fly_dct.pdf", units = "in", width = 10, height = 8)
 
 # short vs long Galbut & Rpl
 short_v_long <- fly_data3 %>% 
@@ -186,19 +186,21 @@ ggplot(short_v_long_wide) +
                  xmax = if_else((mean_ct_long + sd_ct_long) > plot_max_x,
                                 plot_max_x,(mean_ct_long + sd_ct_long)), 
                  y = mean_ct_short), 
-                height = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.5) +
+                height = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.75) +
   geom_errorbar(aes(ymin = if_else((mean_ct_short - sd_ct_short) < plot_min_y, 
                                    plot_min_y,(mean_ct_short - sd_ct_short)), 
                     ymax = if_else((mean_ct_short + sd_ct_short) > plot_max_y, 
                                    plot_max_y,(mean_ct_short + sd_ct_short)), 
                     x = mean_ct_long), 
-                width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.5) +
+                width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.75) +
   facet_wrap(~ target) +
   stat_poly_line(aes(x = mean_ct_long, mean_ct_short), method = "lm", alpha = 0.5, 
                  se = FALSE, colour = "slategray3", linetype = "dotdash", linewidth = 0.5) +
   stat_poly_eq(aes(x = mean_ct_long, mean_ct_short, label = paste(after_stat(eq.label),
                                  after_stat(rr.label), sep = "*\", \"*"))) +
-  theme_few(base_size = 11) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white")) +
   coord_fixed(xlim = c(plot_min_x, plot_max_x), ylim = c(plot_min_y, plot_max_y)) +
   geom_text_repel(aes(x = mean_ct_long, y = mean_ct_short, label = week), 
                   size = 4, colour = "grey30") +
@@ -217,8 +219,6 @@ plot_min_y_df <- 16
 plot_max_y_df <- 33
 
 dry_v_frozen <- fly_data3 %>% 
-  filter(target %in% c("Galbut virus", "RpL32 mRNA", "La Jolla virus", 
-                       "Nora virus", "Thika virus")) %>% 
   filter(group != "Fresh") %>% 
   filter(length == "long") %>% 
   select(week, group, target, mean_ct, sd_ct) %>% 
@@ -233,26 +233,27 @@ dry_v_frozen_wide$week <- as.factor(dry_v_frozen_wide$week)
 
 ggplot(dry_v_frozen_wide) +
   geom_point(aes(x = mean_ct_Dry, y = mean_ct_Frozen, fill = week), shape = 21, 
-             size = 5, stroke = 0.25, alpha = 0.75) +
-  geom_errorbarh(aes(xmin = if_else((mean_ct_Dry - sd_ct_Dry) < plot_min_x, 
-                                    plot_min_x,(mean_ct_Dry - sd_ct_Dry)), 
-                     xmax = if_else((mean_ct_Dry + sd_ct_Dry) > plot_max_x,
-                                    plot_max_x,(mean_ct_Dry + sd_ct_Dry)), 
-                     y = mean_ct_Frozen), 
-                 height = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.5) +
-  geom_errorbar(aes(ymin = if_else((mean_ct_Frozen - sd_ct_Frozen) < plot_min_y, 
-                                   plot_min_y,(mean_ct_Frozen - sd_ct_Frozen)), 
-                    ymax = if_else((mean_ct_Frozen + sd_ct_Frozen) > plot_max_y, 
-                                   plot_max_y,(mean_ct_Frozen + sd_ct_Frozen)), 
-                    x = mean_ct_Dry), 
-                width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.5) +
-  facet_wrap(~ target) +
+             size = 5, stroke = 0.25, alpha = 0.75) + 
+  geom_errorbarh(aes(xmin = mean_ct_Dry - sd_ct_Dry, 
+                     xmax = mean_ct_Dry + sd_ct_Dry, y = mean_ct_Frozen), 
+                 height = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.75) +
+  geom_errorbar(aes(ymin = mean_ct_Frozen - sd_ct_Frozen, 
+                    ymax = mean_ct_Frozen + sd_ct_Frozen, x = mean_ct_Dry), 
+                width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 75) +
+  facet_wrap(~factor(target, levels = c("Galbut virus", "La Jolla virus", 
+                                        "Nora virus", "Thika virus", 
+                                        "RpL32 mRNA")), nrow = 2) +
   stat_poly_line(aes(x = mean_ct_Dry, mean_ct_Frozen), method = "lm", alpha = 0.5, 
-                 se = FALSE, colour = "slategray3", linetype = "dotdash", linewidth = 0.5) +
-  stat_poly_eq(aes(x = mean_ct_Dry, mean_ct_Frozen, label = paste(after_stat(eq.label),
-                                                                  after_stat(rr.label), sep = "*\", \"*"))) +
-  theme_few(base_size = 11) +
-  coord_fixed(xlim = c(plot_min_x_df, plot_max_x_df), ylim = c(plot_min_y_df, plot_max_y_df)) +
+                 se = FALSE, colour = "slategray3", linetype = "dotdash", 
+                 linewidth = 0.5) +
+  stat_poly_eq(aes(x = mean_ct_Dry, mean_ct_Frozen, 
+                   label = paste(after_stat(eq.label), 
+                                 after_stat(rr.label), sep = "*\", \"*"))) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white")) +
+  coord_fixed(xlim = c(plot_min_x_df, plot_max_x_df), 
+              ylim = c(plot_min_y_df, plot_max_y_df)) +
   geom_text_repel(aes(x = mean_ct_Dry, y = mean_ct_Frozen, label = week), 
                   size = 4, colour = "grey30") +
   geom_abline(intercept = 0, slope = 1, color="grey40", alpha=0.5, linewidth=0.5,
@@ -261,7 +262,7 @@ ggplot(dry_v_frozen_wide) +
        y = "Mean Ct of Each Time Point (Frozen)", fill = "Week")
 
 # remove # to save plot
-#ggsave("plots/dry_vs_frozen.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/dry_vs_frozen.pdf", units = "in", width = 10, height = 8)
 
 # pre-processing mosquito plots
 #mosquito_data2 <- mosquito %>% 
@@ -363,7 +364,7 @@ ggplot(mosquito_data3, aes(x = week)) +
        colour = "Sample Storage") 
 
 # remove # to save plot
-ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
 
 # dry vs frozen mos
 plot_min_x_df_m <- 14
@@ -385,25 +386,23 @@ dry_v_frozen_wide_mos$week <- as.factor(dry_v_frozen_wide_mos$week)
 ggplot(dry_v_frozen_wide_mos) +
   geom_point(aes(x = mean_ct_Dry, y = mean_ct_Frozen, fill = week), shape = 21, 
              size = 5, stroke = 0.25, alpha = 0.75) +
-  geom_errorbarh(aes(xmin = if_else((mean_ct_Dry - sd_ct_Dry) < plot_min_x, 
-                                    plot_min_x,(mean_ct_Dry - sd_ct_Dry)), 
-                     xmax = if_else((mean_ct_Dry + sd_ct_Dry) > plot_max_x,
-                                    plot_max_x,(mean_ct_Dry + sd_ct_Dry)), 
-                     y = mean_ct_Frozen), 
-                 height = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.5) +
-  geom_errorbar(aes(ymin = if_else((mean_ct_Frozen - sd_ct_Frozen) < plot_min_y, 
-                                   plot_min_y,(mean_ct_Frozen - sd_ct_Frozen)), 
-                    ymax = if_else((mean_ct_Frozen + sd_ct_Frozen) > plot_max_y, 
-                                   plot_max_y,(mean_ct_Frozen + sd_ct_Frozen)), 
+  geom_errorbarh(aes(xmin = mean_ct_Dry - sd_ct_Dry, 
+                     xmax = mean_ct_Dry + sd_ct_Dry, y = mean_ct_Frozen), 
+                 height = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.75) +
+  geom_errorbar(aes(ymin = mean_ct_Frozen - sd_ct_Frozen, 
+                    ymax = mean_ct_Frozen + sd_ct_Frozen, 
                     x = mean_ct_Dry), 
-                width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.5) +
-  facet_wrap(~ target, ncol = 2, scales = "free_y") +
+                width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.75) +
+  facet_wrap(~factor(target, levels = c("Verdadero virus", "Rennavirus", 
+                                        "Actin mRNA")), ncol = 1) +
   stat_poly_line(aes(x = mean_ct_Dry, mean_ct_Frozen), method = "lm", alpha = 0.5, 
                  se = FALSE, colour = "slategray3", linetype = "dotdash", linewidth = 0.5) +
-  stat_poly_eq(aes(x = mean_ct_Dry, mean_ct_Frozen, label = paste(after_stat(eq.label),
-                                                                  after_stat(rr.label), sep = "*\", \"*"))) +
-  theme_few(base_size = 11) +
-#  coord_fixed(xlim = c(plot_min_x_df_m, plot_max_x_df_m), ylim = c(plot_min_y_df_m, plot_max_y_df_m)) +
+  stat_poly_eq(aes(x = mean_ct_Dry, mean_ct_Frozen, 
+                   label = paste(after_stat(eq.label), 
+                                 after_stat(rr.label), sep = "*\", \"*"))) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white")) +
   geom_text_repel(aes(x = mean_ct_Dry, y = mean_ct_Frozen, label = week), 
                   size = 4, colour = "grey30") +
   geom_abline(intercept = 0, slope = 1, color="grey40", alpha=0.5, linewidth=0.5,
@@ -412,7 +411,7 @@ ggplot(dry_v_frozen_wide_mos) +
        y = "Mean Ct of Each Time Point (Frozen)", fill = "Week")
 
 # remove # to save plot
-ggsave("plots/dry_vs_frozen_mos.pdf", units = "in", width = 10, height = 8)
+#ggsave("plots/dry_vs_frozen_mos.pdf", units = "in", width = 10, height = 8)
 
 # Percent Positive
 fly_summary <- fly %>% 
