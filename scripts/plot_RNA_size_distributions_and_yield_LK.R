@@ -150,7 +150,8 @@ p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
   theme_minimal(base_size = 16) 
 
 p_oc
-  
+#ggsave("OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+
 # plot new experimental samples
 p_new <- ggplot(filter(df_mean_fly, group != "old")) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
@@ -163,6 +164,7 @@ p_new <- ggplot(filter(df_mean_fly, group != "old")) +
   theme_minimal(base_size = 16) 
 
 p_new
+ggsave("Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 
 # plot the two plots side by side
 # lay out combined plot using patchwork library
