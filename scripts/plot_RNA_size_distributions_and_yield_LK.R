@@ -150,7 +150,7 @@ p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
   theme_minimal(base_size = 16) 
 
 p_oc
-#ggsave("OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 
 # plot new experimental samples
 p_new <- ggplot(filter(df_mean_fly, group != "old")) +
@@ -164,7 +164,7 @@ p_new <- ggplot(filter(df_mean_fly, group != "old")) +
   theme_minimal(base_size = 16) 
 
 p_new
-ggsave("Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 
 # plot the two plots side by side
 # lay out combined plot using patchwork library
@@ -172,9 +172,40 @@ p_new + p_oc +  plot_layout(widths = c(1, 2))
 
 ggsave("RNA_length_vs_time.pdf", width=10, height=7, units="in")
 
-# plot RNA length vs time in dried & pinned samples
+# plot RNA length vs time of mosquito samples
 
+# get rid of rows with no assigned length or below lower marker cutoff
+mos_data <- mos_data %>% filter(!is.na(length) & length > lower_marker_length_max)
 
+# only keep fluorescence values if above an arbitrary threshold 
+# this is because legit fluorescence signals are much larger
+# and we want to avoid fluorescence signal noise from impacting mean, which it was doing
+mos_data <- mos_data %>% filter(fluorescence > min_fluorescence_cutoff)
+
+# calculate fluorescence * length for each bin
+mos_data <- mos_data %>% mutate(mn = fluorescence * length)
+
+# calculate mean length from each TS trace data.
+# and put in a new dataframe with just one value per sample
+df_mean_mos <- mos_data %>% 
+  group_by(id) %>% 
+  summarize(mean_length = sum(mn) / sum(fluorescence))
+
+# merge in metadata
+df_mean_mos <- left_join(df_mean_mos, metadata_mos, by="id")
+
+p_mos <- ggplot(df_mean_mos) +
+  # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
+  geom_point(aes(x = as.numeric(weeks), y = mean_length), 
+             shape = 21, size = 4, color = "black", stroke = 0.5, alpha = 0.75) +
+#  scale_fill_manual(values = c("turquoise3", "gray30", "purple")) +
+  ylim(c(0,1400)) +
+  xlab("Weeks since sample pinning") +
+  ylab("Mean length of RNA on Tapestation (nt)") +
+  theme_minimal(base_size = 16) 
+
+p_mos
+ggsave("plots/Mos_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 
 # -----------------------------
 # plot some of the sample data
