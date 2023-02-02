@@ -419,14 +419,52 @@ fly_summary <- fly %>%
   count(present) %>% 
   mutate(percent = (n/6) * 100) %>% 
   filter(present == "y") %>% 
-  filter(group == "Dry") %>% 
-  filter(target %in% c("Galbut", "RpL32")) 
+  filter(group != "Fresh") 
 
-ggplot(fly_summary) +
-  geom_dotplot(aes(x = percent, fill = length), alpha = 0.75) +
+# long vs short galbut & RpL32
+ggplot(filter(fly_summary, target %in% c("Galbut", "RpL32"))) +
+  geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
+              size = 2, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
   scale_fill_manual(values = c("turquoise3", "purple")) +
   facet_grid(length ~ target) +
   theme_few(base_size = 11) +
-  labs(x = "Percent of flies positive via qPCR", fill = "Primer Length")
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white")) +
+  labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage")
 
 #ggsave("plots/percent_long_short.pdf", units = "in", width = 10, height = 8)
+
+# other fly targets
+ggplot(filter(fly_summary, target %in% c("Thika", "Nora", "La Jolla"))) +
+  geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
+              size = 2, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
+  scale_fill_manual(values = c("turquoise3", "purple")) +
+  facet_grid(group ~ target) +
+  theme_few(base_size = 11) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white")) +
+  labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage")
+
+#ggsave("plots/percent_fly_targets.pdf", units = "in", width = 10, height = 8)
+
+# mosquito targets
+mos_summary <- mosquito %>% 
+  group_by(target, group, week) %>% 
+  count(present) %>% 
+  mutate(percent = (n/6) * 100) %>% 
+  filter(present == "y")
+
+ggplot(mos_summary) +
+  geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
+              size = 2, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
+  scale_fill_manual(values = c("turquoise3", "purple")) +
+  facet_grid(group ~ target) +
+  theme_few(base_size = 11) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white")) +
+  labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage")
+
+#ggsave("plots/percent_mos_targets.pdf", units = "in", width = 10, height = 8)
