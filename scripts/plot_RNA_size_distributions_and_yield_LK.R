@@ -19,6 +19,7 @@ rna_fresh <- read.electrophoresis("tapestation/2022-08-25 - 10-03-38[14518]-HSRN
 dry_mos_rna1 <- read.electrophoresis("tapestation/2022-10-07 - 12-36-06-HSRNA.xml")
 dry_mos_rna2 <- read.electrophoresis("tapestation/2022-10-10 - 15-01-37-HSRNA.xml")
 dry_mos_rna3 <- read.electrophoresis("tapestation/2022-10-10 - 15-12-34-HSRNA.xml")
+frozen_mos_rna4 <- read.electrophoresis("tapestation/2023-02-02 - 12-27-58-HSRNA.xml")
 
 # Load Old Collections data
 oc_samples <- read.electrophoresis("tapestation/2022-08-04 - 11-37-28-HSRNA.xml")
@@ -42,6 +43,7 @@ df6 <- rna_fresh$data
 df7 <- dry_mos_rna1$data
 df8 <- dry_mos_rna2$data
 df9 <- dry_mos_rna3$data
+df10 <- frozen_mos_rna4$data
 
 df_oc <- oc_samples$data
 
@@ -58,13 +60,14 @@ df6$tape_id <- "fresh"
 df7$tape_id <- "m1"
 df8$tape_id <- "m2"
 df9$tape_id <- "m3"
+df10$tape_id <- "m4"
 
 df_oc$tape_id <- "oc"
 
 # merge the data from different tapes
 fly_data <- rbind(df1, df2, df3, df4, df5, df6, df_oc) 
 
-mos_data <- rbind(df7, df8, df9)
+mos_data <- rbind(df7, df8, df9, df10)
 
 # make a joint ID that combines tape_id and sample.index 
 # this will uniquely identify each lane and allow us to link
@@ -159,8 +162,8 @@ p_new <- ggplot(filter(df_mean_fly, group != "old")) +
              shape = 21, size = 4, color = "black", stroke = 0.1, alpha = 0.75) +
   scale_fill_manual(values = c("turquoise3", "gray30", "purple")) +
   ylim(c(0,1000)) +
-  xlab("Weeks since sample pinning") +
-  ylab("Mean length of RNA on Tapestation (nt)") +
+  labs(x = "Weeks since sample pinning", 
+       y = "Mean length of RNA on Tapestation (nt)", fill = "Group") +
   theme_minimal(base_size = 16) 
 
 p_new
@@ -196,12 +199,12 @@ df_mean_mos <- left_join(df_mean_mos, metadata_mos, by="id")
 
 p_mos <- ggplot(df_mean_mos) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
-  geom_point(aes(x = as.numeric(weeks), y = mean_length), 
+  geom_point(aes(x = as.numeric(weeks), y = mean_length, fill = group), 
              shape = 21, size = 4, color = "black", stroke = 0.5, alpha = 0.75) +
-#  scale_fill_manual(values = c("turquoise3", "gray30", "purple")) +
+  scale_fill_manual(values = c("turquoise3", "purple")) +
   ylim(c(0,1400)) +
-  xlab("Weeks since sample pinning") +
-  ylab("Mean length of RNA on Tapestation (nt)") +
+  labs(x = "Weeks since sample pinning", 
+       y = "Mean length of RNA on Tapestation (nt)", fill = "Group") +
   theme_minimal(base_size = 16) 
 
 p_mos
