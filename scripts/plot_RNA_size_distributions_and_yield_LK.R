@@ -162,12 +162,12 @@ p_new <- ggplot(filter(df_mean_fly, group != "old")) +
              shape = 21, size = 4, color = "black", stroke = 0.1, alpha = 0.75) +
   scale_fill_manual(values = c("turquoise3", "gray30", "purple")) +
   ylim(c(0,1000)) +
-  labs(x = "Weeks since sample pinning", 
+  labs(x = "Weeks since sample storage", 
        y = "Mean length of RNA on Tapestation (nt)", fill = "Group") +
   theme_minimal(base_size = 16) 
 
 p_new
-ggsave("plots/Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+#ggsave("plots/Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 
 # plot the two plots side by side
 # lay out combined plot using patchwork library
