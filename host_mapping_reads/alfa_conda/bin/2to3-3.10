@@ -1,5 +1,0 @@
-#!/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda/bin/python3.10
-import sys
-from lib2to3.main import main
-
-sys.exit(main("lib2to3.fixes"))
