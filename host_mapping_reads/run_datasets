@@ -1,0 +1,3 @@
+#!/bin/bash 
+
+nextflow run main.nf -profile local,singularity --fastq_dir ../../2023_1_OC_datasets/concatenated_datasets_R1_only -resume --genome_fasta refseq/Drosophila_melanogaster.BDGP6.32.dna.toplevel.fa.gz --genome_annotation_gtf refseq/Drosophila_melanogaster.BDGP6.32.108.gtf 

@@ -1,0 +1,11 @@
+prefix=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: XCB Screensaver
+Description: XCB Screensaver Extension
+Version: 1.13
+Requires.private: xcb
+Libs: -L${libdir} -lxcb-screensaver
+Cflags: -I${includedir}

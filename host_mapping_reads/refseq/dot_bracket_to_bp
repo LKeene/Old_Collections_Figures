@@ -1,0 +1,55 @@
+#!/usr/bin/env perl
+
+use strict;
+use Getopt::Long;
+
+my $print_usage = 0;
+my $offset = 1;
+
+my $usage = <<USAGE;
+
+  This script converts a dot bracket notation (RNA structure) file 
+  into a file that describes whether individual base pairs are 
+  base paired or not.
+
+  Prints tab-delimited output to stdout with two columns: 
+  sequence_position base_paired
+
+  base_paired will take the value of 1 (corresponding to ")" or "(" 
+  characters in the dot-bracket (involved in base pair), or 0 otherwise
+
+  Mark Stenglein,  1/27/2023
+
+  Usage: $0 [-h] dot_bracket_format_file
+
+   [-h]          print this message
+
+   [-o] offset   will begin sequence position numbers at this value
+                 default = $offset
+
+USAGE
+
+if ((scalar @ARGV == 0) and -t STDIN) { print $usage and exit; }
+
+GetOptions ("h" => \$print_usage,
+            "o=i" => \$offset);
+
+
+my $position = $offset;
+while (<>)
+{
+   chomp;
+   # split into individual charactres
+   my @chars = split (//);   
+
+   my $in_bp = 0;
+   foreach my $char (@chars) {
+     if ($char eq "." or $char eq "-") {
+        $in_bp = 0;
+     } else {
+        $in_bp = 1;
+     } 
+     print "$position\t$in_bp\n";
+     $position += 1;
+   }
+}

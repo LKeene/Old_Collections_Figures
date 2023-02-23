@@ -1,0 +1,11 @@
+prefix=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda
+exec_prefix=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libbrotlicommon
+URL: https://github.com/google/brotli
+Description: Brotli common dictionary library
+Version: 1.0.9
+Libs: -L${libdir} -lbrotlicommon
+Cflags: -I${includedir}

@@ -1,0 +1,123 @@
+{
+  "build": "pyh5e36f6f_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/bioconda/noarch",
+  "constrains": [],
+  "depends": [
+    "matplotlib-base >=3.0",
+    "numpy >=1.15",
+    "progressbar2 >=3.37",
+    "pybedtools >=0.8",
+    "pysam >=0.15",
+    "python"
+  ],
+  "extracted_package_dir": "/home/mdstengl/miniconda3/pkgs/alfa-1.1.1-pyh5e36f6f_0",
+  "features": "",
+  "files": [
+    "bin/alfa",
+    "lib/python3.10/site-packages/alfa-1.1.1.dist-info/INSTALLER",
+    "lib/python3.10/site-packages/alfa-1.1.1.dist-info/LICENSE.txt",
+    "lib/python3.10/site-packages/alfa-1.1.1.dist-info/METADATA",
+    "lib/python3.10/site-packages/alfa-1.1.1.dist-info/RECORD",
+    "lib/python3.10/site-packages/alfa-1.1.1.dist-info/REQUESTED",
+    "lib/python3.10/site-packages/alfa-1.1.1.dist-info/WHEEL",
+    "lib/python3.10/site-packages/alfa-1.1.1.dist-info/direct_url.json",
+    "lib/python3.10/site-packages/alfa-1.1.1.dist-info/top_level.txt",
+    "lib/python3.10/site-packages/alfa.py",
+    "lib/python3.10/site-packages/__pycache__/alfa.cpython-310.pyc"
+  ],
+  "fn": "alfa-1.1.1-pyh5e36f6f_0.tar.bz2",
+  "license": "MIT",
+  "license_family": "MIT",
+  "link": {
+    "source": "/home/mdstengl/miniconda3/pkgs/alfa-1.1.1-pyh5e36f6f_0",
+    "type": 1
+  },
+  "md5": "824cee1d36e44a7f977c2466e414a049",
+  "name": "alfa",
+  "noarch": "python",
+  "package_tarball_full_path": "/home/mdstengl/miniconda3/pkgs/alfa-1.1.1-pyh5e36f6f_0.tar.bz2",
+  "package_type": "noarch_python",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "python-scripts/alfa",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "prefix_placeholder": "/opt/conda/conda-bld/alfa_1620335657494/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehol",
+        "sha256": "0d416745e9c6f6e0f81f92f33d4158c114e7be8ed2b097d5e311f2da9c891800",
+        "sha256_in_prefix": "44d7cc4817eead7731ca7909d3907fa36f6c61d3bd044a56de9b178961fe9445",
+        "size_in_bytes": 306
+      },
+      {
+        "_path": "site-packages/alfa-1.1.1.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "site-packages/alfa-1.1.1.dist-info/LICENSE.txt",
+        "path_type": "hardlink",
+        "sha256": "7618e9dde2c74917a43c833e53e778c02f490c9aff36af3d4b36c67dea144e96",
+        "sha256_in_prefix": "7618e9dde2c74917a43c833e53e778c02f490c9aff36af3d4b36c67dea144e96",
+        "size_in_bytes": 1102
+      },
+      {
+        "_path": "site-packages/alfa-1.1.1.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "ea7b1e19713a1f3d72691213550f56061c0da966f3b7e56ae19255ed10440ffb",
+        "sha256_in_prefix": "ea7b1e19713a1f3d72691213550f56061c0da966f3b7e56ae19255ed10440ffb",
+        "size_in_bytes": 1253
+      },
+      {
+        "_path": "site-packages/alfa-1.1.1.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "a6c6362887c3eaa403549c8749171a08bd091c484e71b2490d6dd8065b7c170a",
+        "sha256_in_prefix": "a6c6362887c3eaa403549c8749171a08bd091c484e71b2490d6dd8065b7c170a",
+        "size_in_bytes": 815
+      },
+      {
+        "_path": "site-packages/alfa-1.1.1.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/alfa-1.1.1.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "3aa464174798e461ecb0ca2b16395b4c8ab4ef6be91e917ad1f21003a952f710",
+        "sha256_in_prefix": "3aa464174798e461ecb0ca2b16395b4c8ab4ef6be91e917ad1f21003a952f710",
+        "size_in_bytes": 92
+      },
+      {
+        "_path": "site-packages/alfa-1.1.1.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "a83e4f138c601f536d74ebabb9f3b1793f2ac001475dfdf3ad8f45cc86d40633",
+        "sha256_in_prefix": "a83e4f138c601f536d74ebabb9f3b1793f2ac001475dfdf3ad8f45cc86d40633",
+        "size_in_bytes": 78
+      },
+      {
+        "_path": "site-packages/alfa-1.1.1.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "bbbff613b27d7f717f8e7bfce522186e0e2539efd86520ceac00ce62dab458c2",
+        "sha256_in_prefix": "bbbff613b27d7f717f8e7bfce522186e0e2539efd86520ceac00ce62dab458c2",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "lib/python3.10/site-packages/__pycache__/alfa.cpython-310.pyc",
+        "path_type": "pyc_file"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "bioconda::alfa=1.1.1",
+  "sha256": "49dca84aaacec32c9e9e232458431b8b527b07441aa1e0b217edd564051be745",
+  "size": 28221,
+  "subdir": "noarch",
+  "timestamp": 1620335860627,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/bioconda/noarch/alfa-1.1.1-pyh5e36f6f_0.tar.bz2",
+  "version": "1.1.1"
+}

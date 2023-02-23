@@ -1,0 +1,11 @@
+prefix=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda
+exec_prefix=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda
+libdir=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda/lib
+includedir=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda/include
+
+Name: uuid
+Description: Universally unique id library
+Version: 2.32.1
+Requires:
+Cflags: -I${includedir}/uuid
+Libs: -L${libdir} -luuid

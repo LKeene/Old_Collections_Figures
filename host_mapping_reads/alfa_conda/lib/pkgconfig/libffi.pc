@@ -1,0 +1,11 @@
+prefix=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+toolexeclibdir=${libdir}
+includedir=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda/include
+
+Name: libffi
+Description: Library supporting Foreign Function Interfaces
+Version: 3.4.2
+Libs: -L${toolexeclibdir} -lffi
+Cflags: -I${includedir}

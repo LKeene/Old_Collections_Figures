@@ -1,0 +1,66 @@
+{
+    "name": "stenglein-lab/taxonomy",
+    "homePage": "https://github.com/stenglein-lab/taxonomy",
+    "repos": {
+        "https://github.com/nf-core/modules.git": {
+            "modules": {
+                "nf-core": {
+                    "bowtie2/align": {
+                        "branch": "master",
+                        "git_sha": "e797efb47b0d3b2124753beb55dc83ab9512bceb"
+                    },
+                    "bowtie2/build": {
+                        "branch": "master",
+                        "git_sha": "e797efb47b0d3b2124753beb55dc83ab9512bceb"
+                    },
+                    "bwa/index": {
+                        "branch": "master",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c"
+                    },
+                    "bwa/mem": {
+                        "branch": "master",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c"
+                    },
+                    "custom/dumpsoftwareversions": {
+                        "branch": "master",
+                        "git_sha": "8022c68e7403eecbd8ba9c49496f69f8c49d50f0"
+                    },
+                    "fastqc": {
+                        "branch": "master",
+                        "git_sha": "f6a11408536fbee6cbea1f5977605011873de3ca"
+                    },
+                    "multiqc": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "spades": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    }
+                }
+            }
+        },
+        "https://github.com/stenglein-lab/nf_modules.git": {
+            "modules": {
+                "stenglein-lab": {
+                    "compress_input": {
+                        "branch": "main",
+                        "git_sha": "84fb1cc6f2f8e035ab09a6d6327dff8c57a16d8d"
+                    },
+                    "cutadapt": {
+                        "branch": "main",
+                        "git_sha": "84fb1cc6f2f8e035ab09a6d6327dff8c57a16d8d"
+                    },
+                    "extract_read_mapping_counts": {
+                        "branch": "main",
+                        "git_sha": "ea54d068014bbe6034823ae2b1921b5f44ed5446"
+                    },
+                    "prepend_tsv_with_id": {
+                        "branch": "main",
+                        "git_sha": "ea54d068014bbe6034823ae2b1921b5f44ed5446"
+                    }
+                }
+            }
+        }
+    }
+}

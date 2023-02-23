@@ -1,0 +1,13 @@
+prefix=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+sharedlibdir=${libdir}
+includedir=${prefix}/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

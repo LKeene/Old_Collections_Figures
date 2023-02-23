@@ -1,0 +1,6 @@
+#!/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda/bin/python
+
+import sys
+import alfa
+
+alfa.main()

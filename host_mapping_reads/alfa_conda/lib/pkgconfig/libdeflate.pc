@@ -1,0 +1,10 @@
+prefix=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda
+exec_prefix=${prefix}
+includedir=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda/include
+libdir=/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/alfa_conda/lib
+
+Name: libdeflate
+Description: Fast implementation of DEFLATE, zlib, and gzip
+Version: 1.13
+Libs: -L${libdir} -ldeflate
+Cflags: -I${includedir}
