@@ -1,0 +1,9 @@
+#!/bin/bash
+
+fasta=L_protein.mafft.trimal.fasta
+outgroup=Mulberry_vein_banding_virus_YP_009126736
+
+./run_iqtree $fasta $outgroup
+
+
+

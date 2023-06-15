@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# MDS 12/16/2020
+
+in=$1
+
+conda init bash
+conda activate /home/mdstengl/phylo_conda_environment
+fasttree -lg -gamma $in > ${in}.fasttree.newick
+

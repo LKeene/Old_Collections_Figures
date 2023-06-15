@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Process fasta files for phylogeny generation
+#
+# MDS 11/15/2019
+# 
+
+input_prefix=${1/.fasta/}
+echo $input_prefix
+
+# replace_fasta_header_with_organism ${input_prefix}.fasta  | sed s/\.[0-9]\:.*// > ${input_prefix}_renamed.fasta
+mafft --auto ${input_prefix}.fasta > ${input_prefix}.mafft.fasta
+trimal -automated1 -in ${input_prefix}.mafft.fasta -out ${input_prefix}.mafft.trimal.fasta
+

@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# MDS 11/15/2019
+
+in=$1
+threads=8 
+model=LG+I+G4
+
+# all-in-one way 200 bs
+# raxml-ng --msa $in --model RTREV+I+G4 --bs-trees 200 --all --tree pars{10} --threads $threads
+
+
+# do it as 3-step process
+# see: https://github.com/amkozlov/raxml-ng/wiki/Tutorial#bootstrapping
+
+# infer tree
+raxml-ng --msa $in --model $model --threads $threads --prefix ${in}.ml_tree 
+
+# do boostrapping
+raxml-ng --bootstrap --msa $in --model $model --threads $threads --prefix ${in}
+
+# calculate support values 
+raxml-ng --support --tree ${in}.ml_tree.raxml.bestTree --bs-trees ${in}.raxml.bootstraps --threads $threads
+
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# run a phylogeny pipeline
+
+in=$1
+
+modeltest-ng-static --force --disable-checkpoint -d aa -i $in -o ${in}.modeltest_ng_out.txt -T raxml
