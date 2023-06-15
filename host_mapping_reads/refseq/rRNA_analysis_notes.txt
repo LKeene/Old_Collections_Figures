@@ -1,0 +1,57 @@
+Notes on rRNA RefSeq
+6/13/2023
+
+
+rRNA RefSeq 
+
+
+Sequence:
+
+Dmel_CR45847
+
+The RefSeq D. melanogaster pre-rRNA sequence.  From:
+
+http://flybase.org/reports/FBgn0267507.html
+
+Symbol: Dmel\pre-rRNA:CR45847
+
+Same as:
+https://www.alliancegenome.org/gene/FB:FBgn0267507
+https://www.ncbi.nlm.nih.gov/gene/26067175
+https://rnacentral.org/rna/URS0000A2C7B0/7227
+
+Feature positions:
+Large subunit (LSU):  4156-8118
+Small subunit (SSU):  862-2856
+5S rRNA:              3583-3761
+
+Downloaded as DNA sequence from:
+https://rnacentral.org/rna/URS0000A2C7B0/7227
+
+
+###  Convert Structure into base-pairing / secondary structure info
+
+Structure: 
+
+PDB 4V6W
+Anger et al (2013) Nature
+PMID: 23636399
+high-resolution cryo-electron-microscopy structure
+
+main rRNA chains:
+B2: 18S SSU
+A5: 28S LSU
+A8: 5.8S 
+
+Make a B2/A5 scaffold, with B2 sequence and A5 sequences separated by 20 Ns
+
+RNApdbee 2.0 
+T. Zok, M. Antczak, M. Zurkowski, M. Popenda, J. Blazewicz, R.W. Adamiak, M. Szachniuk. RNApdbee 2.0: multifunctional tool for RNA structure annotation. Nucleic Acids Research 46(W1), 2018, W30-W35, (doi:10.1093/nar/gky314)
+
+Use web interface with default settings.  Export 
+
+### converting dot-bracket notation to interaction categories
+
+host_mapping_reads/refseq$ ./dot_bracket_to_bp -n B2  b2.dot.txt  > B2.category.txt
+host_mapping_reads/refseq$ ./dot_bracket_to_bp -n A5  a5.dot.txt  > A5.category.txt
+host_mapping_reads/refseq$ cat A5.category.txt B2.category.txt  > interaction_categories.txt

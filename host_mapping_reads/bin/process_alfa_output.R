@@ -1,5 +1,4 @@
-
-
+#!/usr/bin/env Rscript
 
 # This code block sets up input arguments to either come from the command line
 # (if running from the pipeline, so not interactively) or to use expected default values 
@@ -63,7 +62,7 @@ datasets <- datasets %>% filter(control_type != "Negative")
 # biotypes - fill by control type
 ggplot(datasets) +
   geom_col(aes(x=sample_id, y=fractional_counts, fill=control_type)) +
-  scale_fill_manual(values=c("grey", "cornflowerblue", "Orange")) +
+  # scale_fill_manual(values=c("grey", "cornflowerblue", "Orange")) +
   theme_bw() + 
   xlab("Samples ordered by collection date") +
   ylab("Percent reads mapping to indicated feature type") +
@@ -76,7 +75,7 @@ ggsave("alfa_biotype_plot.pdf", width=10, height=7, units="in")
 # biotypes - focus on opposite strand
 ggplot(filter(datasets, biotype == "opposite_strand" )) +
   geom_col(aes(x=sample_id, y=fractional_counts, fill=control_type)) +
-  scale_fill_manual(values=c("grey", "cornflowerblue", "Orange")) +
+  # scale_fill_manual(values=c("grey", "cornflowerblue", "Orange")) +
   theme_bw() + 
   xlab("Samples ordered by collection date") +
   ylab("Percent mapping reads") +
@@ -95,6 +94,28 @@ ggplot(filter(datasets, biotype == "opposite_strand" )) +
 
 ggsave("alfa_biotype_plot_opposite_strand_color_by_storage.pdf", width=10, height=7, units="in")
 
+# biotypes - focus on opposite strand
+ggplot(filter(datasets, biotype == "opposite_strand" )) +
+  geom_boxplot(aes(x=control_type, y=fractional_counts, fill=control_type), alpha=0.5, outlier.shape = NA) +
+  geom_jitter(aes(x=control_type, y=fractional_counts, fill=control_type), shape=21, size=1, width=0.25) +
+  # scale_fill_manual(values=c("cornflowerblue", "orange", "grey")) +
+  theme_bw() + 
+  xlab("Sample type") +
+  ylab("Percent mapping reads") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+
+# biotypes - focus on protein_coding strand
+ggplot(filter(datasets, biotype == "protein_coding" )) +
+  geom_boxplot(aes(x=control_type, y=fractional_counts, fill=control_type), alpha=0.5, outlier.shape = NA) +
+  geom_jitter(aes(x=control_type, y=fractional_counts, fill=control_type), shape=21, size=1, width=0.25) +
+  # scale_fill_manual(values=c("cornflowerblue", "orange", "grey")) +
+  theme_bw() + 
+  xlab("Sample type") +
+  ylab("Percent mapping reads") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+
 
 ggsave("alfa_biotype_plot_opposite_strand.pdf", width=10, height=7, units="in")
 # biotypes - fill by species
@@ -107,3 +128,4 @@ ggplot(datasets) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 
 ggsave("alfa_biotype_plot_color_by_species.pdf", width=10, height=7, units="in")
+

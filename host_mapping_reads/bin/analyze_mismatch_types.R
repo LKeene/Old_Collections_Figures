@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript 
+
 library(tidyverse)
 
 sessionInfo()
@@ -29,7 +31,7 @@ metadata <- read.delim(metadata_input, sep=",",
 
 # read in the file with the mismatch data for all datasets
 datasets <- read.delim(tsv_input, header=F, sep="\t")
-colnames(datasets) <- c("sample_id", "position", "ref_base", "read_base", "count", "succeeding_base", "preceeding_base")
+colnames(datasets) <- c("sample_id", "refseq", "position", "ref_base", "read_base", "count", "succeeding_base", "preceeding_base")
 
 # confirm that metadata exists for all datasets
 
@@ -93,6 +95,34 @@ ggplot(datasets_by_type) +
 
 # save a pdf of it
 ggsave("mismatch_frequencies.pdf", height=7.5, width=10, units="in")
+
+# plot mismatch frequencies - color by spp.
+ggplot(datasets_by_type) +
+  geom_point(aes(x=sample_id, y=mismatch_freq, color=species, group=sample_id)) + 
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 0.5, vjust=0.5)) +
+  scale_fill_manual(values=c("cornflowerblue", "orange", "grey")) +
+  facet_wrap(~mismatch) +
+  scale_y_log10() + 
+  xlab("") +
+  ylab("Frequency of indicated mutation") 
+
+# save a pdf of it
+ggsave("mismatch_frequencies_by_spp.pdf", height=7.5, width=10, units="in")
+
+# plot mismatch frequencies - color by storage type.
+ggplot(datasets_by_type) +
+  geom_point(aes(x=sample_id, y=mismatch_freq, color=storage_type, group=sample_id)) + 
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 0.5, vjust=0.5)) +
+  scale_fill_manual(values=c("cornflowerblue", "orange", "grey")) +
+  facet_wrap(~mismatch) +
+  scale_y_log10() + 
+  xlab("") +
+  ylab("Frequency of indicated mutation") 
+
+# save a pdf of it
+ggsave("mismatch_frequencies_by_storage_type.pdf", height=7.5, width=10, units="in")
 
 
 ggplot(datasets_by_type) +

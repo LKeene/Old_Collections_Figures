@@ -3,3 +3,9 @@
 .RData
 .Ruserdata
 .DS_Store
+Drosophila_melanogaster.BDGP6.32*
+work
+results
+*.0
+*.og
+*.bak

@@ -4,25 +4,30 @@ use strict;
 use Getopt::Long;
 
 my $print_usage = 0;
-my $offset = 1;
+my $offset = 0;
+my $seq_name = undef;
 
 my $usage = <<USAGE;
 
   This script converts a dot bracket notation (RNA structure) file 
-  into a file that describes whether individual base pairs are 
-  base paired or not.
+  into a file that describes whether individual bases in an RNA are 
+  in which of the following categories:
 
-  Prints tab-delimited output to stdout with two columns: 
-  sequence_position base_paired
+    - not_paired:       .              not interacting with other bases
+    - base_paired:      ( )            in a dsRNA helix
+    - pseudo_knot:      [ { } ]        in a higher-order pseudo-knot type interaction
+    - not_in_structure: -              not present in structure 
 
-  base_paired will take the value of 1 (corresponding to ")" or "(" 
-  characters in the dot-bracket (involved in base pair), or 0 otherwise
+  Prints tab-delimited output to stdout with three columns: 
+  seq_name position category
 
   Mark Stenglein,  1/27/2023
 
   Usage: $0 [-h] dot_bracket_format_file
 
    [-h]          print this message
+
+   [-n] seq_name sequence name [required]
 
    [-o] offset   will begin sequence position numbers at this value
                  default = $offset
@@ -31,8 +36,11 @@ USAGE
 
 if ((scalar @ARGV == 0) and -t STDIN) { print $usage and exit; }
 
-GetOptions ("h" => \$print_usage,
+GetOptions ("h"   => \$print_usage,
+            "n=s" => \$seq_name,
             "o=i" => \$offset);
+
+if (!defined $seq_name) { print "$usage\nERROR: must specify sequence name [-n]\n" and exit; }
 
 
 my $position = $offset;
@@ -42,14 +50,25 @@ while (<>)
    # split into individual charactres
    my @chars = split (//);   
 
-   my $in_bp = 0;
+   my $category = "";
    foreach my $char (@chars) {
-     if ($char eq "." or $char eq "-") {
-        $in_bp = 0;
-     } else {
-        $in_bp = 1;
+     if ($char eq ".") {
+        $category = "not_paired";
+     }
+     elsif ($char eq "(" or $char eq ")") {
+        $category = "base_paired";
+     }
+     # elsif ($char eq "[" or $char eq "]" or $char eq "{" or $char eq "}") {
+     elsif ($char =~ /[\[\]\{\}\<\>]/) {
+        $category = "pseudo_knot";
+     }
+     elsif ($char eq "-") {
+        $category = "not_in_structure";
+     }
+     else {
+        die "error: unsupported dot-bracket character: $char\n";
      } 
-     print "$position\t$in_bp\n";
+     print "$seq_name\t$position\t$category\n";
      $position += 1;
    }
 }

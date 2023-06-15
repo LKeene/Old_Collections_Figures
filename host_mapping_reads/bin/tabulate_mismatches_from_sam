@@ -65,8 +65,8 @@ my %fasta_seqs = fasta2hash($fasta_filename);
 # initialize variables
 my $flag = 0;
 my @fields = ();
-my $seq_name = undef;
-my $seq_length = undef;
+# my $seq_name = undef;
+# my $seq_length = undef;
 my %base_tabulation = ();
 my %observed_bases = ();
 
@@ -76,6 +76,8 @@ my $total_match_mismatch_count = 0;
 my @expected_bases = qw (A C G T);
 # map can turn an array into a hash 
 my %expected_bases_hash = map { $_ => 1 } @expected_bases;
+
+my %refseq_lengths = ();
 
 # read sam input
 while (<>)
@@ -87,12 +89,9 @@ while (<>)
       # @SQ   SN:Umbrella_L_cladeF_v1 LN:6927
       if (/\@SQ\s+SN:(\S+)\s+LN:(\d+)/)
       {
-         if (defined $seq_name)
-         {
-            die "error - this script only supports SAM files with a single ref seq.\n";  # TODO - extend
-         }
-         $seq_name = $1;
-         $seq_length = $2;
+         my $seq_name = $1;
+         my $seq_length = $2;
+         $refseq_lengths{$seq_name} = ${seq_length}
       }
       # don't do anything else w/ header lines
       next;
@@ -163,7 +162,7 @@ while (<>)
                if ($base_q_score > $min_qscore)
                {
                   # tabulate the matches and mismatches by position in reference sequence
-                  $base_tabulation{$position_in_reference}{$ref_base}{$read_base} += 1;
+                  $base_tabulation{$ref_seq_name}{$position_in_reference}{$ref_base}{$read_base} += 1;
 
                   # a total count of all the times a particular bases occurs in reads
                   $observed_bases{$read_base} += 1;
@@ -208,10 +207,10 @@ while (<>)
              # and the reported start position (field[3]), is 
              # the leftmost *aligned* base
              # so we don't need to increment the ref seq counter.
-	     # 
+        # 
              # unlike soft trimming, hard-clipped bases do not appear in 
-	     # the SAM query sequence (see SAM specifications)
-	     # so we don't need to increment the read position
+        # the SAM query sequence (see SAM specifications)
+        # so we don't need to increment the read position
           } 
           $cigar =~ s/$cigar_part//;
        } 
@@ -228,38 +227,41 @@ while (<>)
 # TODO: make a big tally of everything?
 
 # output tabulation of particular mismatch types by position
-foreach my $ref_position (sort { $a <=> $b } keys %base_tabulation) 
+foreach my $ref_seq_name (keys %refseq_lengths) 
 {
-	# parse out previous and next base;
-   my $ref_seq = $fasta_seqs{$seq_name};
-	my $preceeding_base = "NA";
-	my $succeeding_base = "NA";
-   if ($ref_position > 1)
+   foreach my $ref_position (sort { $a <=> $b } keys %{$base_tabulation{$ref_seq_name}}) 
    {
-	   $preceeding_base = substr($ref_seq, $ref_position - 2, 1);
-   }
-   if ($ref_position < $seq_length)
-   {
-	   $succeeding_base = substr($ref_seq, $ref_position, 1);
-   }
-
-   foreach my $ref_base (@expected_bases) 
-   {
-      foreach my $read_base (@expected_bases)
+      # parse out previous and next base;
+      my $ref_seq = $fasta_seqs{$ref_seq_name};
+      my $preceeding_base = "NA";
+      my $succeeding_base = "NA";
+      if ($ref_position > 1)
       {
-         my $tally = 0;
-         if ($base_tabulation{$ref_position}{$ref_base}{$read_base})
+         $preceeding_base = substr($ref_seq, $ref_position - 2, 1);
+      }
+      if ($ref_position < $refseq_lengths{$ref_seq_name})
+      {
+         $succeeding_base = substr($ref_seq, $ref_position, 1);
+      }
+   
+      foreach my $ref_base (@expected_bases) 
+      {
+         foreach my $read_base (@expected_bases)
          {
-            $tally = $base_tabulation{$ref_position}{$ref_base}{$read_base};
-         }
+            my $tally = 0;
+            if ($base_tabulation{$ref_seq_name}{$ref_position}{$ref_base}{$read_base})
+            {
+               $tally = $base_tabulation{$ref_seq_name}{$ref_position}{$ref_base}{$read_base};
+            }
 
-         if ($tally > 0)
-         {
-            print "$ref_position\t$ref_base\t$read_base\t$tally\t$preceeding_base\t$succeeding_base\n";
+            if ($tally > 0)
+            {
+               print "$ref_seq_name\t$ref_position\t$ref_base\t$read_base\t$tally\t$preceeding_base\t$succeeding_base\n";
+            }
+    
+            # my $observations = $observed_bases{$ref_base};
+            # print "$ref_base\t$read_base\t$tally\t$observations\n";
          }
- 
-         # my $observations = $observed_bases{$ref_base};
-         # print "$ref_base\t$read_base\t$tally\t$observations\n";
       }
    }
 }

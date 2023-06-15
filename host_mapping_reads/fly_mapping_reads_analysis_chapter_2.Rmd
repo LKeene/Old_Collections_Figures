@@ -1,0 +1,78 @@
+---
+title: "fly_mapping_reads_analysis_chapter_2.Rmd"
+author: "Mark Stenglein"
+date: '2023-04-26'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Summary
+
+I've implemented a bunch of the analysis described in chapter 1 as a DSL2 workflow as part of Lexi's main repository:
+
+https://github.com/LKeene/Old_Collections_Figures
+
+My part is mainly in:
+
+https://github.com/LKeene/Old_Collections_Figures/tree/main/host_mapping_reads
+
+I'm working on the cctsi-104 server in directory: ` mdstengl@cctsi-104:~/analyses/2023_2_Lexi_OC_repo/host_mapping_reads`
+
+## Some initial results/conclusions:
+
+There is evidence that surviving RNA is double stranded.  Evidence comes in several forms:
+
+- Strandedness of RNA mapping to viruses that are usually biased towards +strand or -strand are more 50:50
+- Higher levels of anti-sense transcripts in old datasets, including from (antisense?) rRNA pseudogenes
+- Coverage bias in rRNA-mapping reads seems to correlate with areas of the rRNA molecules that are either 1) not double-stranded, or not sheltered in the ribosome structure.
+- There is evidence of chemical damage in old datasets, in the form of higher levels of mismatches.
+
+Now I want to pause and think about what I need to do to finalize this analysis and these conclusions and make figures for the paper. 
+
+## Things to be done:
+
+### strandedness of virus-mapping reads
+
+- I need to map individual datasets to the corresponding virus(es) in the dataset then calculate strand ratio of mapping RNA.  
+- So I need to collect virus sequences from each dataset and establish some kind of nextflow sample-sheet-style setup to match datasets to the corresponding virus sequence.  Existing metadata will also be useful. 
+- Then it's a question of mapping reads and plotting results
+
+### genomic features of host-mapping RNA
+
+#### What samples to include?
+- I'd like to collect more 'fresh' samples to use as the control set.  Should review what Lexi did with these samples.  
+- What about Lexi's new FoCo20-21 samples?
+- What about other existing datasets, like Shaun's FoCo-17/-18 flies?
+
+#### D. sim vs. D. mel
+
+- for D. sim samples, map to the D. sim genome instead of the D. mel genome?  Or omit from analyses?
+- Validate that the putative D. sim are in fact D. sim?
+
+#### rRNA-mapping read analysis
+
+- restrict analysis to 18S/28S/5S(?) parts?
+- investigate rRNA pseudogenes
+- calculate a metric of normalized mapping: normalized to:
+  - average coverage level across the refseqs in 'fresh' samples
+- bring together structural information and normalized mapping coverage
+- do some kind of model of how specific variables predict normalized coverage:
+  - predicted to be in structure or not
+  - predicted to be double-stranded to other rRNA
+  - predicted to be involved in higher-order interactions (psuedoknots, etc.)
+
+#### ALFA analysis
+
+#### damage analysis
+
+#### Is host-mapping RNA suitable for host genetic/pop-gen analysis?
+
+
+
+
+
+
+

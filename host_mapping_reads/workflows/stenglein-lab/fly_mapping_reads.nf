@@ -26,15 +26,9 @@ include { QUANTIFY_MISMATCHES_FROM_MAPPING           } from '../../modules/steng
 include { PREPEND_TSV_WITH_ID as PREPEND_MISMATCH_OUTPUT } from '../../modules/stenglein-lab/prepend_tsv_with_id'
 include { PROCESS_MISMATCH_OUTPUT                    } from '../../modules/stenglein-lab/process_mismatch_output'
 
-// virus mapping for strand bias 
-include { BUILD_BWA_INDEX as BUILD_BWA_INDEX_GALBUT  } from '../../subworkflows/stenglein-lab/build_bwa_index'
-include { MAP_TO_GENOME as MAP_TO_GALBUT             } from '../../subworkflows/stenglein-lab/map_to_genome'
-// include { BAM_TO_SAM                                 } from '../../modules/stenglein-lab/bam_to_sam'
-// include { PROCESS_STRAND_BIAS_OUTPUT                 } from '../../modules/stenglein-lab/process_strand_bias'
-
 workflow FLY_MAPPING_READS {                                                    
 
-  PREPROCESS_READS()
+  PREPROCESS_READS(params.fastq_dir, params.fastq_pattern, params.collapse_duplicate_reads)
 
   BUILD_BWA_INDEX(params.genome_fasta)
 
@@ -55,26 +49,18 @@ workflow FLY_MAPPING_READS {
   // map to rRNA
   BUILD_BWA_INDEX_RRNA(params.rRNA_fasta)
   MAP_TO_RRNA_LOCUS(PREPROCESS_READS.out.reads, BUILD_BWA_INDEX_RRNA.out.index)
-  BAM_TO_COV(MAP_TO_RRNA_LOCUS.out.bam)
-  PREPEND_BTC_OUTPUT(BAM_TO_COV.out.coverage)
+  BAM_TO_COV(MAP_TO_RRNA_LOCUS.out.bam.filter{it[1].size() > 0})
+  PREPEND_BTC_OUTPUT(BAM_TO_COV.out.per_base_coverage)
   // TODO: fix R script here
-  //PROCESS_BAM_TO_COV_OUTPUT(PREPEND_BTC_OUTPUT.out.tsv.collectFile(name: "collected_rRNA_locus_coverage.tsv"){it[1]}, params.metadata)
+  PROCESS_BAM_TO_COV_OUTPUT(PREPEND_BTC_OUTPUT.out.tsv.collectFile(name: "collected_rRNA_locus_coverage.tsv"){it[1]}, params.metadata)
 
   // Is RNA damaged?
   // quantify mismatches in rRNA-mapping reads
-  BAM_TO_SAM(MAP_TO_RRNA_LOCUS.out.bam)
+  BAM_TO_SAM(MAP_TO_RRNA_LOCUS.out.bam.filter{it[1].size() > 0})
   // rRNA_ch = Channel.fromPath(params.rRNA_fasta)
   QUANTIFY_MISMATCHES_FROM_MAPPING(params.rRNA_fasta, BAM_TO_SAM.out.sam)
   PREPEND_MISMATCH_OUTPUT(QUANTIFY_MISMATCHES_FROM_MAPPING.out.txt)
   PROCESS_MISMATCH_OUTPUT(PREPEND_MISMATCH_OUTPUT.out.tsv.collectFile(name: "all_mismatch_counts.txt"){it[1]}, params.metadata)
-
-  // Strand bias?
-  // map to galbut virus
-  // BUILD_BWA_INDEX_GALBUT(params.galbut_virus_fasta)
-  // MAP_TO_GALBUT(PREPROCESS_READS.out.reads, BUILD_BWA_INDEX_GALBUT.out.index)
-  // BAM_TO_SAM(MAP_TO_GALBUT.out.bam)
-  // PROCESS_STRAND_BIAS_OUTPUT(BAM_TO_SAM.out.sam)
-  // PROCESS_BAM_TO_COV_OUTPUT(PREPEND_BTC_OUTPUT.out.tsv.collectFile(name: "collected_rRNA_locus_coverage.tsv"){it[1]}, params.metadata)
 
 }
 

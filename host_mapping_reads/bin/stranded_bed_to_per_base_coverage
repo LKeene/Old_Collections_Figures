@@ -1,0 +1,86 @@
+#!/usr/bin/env perl
+
+use strict;
+use Getopt::Long;
+
+my $print_usage = 0;
+my $start_at_position_0 = 1;
+
+my $usage = <<USAGE;
+
+  This script takes 5-column BED output from the bamtocov tool and
+  converts it into 4-column output that lists per-base forward and
+  reverse strand coverage
+
+  5-column bamtocov BED format is described here:
+  https://telatin.github.io/bamtocov/tools/bamtocov.html#stranded-output
+
+  The 4 columns of tab-delimited output will be:
+  1. RefSeq
+  2. Position
+  3. Forward strand coverage
+  4. Reverse strand coverage
+
+  Reads from stdin and writes to stdout
+
+  Mark Stenglein,  4/25/2023
+
+  Usage: $0 [-h] 
+
+   [-h]          print this message
+
+   [-p]          start at position 0 of refseq, even if no coverage at position 0
+                 default: yes
+
+
+USAGE
+
+if ((scalar @ARGV == 0) and -t STDIN) { print $usage and exit; }
+
+GetOptions ("h" => \$print_usage,
+            "p" => \$start_at_position_0);
+
+my $last_refseq = undef;
+
+sub output_per_base_cov
+{ 
+   my $refseq = shift;
+   my $start = shift;
+   my $end = shift;
+   my $fwd = shift;
+   my $rev = shift;
+
+   foreach my $position ($start..$end)
+   {
+      print "$refseq\t$position\t$fwd\t$rev\n";
+   }
+}
+
+while (<>)
+{
+   chomp;
+   my @fields = split "\t";
+   my $refseq = $fields[0];
+   my $interval_start = $fields[1];
+   my $interval_end = $fields[2];
+   my $fwd_cov = $fields[3];
+   my $rev_cov = $fields[4];
+
+   # first line for a new refseq
+   if ($last_refseq ne $refseq)
+   {
+      # fill in missing bases at beginning of refseq if necessary
+      if ($start_at_position_0 and $interval_start > 0)
+      {
+         output_per_base_cov($refseq, 0, $interval_start-1, $fwd_cov, $rev_cov);
+      }
+   }
+   # the end of a BED interval is non-inclusive, so that's why end-1
+   output_per_base_cov($refseq, $interval_start, $interval_end-1, $fwd_cov, $rev_cov);
+
+   # keep track of last seen refseq
+   $last_refseq = $refseq;
+}
+
+
+

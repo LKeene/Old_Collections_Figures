@@ -1,5 +1,5 @@
 process QUANTIFY_MISMATCHES_FROM_MAPPING {
-  label 'lowmem_threaded'
+  label 'lowmem_non_threaded'
 
   // singularity info for this process
   if (workflow.containerEngine == 'singularity'){

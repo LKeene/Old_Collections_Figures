@@ -1,0 +1,3 @@
+#!/bin/bash 
+
+nextflow run main.nf -profile local,singularity --fastq_dir test/fastq -resume --genome_fasta test/2L.fasta.gz --genome_annotation_gtf test/2L.gtf

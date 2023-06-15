@@ -1,0 +1,157 @@
+﻿species,date_collected,weeks_dried,location,donating_institution,storage_type,extraction_method,RNA_concentration,260_280,260_230,galbut_virus_positive_qPCR,sample_id,I7_index,I5_index,control_type,include_in_plots,R1_strand
+melanogaster,1896,NA,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,4,2.32,2.11,N,1004284,IDT8_i7_240,IDT8_i5_240,OC,T,reverse
+melanogaster,1902,NA,"Albany, NY",New York State Museum,Dried,Destructive,152,2.1,2,N,Albany1902_1,IDT8_i7_212,IDT8_i5_212,OC,T,reverse
+melanogaster,1908,NA,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,54.6,2.08,1.81,N,1004277,IDT8_i7_233,IDT8_i5_233,OC,T,reverse
+melanogaster,1915,NA,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,84,1.95,2.46,N,1004279,IDT8_i7_235,IDT8_i5_235,OC,T,reverse
+melanogaster,1915,NA,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,6.8,1.99,2.27,N,1004280,IDT8_i7_236,IDT8_i5_236,OC,T,reverse
+melanogaster,1915,NA,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,12.7,1.97,2.01,N,1004281,IDT8_i7_237,IDT8_i5_237,OC,T,reverse
+melanogaster,1915,NA,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,16.9,2.08,2.32,N,1004282,IDT8_i7_238,IDT8_i5_238,OC,T,reverse
+melanogaster,1919,NA,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,0,1.51,0.43,?,StPaul1919_1,IDT8_i7_231,IDT8_i5_231,OC,T,reverse
+melanogaster,1919,NA,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,21.6,1.84,1.77,N,StPaul1919_2,IDT8_i7_208,IDT8_i5_208,OC,T,reverse
+melanogaster,1919,NA,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,18.9,1.83,1.12,Y,StPaul1919_3,IDT8_i7_193,IDT8_i5_193,OC,T,reverse
+melanogaster,1927,NA,"Albany, NY",New York State Museum,Dried,Destructive,21,1.92,2.02,N,Albany1927,IDT8_i7_213,IDT8_i5_213,OC,T,reverse
+melanogaster,1930,NA,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,13.6,2.08,1.75,Y,1004283,IDT8_i7_239,IDT8_i5_239,OC,T,reverse
+melanogaster,1942,NA,New Jersey,Illinois Natural Histroy Survey,Dried,Non-Destructive,10.2,1.9,1.41,N,1004278,IDT8_i7_234,IDT8_i5_234,OC,T,reverse
+melanogaster,1950,NA,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.95,2.19,N,Oahu1950_1_mel,NA,NA,OC,T,reverse
+melanogaster,1950,NA,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.24,0.24,N,Oahu1950_2_mel,NA,NA,OC,T,reverse
+melanogaster,1951,NA,"Honolulu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.38,0.65,N,Honolulu1951_1_mel,NA,NA,OC,T,reverse
+melanogaster,1951,NA,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.49,1.3,N,Oahu1951_1_mel,NA,NA,OC,T,reverse
+melanogaster,1952,NA,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.95,0.64,N,Kauai1952_1_mel,NA,NA,OC,T,reverse
+melanogaster,1954,NA,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.09,1.94,Y,Kauai1954_1_mel,IDT8_i7_201,IDT8_i5_201,OC,T,reverse
+melanogaster,1963,NA,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,66.4,2.12,2.13,N,Frost_03071963,IDT8_i7_222,IDT8_i5_222,OC,T,reverse
+melanogaster,1963,NA,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,24.4,1.99,1.09,?,Frost_03211963_1,IDT8_i7_224,IDT8_i5_224,OC,T,reverse
+melanogaster,1963,NA,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,84.6,2.09,1.77,N,Frost_03211963_2,IDT8_i7_223,IDT8_i5_223,OC,T,reverse
+melanogaster,1963,NA,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,48,2.05,1.53,N,Frost_03271963,IDT8_i7_195,IDT8_i5_195,OC,T,reverse
+melanogaster,1968,NA,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,13,1.69,0.88,N,StCloud1968_1,IDT8_i7_209,IDT8_i5_209,OC,T,reverse
+melanogaster,1969,NA,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,38.6,2.03,2.12,N,StCloud1969_1,IDT8_i7_210,IDT8_i5_210,OC,T,reverse
+melanogaster,1991,NA,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,24.4,1.89,1.67,N,StCloud1991_1,IDT8_i7_211,IDT8_i5_211,OC,T,reverse
+melanogaster,2000,NA,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,55.4,2.03,1.57,?,SB_2000_mel_1,IDT8_i7_226,IDT8_i5_226,OC,T,reverse
+melanogaster,2003,NA,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,71.2,2.15,2.29,N,Frost_4908,IDT8_i7_217,IDT8_i5_217,OC,T,reverse
+melanogaster,2003,NA,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,13.9,2.05,1.71,N,Frost_4887,IDT8_i7_218,IDT8_i5_218,OC,T,reverse
+melanogaster,2003,NA,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,42,2.04,0.9,N,Frost_5867,IDT8_i7_219,IDT8_i5_219,OC,T,reverse
+melanogaster,2003,NA,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,120,2.15,2.37,N,Frost_5873,IDT8_i7_220,IDT8_i5_220,OC,T,reverse
+melanogaster,2003,NA,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,25.6,2.1,1.74,N,Frost_5863,IDT8_i7_221,IDT8_i5_221,OC,T,reverse
+melanogaster,2006,NA,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,19.6,2.01,2.23,N,Davidson2006_1,IDT8_i7_214,IDT8_i5_214,OC,T,reverse
+melanogaster,2006,NA,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,56.8,2.08,2.06,N,Davidson2006_2,IDT8_i7_215,IDT8_i5_215,OC,T,reverse
+melanogaster,2006,NA,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,0,1.91,2,N,Davidson2006_3,NA,NA,OC,T,reverse
+melanogaster,2010,NA,"Ontario, CAN",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,0,1.73,1.88,N,PHDIP1072-11,IDT8_i7_227,IDT8_i5_227,OC,T,reverse
+melanogaster,2010,NA,"Ontario, CAN",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,17.8,1.92,1.39,N,PHDIP946-11,IDT8_i7_228,IDT8_i5_228,OC,T,reverse
+simulans,1952,NA,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.68,-4.05,N,Kauai1952_1_sim,NA,NA,OC,T,reverse
+simulans,1952,NA,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0,0,N,Kauai1952_2_sim,NA,NA,OC,T,reverse
+simulans,1953,NA,"Kilauea, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.2,-7,?,Kilauea1953_1_sim,IDT8_i7_204,IDT8_i5_204,OC,T,reverse
+simulans,1958,NA,"Maui, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.99,0.16,N,Maui1958_1_sim,NA,NA,OC,T,reverse
+simulans,1960,NA,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.18,0.8,N,Oahu1960_1_sim,NA,NA,OC,T,reverse
+simulans,1965,NA,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.64,1.76,N,Oahu1965_1_sim,IDT8_i7_207,IDT8_i5_207,OC,T,reverse
+simulans,2000,NA,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,17.8,1.99,1.77,N,SB_2000_sim_1,IDT8_i7_225,IDT8_i5_225,OC,T,reverse
+simulans,2011,NA,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,74.2,2.13,2.18,N,BBDIV1549-12,IDT8_i7_229,IDT8_i5_229,OC,T,reverse
+simulans,2011,NA,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,15.9,1.98,0.94,?,BBDIV1550-12,IDT8_i7_230,IDT8_i5_230,OC,T,reverse
+melanogaster,2022,0,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,Y,FoCo17_Pos,,,positive,T,reverse
+melanogaster,2022,0,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,N,NegCtrl_NewPrep,,,negative,T,reverse
+melanogaster,2022,0,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,Y,PosCtrl_Pool1,,,positive,T,reverse
+melanogaster,2022,4,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,4WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,4,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,4WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,4,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,4WkDry_F_3,,,experimental,T,reverse
+melanogaster,2022,8,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,8WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,8,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,8WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,8,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,8WkDry_F_3,,,experimental,T,reverse
+melanogaster,2022,12,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,12WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,12,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,12WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,12,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,12WkDry_F_3,,,experimental,T,reverse
+melanogaster,2022,16,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,16WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,16,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,16WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,16,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,16WkDry_F_3,,,experimental,T,reverse
+melanogaster,2022,20,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,20WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,20,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,20WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,20,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,20WkDry_F_3,,,experimental,T,reverse
+melanogaster,2022,24,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,24WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,24,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,24WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,24,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,24WkDry_F_3,,,experimental,T,reverse
+melanogaster,2022,36,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,36WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,36,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,36WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,36,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,36WkDry_F_3,,,experimental,T,reverse
+melanogaster,2022,48,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,48WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,48,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,48WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,48,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,48WkDry_F_3,,,experimental,T,reverse
+melanogaster,2022,60,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,60WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,60,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,60WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,60,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,60WkDry_F_3,,,experimental,T,reverse
+melanogaster,2022,72,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,72WkDry_F_1,,,experimental,T,reverse
+melanogaster,2022,72,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,72WkDry_F_2,,,experimental,T,reverse
+melanogaster,2022,72,"Fort Collins, CO",Colorado State University,Dried,NA,,,,,72WkDry_F_3,,,experimental,T,reverse
+melanogaster,2020,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo20_AG_1,,,wild_caught,T,reverse
+melanogaster,2020,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo20_AG_2,,,wild_caught,T,reverse
+melanogaster,2020,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo20_TD_1,,,wild_caught,T,reverse
+melanogaster,2020,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo20_TD_2,,,wild_caught,T,reverse
+melanogaster,2020,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo20_TD_3,,,wild_caught,T,reverse
+melanogaster,2020,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo20_TD_4,,,wild_caught,T,reverse
+melanogaster,2020,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo20_TD_5,,,wild_caught,T,reverse
+melanogaster,2020,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo20_TD_6,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_LK_1,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_LK_2,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_LK_3,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_LK_4,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_LK_5,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_LK_6,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_1,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_10,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_11,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_12,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_13,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_14,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_15,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_16,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_17,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_18,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_19,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_2,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_20,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_21,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_3,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_4,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_5,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_6,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_7,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_8,,,wild_caught,T,reverse
+melanogaster,2021,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,FoCo21_MDS_C2_9,,,wild_caught,T,reverse
+melanogaster,NA,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,HeLa_PosCtrl,,,negative,F,reverse
+melanogaster,NA,NA,"Fort Collins, CO",Colorado State University,Frozen,NA,,,,,Hydei_F_1,,,fresh,F,reverse
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F1-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F1-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F10-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F10-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F2-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F2-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F3-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F3-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F4-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F4-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F5-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F5-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F6-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F6-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F7-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F7-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F8-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F8-18_28,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F9-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,F9-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M1-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M1-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M10-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M10-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M2-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M2-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M3-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M3-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M4-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M4-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M5-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M5-18_35,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M6-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M6-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M7-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M7-18_37,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M8-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M8-18,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M9-17,,,lab_colony,T,forward
+melanogaster,2019,NA,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,M9-18,,,lab_colony,T,forward

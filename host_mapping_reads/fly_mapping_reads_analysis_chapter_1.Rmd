@@ -1,0 +1,136 @@
+---
+title: "Analysis_of_fly_mapping_reads"
+author: "Mark Stenglein"
+date: '2023-01-20'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Summary
+
+We've sequenced RNA from old dried fly specimens (some over 100 years old).  Some of the questions about this RNA relate to the host-derived RNAs that may be surviving in these samples.  Questions include:
+
+- What fraction of the RNA is host-derived?  
+- What types of RNAs are present (rRNA, mRNA, etc)?  
+- These libraries were prepared in a strand-specific manner.  What is the strand bias of fly-mapping reads?
+- Is there any evidence of RNA damage in the RNA?
+- How do the answers to the above questions compare to fresh/frozen samples?
+
+
+### Location of analysis
+
+server: cctsi-104.cvmbs.colostate.edu
+directory: /home/mdstengl/analyses/2022_9_OC_analysis/fly_mapping_reads
+
+### Getting fly genome
+
+#### D. melanogaster
+
+Download from NCBI:
+```
+# genome
+curl -OL https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/215/GCF_000001215.4_Release_6_plus_ISO1_MT/GCF_000001215.4_Release_6_plus_ISO1_MT_genomic.fna.gz
+
+# annotation
+curl -OL https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/215/GCF_000001215.4_Release_6_plus_ISO1_MT/GCF_000001215.4_Release_6_plus_ISO1_MT_genomic.gff.gz
+```
+
+An issue: NCBI genome only has GFF v3 annotation, not GTF, which is what ALFA needs.  
+
+So download from Ensembl:
+
+```
+curl -OL https://ftp.ensembl.org/pub/release-108/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.32.dna.toplevel.fa.gz
+
+curl -OL https://ftp.ensembl.org/pub/release-108/gtf/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.32.108.gtf.gz
+```
+
+#### Does genome/annotation include rRNA?
+
+```
+gunzip GCF_000001215.4_Release_6_plus_ISO1_MT_genomic.gff.gz
+
+grep -i -e rrna -e ribosomal GCF_000001215.4_Release_6_plus_ISO1_MT_genomic.gff  | tee rRNA_annotations.txt
+```
+
+This file includes a bunch of non-coding and coding genes, including ribosomal proteins.  E.g.:
+
+```
+NC_004354.4	RefSeq	gene	628338	629483	.	-	.	ID=gene-Dmel_CG7622;Dbxref=FLYBASE:FBgn0002579,GeneID:31009;Name=RpL36;cyt_map=1B12-1B12;description=Ribosomal protein L36;gbkey=Gene;gen_map=1-0 cM;gene=RpL36;gene_biotype=protein_coding;gene_synonym=anon-EST:Posey274,BcDNA:AT29875,CG7622,Dmel\CG7622,EG:115C2.7,l(1)1Bj,l(1)G0471,L36a,L36e,M(1)1B,M(1)Bld,Rp L36,Rpl36,Vi;locus_tag=Dmel_CG7622
+NC_004354.4	RefSeq	mRNA	628338	628894	.	-	.	ID=rna-NM_001297821.1;Parent=gene-Dmel_CG7622;Dbxref=FLYBASE:FBtr0345321,GeneID:31009,Genbank:NM_001297821.1,FLYBASE:FBgn0002579;Name=NM_001297821.1;Note=RpL36-RE%3B Dmel\RpL36-RE%3B CG7622-RE%3B Dmel\CG7622-RE;gbkey=mRNA;gene=RpL36;locus_tag=Dmel_CG7622;orig_protein_id=gnl|FlyBase|CG7622-PE|gb|AHN59221;orig_transcript_id=gnl|FlyBase|CG7622-RE;product=ribosomal protein L36%2C transcript variant E;transcript_id=NM_001297821.1
+NC_004354.4	RefSeq	exon	628751	628894	.	-	.	ID=exon-NM_001297821.1-1;Parent=rna-NM_001297821.1;Dbxref=FLYBASE:FBtr0345321,GeneID:31009,Genbank:NM_001297821.1,FLYBASE:FBgn0002579;Note=RpL36-RE%3B Dmel\RpL36-RE%3B CG7622-RE%3B Dmel\CG7622-RE;gbkey=mRNA;gene=RpL36;locus_tag=Dmel_CG7622;orig_protein_id=gnl|FlyBase|CG7622-PE|gb|AHN59221;orig_transcript_id=gnl|FlyBase|CG7622-RE;product=ribosomal protein L36%2C transcript variant E;transcript_id=NM_001297821.1
+NC_004354.4	RefSeq	exon	628338	628686	.	-	.	ID=exon-NM_001297821.1-2;Parent=rna-NM_001297821.1;Dbxref=FLYBASE:FBtr0345321,GeneID:31009,Genbank:NM_001297821.1,FLYBASE:FBgn0002579;Note=RpL36-RE%3B Dmel\RpL36-RE%3B CG7622-RE%3B Dmel\CG7622-RE;gbkey=mRNA;gene=RpL36;locus_tag=Dmel_CG7622;orig_protein_id=gnl|FlyBase|CG7622-PE|gb|AHN59221;orig_transcript_id=gnl|FlyBase|CG7622-RE;product=ribosomal protein L36%2C transcript variant E;transcript_id=NM_001297821.1
+```
+
+
+### ALFA (annotation landscape for aligned reads)
+
+ALFA seems to be a good tool for binning mapped reads into categories based on annotation.  Here is [the paper](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-5624-2) and the [github repo](https://github.com/biocompibens/ALFA#quick-start).
+
+Create a conda environment with ALFA: 
+
+```
+conda env create -f alfa_conda.yaml --prefix ./alfa_conda
+```
+
+[YAML file](./alfa_conda.yaml)
+
+
+### Use bwa to map reads to the fly genome
+
+Using BWA v 0.7.17:
+
+```
+mdstengl@cctsi-104:~/analyses/2022_9_OC_analysis/fly_mapping_reads$ bwa
+
+Program: bwa (alignment via Burrows-Wheeler transformation)
+Version: 0.7.17-r1198-dirty
+Contact: Heng Li <hli@ds.dfci.harvard.edu>
+```
+
+Use bwa to map trimmed reads to genome
+
+First, make bwa index:
+```
+bwa index -p fly_genome Drosophila_melanogaster.BDGP6.32.dna.toplevel.fa.gz 
+```
+
+create alfa index:
+```
+# sort GTF, per ALFA manual
+sort -k1,1 -k4,4n -k5,5nr Drosophila_melanogaster.BDGP6.32.108.gtf > Drosophila_melanogaster.BDGP6.32.108.sorted.gtf
+
+# make alfa index(es)
+alfa -a Drosophila_melanogaster.BDGP6.32.108.sorted.gtf -g fly_genome_alfa
+```
+
+alfa indexing output:
+```
+Indexed chromosomes: 2L, 2R, 3L, 3R, 4, 211000022278279, 211000022278436, 211000022278449, 211000022278760, 211000022278978, 211000022279165, 211000022279188, 211000022279264, 211000022279392, 211000022279681, 211000022280328, 211000022280341, 211000022280347, 211000022280481, 211000022280494, 211000022280703, 211000022280703, Unmapped_Scaffold_4_D1555_D1692, Unmapped_Scaffold_8_D1580_D1567, Unmapped_Scaffold_8_D1580_D1567, Unmapped_Scaffold_60_D1601, X, Y, Y_mapped_Scaffold_9_D1573, mitochondrion_genome, rDNA
+Warning: Unknown categorie 'Selenocysteine' found and ignored.
+```
+
+Looks good! 
+
+Try mapping one dataset (quality/adapter-trimmed fastq) to the genome
+```
+./map_one ../results/trimmed_fastq/StCloud1969_1_S6_R1_f.fastq
+```
+
+map_one is a helper script to run bwa mem:
+```
+(alfa_conda)mdstengl@cctsi-104:~/analyses/2022_9_OC_analysis/fly_mapping_reads$ cat map_one
+#!/bin/bash
+
+fastq=$1
+fastq_base=`basename $fastq`
+index="fly_genome"
+
+bwa mem -t 18 $index  $fastq -o ${fastq_base}.${index}.sam
+```
+
+
+

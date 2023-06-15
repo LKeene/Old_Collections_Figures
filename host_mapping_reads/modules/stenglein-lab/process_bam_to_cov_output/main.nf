@@ -11,8 +11,8 @@ process PROCESS_BAM_TO_COV_OUTPUT {
   path (metadata)
 
   output:
-  path "*.pdf"         , emit: pdf
-  path "*.txt"         , emit: txt, includeInputs: true
+  path "*.pdf"         , emit: pdf, optional: true
+  path "*.txt"         , emit: txt, optional: true, includeInputs: true
   // path "versions.yml"  , emit: versions
 
   when:
@@ -25,5 +25,4 @@ process PROCESS_BAM_TO_COV_OUTPUT {
   """
    Rscript ${params.bin_dir}/process_bam_to_cov_output.R $txt $metadata
   """
-
 }
