@@ -6,11 +6,15 @@ library(patchwork)
 # Load all dried fly data
 dry_fly_rna1 <- read.electrophoresis("tapestation/2022-08-05 - 11-17-40-HSRNA.xml")
 dry_fly_rna2 <- read.electrophoresis("tapestation/2022-08-05 - 11-49-24-HSRNA.xml")
-dry_fly_rna3 <- read.electrophoresis("tapestation/2022-10-23 - 11-08-02-HSRNA.xml") 
+dry_fly_rna3 <- read.electrophoresis("tapestation/2022-10-23 - 11-08-02-HSRNA.xml")
+dry_fly_rna4 <- read.electrophoresis("tapestation/2023-03-10 - 13-39-28-HSRNA.xml")
+dry_fly_rna5 <- read.electrophoresis("tapestation/2023-03-10 - 15-24-10-HSRNA.xml")
 
 # Load all frozen fly data
 frozen_fly_rna1 <- read.electrophoresis("tapestation/2022-10-11 - 10-04-51-HSRNA.xml")
 frozen_fly_rna2 <- read.electrophoresis("tapestation/2022-08-04 - 11-37-28-HSRNA.xml")
+frozen_fly_rna3 <- read.electrophoresis("tapestation/2023-03-10 - 14-32-39-HSRNA.xml")
+frozen_fly_rna4 <- read.electrophoresis("tapestation/2023-03-10 - 15-24-10-HSRNA.xml")
 
 # Load fresh fly data
 rna_fresh <- read.electrophoresis("tapestation/2022-08-25 - 10-03-38[14518]-HSRNA.xml")
@@ -19,7 +23,16 @@ rna_fresh <- read.electrophoresis("tapestation/2022-08-25 - 10-03-38[14518]-HSRN
 dry_mos_rna1 <- read.electrophoresis("tapestation/2022-10-07 - 12-36-06-HSRNA.xml")
 dry_mos_rna2 <- read.electrophoresis("tapestation/2022-10-10 - 15-01-37-HSRNA.xml")
 dry_mos_rna3 <- read.electrophoresis("tapestation/2022-10-10 - 15-12-34-HSRNA.xml")
-frozen_mos_rna4 <- read.electrophoresis("tapestation/2023-02-02 - 12-27-58-HSRNA.xml")
+dry_mos_rna4 <- read.electrophoresis("tapestation/2023-03-13 - 14-23-40-HSRNA.xml")
+dry_mos_rna5 <- read.electrophoresis("tapestation/2023-03-24 - 13-19-06-HSRNA.xml")
+dry_mos_rna6 <- read.electrophoresis("tapestation/2023-03-24 - 14-03-01-HSRNA.xml")
+
+# Load all frozen mosquito data
+frozen_mos_rna1 <- read.electrophoresis("tapestation/2023-02-02 - 12-27-58-HSRNA.xml")
+frozen_mos_rna2 <- read.electrophoresis("tapestation/2023-03-13 - 15-05-19-HSRNA.xml")
+frozen_mos_rna3 <- read.electrophoresis("tapestation/2023-03-24 - 13-19-06-HSRNA.xml")
+frozen_mos_rna4 <- read.electrophoresis("tapestation/2023-03-24 - 14-03-01-HSRNA.xml")
+frozen_mos_rna5 <- read.electrophoresis("tapestation/2023-03-24 - 14-35-30-HSRNA.xml")
 
 # Load Old Collections data
 oc_samples <- read.electrophoresis("tapestation/2022-08-04 - 11-37-28-HSRNA.xml")
@@ -31,43 +44,65 @@ metadata_mos <- read_excel("tapestation/mos_metadata_tidy.xlsx")
 # pull out the actual data
 df1 <- dry_fly_rna1$data
 df2 <- dry_fly_rna2$data
-df3 <- dry_fly_rna3$data %>% 
-  filter(sample.index == 2)
+df3 <- dry_fly_rna3$data 
+df4 <- dry_fly_rna4$data
+df5 <- dry_fly_rna5$data
 
-df4 <- frozen_fly_rna1$data
-df5 <- frozen_fly_rna2$data %>% 
-  filter(sample.index == 3)
+df6 <- frozen_fly_rna1$data
+df7 <- frozen_fly_rna2$data
+df8 <- frozen_fly_rna3$data
+df9 <- frozen_fly_rna4$data
 
-df6 <- rna_fresh$data
+df10 <- rna_fresh$data
 
-df7 <- dry_mos_rna1$data
-df8 <- dry_mos_rna2$data
-df9 <- dry_mos_rna3$data
-df10 <- frozen_mos_rna4$data
+df11 <- dry_mos_rna1$data
+df12 <- dry_mos_rna2$data
+df13 <- dry_mos_rna3$data
+df14 <- dry_mos_rna4$data
+df15 <- dry_mos_rna5$data
+df16 <- dry_mos_rna6$data
+
+df17 <- frozen_mos_rna1$data
+df18 <- frozen_mos_rna2$data
+df19 <- frozen_mos_rna3$data
+df20 <- frozen_mos_rna4$data
+df21 <- frozen_mos_rna5$data
 
 df_oc <- oc_samples$data
 
 # these values match tape_id column in metadata excel
-df1$tape_id <- "d1"
-df2$tape_id <- "d2"
-df3$tape_id <- "d3"
+df1$tape_id <- "f1"
+df2$tape_id <- "f2"
+df3$tape_id <- "f3"
+df4$tape_id <- "f6"
+df5$tape_id <- "f8"
 
-df4$tape_id <- "d4"
-df5$tape_id <- "d5"
+df6$tape_id <- "f4"
+df7$tape_id <- "f5"
+df8$tape_id <- "f7"
+df9$tape_id <- "f8"
 
-df6$tape_id <- "fresh"
+df10$tape_id <- "fresh"
 
-df7$tape_id <- "m1"
-df8$tape_id <- "m2"
-df9$tape_id <- "m3"
-df10$tape_id <- "m4"
+df11$tape_id <- "m1"
+df12$tape_id <- "m2"
+df13$tape_id <- "m3"
+df14$tape_id <- "m5"
+df15$tape_id <- "m7"
+df16$tape_id <- "m8"
+
+df17$tape_id <- "m4"
+df18$tape_id <- "m6"
+df19$tape_id <- "m7"
+df20$tape_id <- "m8"
+df21$tape_id <- "m9"
 
 df_oc$tape_id <- "oc"
 
 # merge the data from different tapes
-fly_data <- rbind(df1, df2, df3, df4, df5, df6, df_oc) 
+fly_data <- rbind(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df_oc) 
 
-mos_data <- rbind(df7, df8, df9, df10)
+mos_data <- rbind(df11, df12, df13, df14, df15, df16, df17, df18, df19, df20, df21)
 
 # make a joint ID that combines tape_id and sample.index 
 # this will uniquely identify each lane and allow us to link
@@ -145,22 +180,31 @@ p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
   geom_point(aes(x = year, y = mean_length), shape = 21, size = 4, 
              fill = "violetred3", color = "black", stroke = 0.1) +
   scale_x_reverse(breaks = seq(from=1880, to=2020, by=20))+
-  ylim(c(0,500)) +
+  ylim(c(0,1000)) +
   xlab("Year of sample collection") +
   # we don't need a y-axis label because it's repeated in p_new below
-  ylab("Mean length of RNA on Tapestation (nt)") +
-  #ylab("") +
+  #ylab("Mean length of RNA on Tapestation (nt)") +
+  ylab("") +
   theme_minimal(base_size = 16) 
 
 p_oc
-ggsave("plots/OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+#ggsave("plots/OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+
+# get mean and sd of triplicates
+df_mean_fly_grouped <- df_mean_fly %>% 
+  filter(group != "old") %>% 
+  group_by(group, weeks) %>% 
+  mutate(mean_length_g = mean(mean_length),
+         sd_mean_length_g = sd(mean_length))
 
 # plot new experimental samples
-p_new <- ggplot(filter(df_mean_fly, group != "old")) +
+p_new <- ggplot(df_mean_fly_grouped, aes(as.numeric(weeks))) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
-  geom_point(aes(x = as.numeric(weeks), y = mean_length, fill = group), 
+  geom_point(aes(y = mean_length_g, fill = group), show.legend = FALSE,
              shape = 21, size = 4, color = "black", stroke = 0.1, alpha = 0.75) +
   scale_fill_manual(values = c("turquoise3", "gray30", "purple")) +
+  geom_errorbar(aes(ymin = (mean_length_g - sd_mean_length_g), ymax = (mean_length_g + sd_mean_length_g)), 
+                width = 0.1, color = "grey50", alpha = 0.15) +
   ylim(c(0,1000)) +
   labs(x = "Weeks since sample storage", 
        y = "Mean length of RNA on Tapestation (nt)", fill = "Group") +
@@ -171,9 +215,10 @@ p_new
 
 # plot the two plots side by side
 # lay out combined plot using patchwork library
-p_new + p_oc +  plot_layout(widths = c(1, 2))
+p_new + p_oc +  plot_layout(widths = c(1.5, 1.5))
 
-ggsave("RNA_length_vs_time.pdf", width=10, height=7, units="in")
+
+ggsave("plots/RNA_length_vs_time.pdf", width=10, height=7, units="in")
 
 # plot RNA length vs time of mosquito samples
 
@@ -197,11 +242,19 @@ df_mean_mos <- mos_data %>%
 # merge in metadata
 df_mean_mos <- left_join(df_mean_mos, metadata_mos, by="id")
 
-p_mos <- ggplot(df_mean_mos) +
+# get mean and sd of triplicates
+df_mean_mos_grouped <- df_mean_mos %>% 
+  group_by(group, weeks) %>% 
+  mutate(mean_length_g = mean(mean_length),
+         sd_mean_length_g = sd(mean_length))
+
+p_mos <- ggplot(df_mean_mos_grouped, aes(x = as.numeric(weeks))) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
-  geom_point(aes(x = as.numeric(weeks), y = mean_length, fill = group), 
+  geom_point(aes(y = mean_length_g, fill = group), 
              shape = 21, size = 4, color = "black", stroke = 0.5, alpha = 0.75) +
   scale_fill_manual(values = c("turquoise3", "purple")) +
+  geom_errorbar(aes(ymin = (mean_length_g - sd_mean_length_g), ymax = (mean_length_g + sd_mean_length_g)), 
+                width = 0.1, color = "grey50", alpha = 0.15) +
   ylim(c(0,1400)) +
   labs(x = "Weeks since sample pinning", 
        y = "Mean length of RNA on Tapestation (nt)", fill = "Group") +
@@ -210,7 +263,7 @@ p_mos <- ggplot(df_mean_mos) +
 p_mos
 ggsave("plots/Mos_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 
-# -----------------------------
+ # -----------------------------
 # plot some of the sample data
 # -----------------------------
 # things like RNA recovery vs. time or extraction method...

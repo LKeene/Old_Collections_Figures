@@ -280,6 +280,7 @@ ggsave("plots/dry_vs_frozen.pdf", units = "in", width = 10, height = 8)
 #read back in the data
 mosquito_data3 <- read_xlsx("tidy_formats/mosquito_data3.xlsx")
 
+
 # get mean fold change
 mosquito_data3 <- mosquito_data3 %>% 
   group_by(target, group, week) %>% 
@@ -289,6 +290,7 @@ mosquito_data3 <- mosquito_data3 %>%
          mean_dct = mean(delta_ct, na.rm = TRUE),
          sd_dct = sd(delta_ct, na.rm = TRUE),
          target = str_replace(target, "Verdadero", "Verdadero virus"),
+         target = str_replace(target, "Rennavirus", "Guadeloupe mosquito virus"),
          target = str_replace(target, "Actin", "Actin mRNA"))
 
 hline_max_mos <- data.frame(group = c("Dry", "Dry", "Dry", "Frozen", "Frozen", 
@@ -300,7 +302,7 @@ hline_max_mos <- data.frame(group = c("Dry", "Dry", "Dry", "Frozen", "Frozen",
 
 hline_min_mos <- data.frame(group = c("Dry", "Dry", "Dry", "Frozen", "Frozen", 
                                       "Frozen"), 
-                            target = c("Verdadero virus", "Rennavirus", 
+                            target = c("Verdadero virus", "Guadeloupe mosquito virus", 
                                        "Actin mRNA"),
                             hline_2_mos = c(22.04536, 19.4869, 24.19849,
                                             22.04304, 14.35967, 23.48702))
@@ -316,7 +318,7 @@ ggplot(mosquito_data3, aes(x = week)) +
   geom_errorbar(aes(ymin = (mean_ct - sd_ct), ymax = (mean_ct + sd_ct)), 
                 width = 0.2, color = "grey50", alpha = 0.25) +
   theme_few(base_size = 11) +
-  facet_grid(factor(target, levels = c("Verdadero virus", "Rennavirus", 
+  facet_grid(factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
                                        "Actin mRNA")) ~ group, scales = "free_y") +
   labs(x = "Time Since Sample Collection (weeks)", y = "Ct value", 
        fill = "Target")
@@ -332,7 +334,7 @@ ggplot(mosquito_data3, aes(x = week)) +
   geom_line(aes(y = mean_fc, group = group, linetype = group)) +
   scale_y_continuous(trans = "log2") +
   theme_few(base_size = 11) +
-  facet_wrap(~factor(target, levels = c("Verdadero virus", "Rennavirus", 
+  facet_wrap(~factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
                                         "Actin mRNA")), scales = "free_y",
              ncol = 1) +
   labs(x = 'Weeks After Collection', y = "Relative change", fill = "Target")
@@ -355,7 +357,7 @@ ggplot(mosquito_data3, aes(x = week)) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white")) +
-  facet_wrap(~factor(target, levels = c("Verdadero virus", "Rennavirus", 
+  facet_wrap(~factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
                                         "Actin mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
        y = "Log(2) Fold Change Relative to Time Point 4 Week Frozen Mosquito",
@@ -393,7 +395,7 @@ ggplot(dry_v_frozen_wide_mos) +
                     ymax = mean_ct_Frozen + sd_ct_Frozen, 
                     x = mean_ct_Dry), 
                 width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.75) +
-  facet_wrap(~factor(target, levels = c("Verdadero virus", "Rennavirus", 
+  facet_wrap(~factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
                                         "Actin mRNA")), ncol = 1) +
   stat_poly_line(aes(x = mean_ct_Dry, mean_ct_Frozen), method = "lm", alpha = 0.5, 
                  se = FALSE, colour = "slategray3", linetype = "dotdash", linewidth = 0.5) +
@@ -454,7 +456,9 @@ mos_summary <- mosquito %>%
   group_by(target, group, week) %>% 
   count(present) %>% 
   mutate(percent = (n/6) * 100) %>% 
-  filter(present == "y")
+  filter(present == "y") %>% 
+  mutate(target = str_replace(target, "Actin", "Actin mRNA"),
+         target = str_replace(target, "Rennavirus", "Gaudeloupe mosquito virus"))
 
 ggplot(mos_summary) +
   geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
@@ -467,4 +471,4 @@ ggplot(mos_summary) +
         strip.background = element_rect(colour = "black", fill = "white")) +
   labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage")
 
-#ggsave("plots/percent_mos_targets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/percent_mos_targets.pdf", units = "in", width = 10, height = 8)
