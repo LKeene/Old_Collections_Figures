@@ -8,9 +8,10 @@ df <- df %>%
          method = Extraction.Method)
 
 ggplot(df, aes(x = date_collected)) + 
-  geom_point(aes(y = concentration, fill = method), shape=21, size=2, stroke=0.1, color="black") +
+  geom_point(aes(y = concentration, fill = method), shape=21, size=4.25, stroke=0.1, color="black") +
   scale_fill_manual(values = c("blueviolet", "darkgreen")) +
   #geom_line(aes(y=Concentration..ng.ul.) + 
+  scale_x_reverse() +
   theme_bw(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white")) +
