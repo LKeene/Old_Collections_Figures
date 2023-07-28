@@ -31,12 +31,12 @@ map <- ggplot() +
               fill = "snow4", color = "grey70", size = 0.2) +
  coord_fixed(xlim = c(-160, -60), ylim = c(20,49), ratio = 1.2) +
  theme_few() +
- geom_point(data = locations, aes(x = long, y = lat, fill = Date.Collected), 
-            color="black", shape=21, size=3, alpha=0.50, stroke=0.2) +
+# geom_point(data = locations, aes(x = long, y = lat, fill = Date.Collected), 
+#            color="black", shape=21, size=3, alpha=0.50, stroke=0.2) +
  scale_fill_viridis() +
  geom_jitter(data = locations, aes(x = long, y = lat, fill = Date.Collected), 
-             shape = 21, stroke = 0.25, size = 2, alpha = 0.6, width = 0.5,
-             height = 0.75) +
+             shape = 21, stroke = 0.25, size = 4, alpha = 0.6, width = 0.5,
+             height = 0.5) +
  labs(fill = "Date Collected") +
  theme(axis.text.x=element_blank(), axis.text.y=element_blank(),
       legend.text=element_text(family="Helvetica", size=10),

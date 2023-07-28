@@ -17,13 +17,13 @@ other_viruses <- other_viruses %>%
 
 
 fig <- ggplot(other_viruses, aes(x = id, y = virus_name)) +
-  geom_point(aes(color = year, shape = factor(Drosophila_species)), size = 5) +
+  geom_point(aes(color = percent_coverage, shape = factor(Drosophila_species)), size = 5) +
   scale_color_viridis() +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),
         axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
-  labs(x = "Sample ID", y = "Virus Name", color = "Year Collected", shape = "Species") 
+  labs(x = "Sample ID", y = "Virus Name", color = "% of Sequence Covered", shape = "Species") 
 
 fig
 ggsave("plots/virus_pres_abs.pdf", units = "in", width = 10, height = 8)
