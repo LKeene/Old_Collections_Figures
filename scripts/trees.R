@@ -96,7 +96,7 @@ g2_t1 <- ggtree(g2, mrsd="2022-01-01", color="grey30", size=0.5)
 g2_t2 <- g2_t1 +
   theme_tree2() +
   geom_tippoint(aes(shape = Location), size = 3) +
-  scale_shape_manual(values = c(0, 8, 16, 4, 17)) +
+  scale_shape_manual(values = c(0, 8, 18, 4, 17)) +
   geom_highlight(node = 60, fill = "deeppink", alpha = 0.5) +
   geom_highlight(node = 57, fill = "deeppink", alpha = 0.5) +
   geom_highlight(node = 58, fill = "deeppink", alpha = 0.5) +
