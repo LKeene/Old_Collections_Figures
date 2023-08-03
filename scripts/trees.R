@@ -123,8 +123,146 @@ g2_t3
 ggsave("plots/galbut_RNA2_tree.pdf", width = 15, height = 10)
 
 
+# Galbut RNA3 Tree
+g3 <- read.beast("BEAST_trees/Combined_galbut_RNA3.mcc.tre")
+
+n_n <- ggtree(g3, mrsd="2022-01-01", color="grey30", size=0.5) +
+  geom_text(aes(label=node), hjust=-.3) +
+  geom_tippoint(aes(shape = Host))
+n_n
+
+#check to make sure labels are the same
+labels <- as.data.frame(n_n[["data"]][["label"]]) 
+
+g3_t1 <- ggtree(g3, mrsd="2022-01-01", color="grey30", size=0.5) 
+
+g3_t2 <- g3_t1 +
+  theme_tree2() +
+  geom_tippoint(aes(shape = Location), size = 3) +
+  scale_shape_manual(values = c(0, 8, 18, 4, 17)) +
+  geom_highlight(node = 55, fill = "deeppink", alpha = 0.5) +
+  geom_highlight(node = 12, fill = "deeppink", alpha = 0.5) +
+  geom_highlight(node = 53, fill = "deeppink", alpha = 0.5) +
+  geom_highlight(node = 54, fill = "deeppink", alpha = 0.5) +
+  geom_highlight(node = 52, fill = "deeppink", alpha = 0.5) +
+  geom_range("height_0.95_HPD", color="gray50", alpha=0.2, size=1)
+g3_t2
+
+rna3_metadata <- read_csv("metadata/galbut_RNA3_metadata.csv")
+
+rna3_metadata <- as.data.frame(rna3_metadata) 
+
+g3_t3 <- g3_t2 %<+% rna3_metadata +
+  geom_tiplab(aes(label = date, color = species), 
+              hjust = -0.4, parse = T, size = 3.5) +
+  scale_color_manual(labels = c(substitute(paste(italic("D. melanogaster"))), 
+                                substitute(paste(italic("D. simulans")))),
+                     values = c("darkblue", "orange2")) +
+  labs(x = "Year", color = "Species")
+g3_t3
+
+ggsave("plots/galbut_RNA3_tree.pdf", width = 15, height = 10)
 
 
+# Galbut RNA1 Tree- NO Old Collections Samples!
+g1_n <- read.beast("BEAST_trees/combined_galbut_RNA1_NO_OC.mcc.tre")
+
+n_n <- ggtree(g1_n, mrsd="2022-01-01", color="grey30", size=0.5) +
+  geom_text(aes(label=node), hjust=-.3) +
+  geom_tippoint(aes(shape = Host))
+n_n
+
+#check to make sure labels are the same
+labels <- as.data.frame(n_n[["data"]][["label"]]) 
+
+g1_n_t1 <- ggtree(g1_n, mrsd="2022-01-01", color="grey30", size=0.5) 
+
+g1_n_t2 <- g1_n_t1 +
+  theme_tree2() +
+  geom_tippoint(aes(shape = Location), size = 3) +
+  scale_shape_manual(values = c(0, 8, 16, 4, 17)) +
+  geom_range("height_0.95_HPD", color="gray50", alpha=0.2, size=1)
+g1_n_t2
+
+rna1_metadata <- read_csv("metadata/galbut_RNA1__NO_OC_metadata.csv")
+
+rna1_metadata <- as.data.frame(rna1_metadata) 
+
+g1_n_t3 <- g1_n_t2 %<+% rna1_metadata +
+  geom_tiplab(aes(label = date, color = species), 
+              hjust = -0.4, parse = T, size = 3.5) +
+  scale_color_manual(labels = c(substitute(paste(italic("Diptera"))), 
+                                substitute(paste(italic("D. melanogaster"))), 
+                                substitute(paste(italic("D. simulans")))),
+                     values = c("seagreen", "darkblue", "orange2")) +
+  labs(x = "Year", color = "Species")
+g1_n_t3
+
+ggsave("plots/galbut_RNA1_NO_OC_tree.pdf", width = 15, height = 10)
+
+# Galbut RNA2 Tree- NO Old Collections Samples
+g2_n <- read.beast("BEAST_trees/galbut_RNA2_NO_OC.mcc.tre")
+
+n_n <- ggtree(g2_n, mrsd="2022-01-01", color="grey30", size=0.5) +
+  geom_text(aes(label=node), hjust=-.3)
+n_n
+
+#check to make sure labels are the same
+labels <- as.data.frame(n_n[["data"]][["label"]]) 
+
+g2_n_t1 <- ggtree(g2_n, mrsd="2022-01-01", color="grey30", size=0.5) 
+
+g2_n_t2 <- g2_n_t1 +
+  theme_tree2() +
+  geom_tippoint(aes(shape = Location), size = 3) +
+  scale_shape_manual(values = c(0, 8, 4, 17)) +
+  geom_range("height_0.95_HPD", color="gray50", alpha=0.2, size=1)
+g2_n_t2
+
+rna2_metadata <- read_csv("metadata/galbut_RNA2_NO_OC_metadata.csv")
+
+rna2_metadata <- as.data.frame(rna2_metadata) 
+
+g2_n_t3 <- g2_n_t2 %<+% rna2_metadata +
+  geom_tiplab(aes(label = date, color = species), 
+              hjust = -0.4, parse = T, size = 3.5) +
+  scale_color_manual(labels = c(substitute(paste(italic("D. melanogaster")))),
+                     values = c("darkblue")) +
+  labs(x = "Year", color = "Species")
+g2_n_t3
+
+ggsave("plots/galbut_RNA2_tree_NO_OC.pdf", width = 15, height = 10)
 
 
+# Galbut RNA3 Tree- NO Old Collections Samples!
+g3_n <- read.beast("BEAST_trees/galbut_RNA3_NO_OC.mcc.tre")
 
+n_n <- ggtree(g3_n, mrsd="2022-01-01", color="grey30", size=0.5) +
+  geom_text(aes(label=node), hjust=-.3)
+n_n
+
+#check to make sure labels are the same
+labels <- as.data.frame(n_n[["data"]][["label"]]) 
+
+g3_n_t1 <- ggtree(g3_n, mrsd="2022-01-01", color="grey30", size=0.5) 
+
+g3_n_t2 <- g3_n_t1 +
+  theme_tree2() +
+  geom_tippoint(aes(shape = Location), size = 3) +
+  scale_shape_manual(values = c(0, 8, 4, 17)) +
+  geom_range("height_0.95_HPD", color="gray50", alpha=0.2, size=1)
+g3_n_t2
+
+rna3_metadata <- read_csv("metadata/galbut_RNA3_NO_oC_metadata.csv")
+
+rna3_metadata <- as.data.frame(rna3_metadata) 
+
+g3_n_t3 <- g3_n_t2 %<+% rna3_metadata +
+  geom_tiplab(aes(label = date, color = species), 
+              hjust = -0.4, parse = T, size = 3.5) +
+  scale_color_manual(labels = c(substitute(paste(italic("D. melanogaster")))),
+                     values = c("darkblue")) +
+  labs(x = "Year", color = "Species")
+g3_n_t3
+
+ggsave("plots/galbut_RNA3_tree_NO_OC.pdf", width = 15, height = 10)
