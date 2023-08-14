@@ -13,11 +13,13 @@ if (!interactive()) {
   # lib_dir=args[1]
   tsv_input       = args[1]
   metadata_input  = args[2]
+  output_dir      = "./"
 } else {
   # if running via RStudio
   # r_lib_dir = "../lib/R/"
   tsv_input      = "../results/process/all_species_tallies.txt"
   metadata_input = "../refseq/metadata.csv"
+  output_dir     = "../results/"
 }
 
 #
@@ -52,37 +54,29 @@ top_hits <-
   arrange(-fractional_count) %>% 
   filter(row_number()==1) 
 
-ggplot(top_hits) +
-  geom_jitter(aes(x=species, y=fractional_count), height=0, width=0.25) +
-  theme_bw()
-
 # what species were observed?
 observed_species <- top_hits %>% 
   group_by(species) %>% 
-  summarize(n=n())
+  summarize(n=n()) %>%
+  arrange(-n)
 
-observed_species %>% arrange(-n)
+# output observed spp
+write.table(observed_species, 
+            file=paste0(output_dir, "co1_observed_species.txt"), 
+            quote=F, sep="\t", row.names=F)
 
 # what about Lexi's flies from FoCo20/21
 Lexi_FoCos <- df %>% filter(str_detect(dataset, "^FoCo2"))
 
-df %>% filter(str_match(dataskos))
-  
-# what species were observed with high confidence?
-observed_species <- top_hits %>% 
-  group_by(species) %>% 
-  summarize(n=n())
-  
-# actually make assignments if possible
+# actually make assignments based on highest fractional count
 df_assigned <- df %>% 
   group_by(dataset) %>% 
   arrange(-fractional_count) %>% 
   summarize(fraction_co1 = max(fractional_count), 
             count=count[1], 
-            assigned_species = if_else(fraction_co1 > 0.85, species[1], "undetermined"))
-
-# write assignments to an excel file
-# openxlsx::write.xlsx(df_assigned, file = "co1_based_species_assignments.xlsx")
+            assigned_species = if_else(fraction_co1 > 0.50, species[1], "undetermined"))
 
 # write output to tsv file
-write.table(df_assigned, file = "co1_based_species_assignments.txt", quote=F, sep="\t", row.names=F)
+write.table(df_assigned, 
+            file = paste0(output_dir, "co1_based_species_assignments.txt"), 
+            quote=F, sep="\t", row.names=F)
