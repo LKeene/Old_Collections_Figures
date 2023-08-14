@@ -63,9 +63,9 @@ interaction_categories$interaction_category <-
 # what fraction of bases are in each category?
 bp_in_refseq <- nrow(interaction_categories) 
 category_fractions <- interaction_categories %>% group_by(interaction_category) %>% summarize (fraction = n() / bp_in_refseq,
-                                                                                               n_in_cat = n() )
+                                                                                               n_in_cat = n())
 
-
+category_fractions
 
 # join in interaction categories to coverage
 coverage <- left_join(coverage, interaction_categories, by=c("refseq", "position"))
@@ -162,26 +162,41 @@ dark2_brown       <- rgb(177/255,89/255,40/255)
 
 fancy_color_scale <- c(dark2_orange, dark2_blue, dark2_green)
 
+# change category labels for plotting 
+ratio_averages$sample_type <- 
+  recode(ratio_averages$sample_type, 
+         Old_Collection     = "Old\ncollections", 
+         Experimental_dried = "Experimental\ndried",
+         Fresh_frozen       = "Fresh\nfrozen")
+
 rRNA_ratio_p <- ggplot(ratio_averages) +
   geom_boxplot(aes(x=sample_type, y=median_cov_ratio, color=sample_type), fill=NA, size=0.5, outlier.shape=NA) +
-  geom_jitter(aes(x=sample_type, y=median_cov_ratio, fill=sample_type), shape=21, color="black", stroke=0.2, size=2) +
+  geom_jitter(aes(x=sample_type, y=median_cov_ratio, fill=sample_type), shape=21, color="black", stroke=0.2, size=2, height=0, width=0.25) +
   scale_y_log10() +
   theme_classic(base_size = 13) +
   theme(legend.position = "none") +
   scale_color_manual(values = fancy_color_scale) +
   scale_fill_manual(values = fancy_color_scale) +
-  ggtitle("Surviving ribosomal RNA is preferentially anti-sense", subtitle="consistent with the hypothesis that old RNA is double-stranded") +
+  # ggtitle("Surviving ribosomal RNA is preferentially anti-sense", subtitle="consistent with the hypothesis that old RNA is double-stranded") +
   theme(plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 13)) +
   ylab("Median ratio of +strand to -strand\nrRNA-mapping reads\nin individual datasets") +
   xlab("")
 
 rRNA_ratio_p
-ggsave("rRNA_ratios_figure.pdf", width=9, height=6.5, units="in")
+ggsave("rRNA_ratios_figure.pdf", width=5, height=6.5, units="in")
+
+# change category labels for plotting 
+coverage_averages$sample_type <- 
+  recode(coverage_averages$sample_type, 
+         Old_Collection     = "Old\ncollections", 
+         Experimental_dried = "Experimental\ndried",
+         Fresh_frozen       = "Fresh\nfrozen")
+
   
 rRNA_fwd_p <- ggplot(coverage_averages) +
   geom_boxplot(aes(x=sample_type, y=median_fwd_cov, color=sample_type), fill=NA, size=0.5, outlier.shape=NA) +
-  geom_jitter (aes(x=sample_type, y=median_fwd_cov, fill=sample_type), shape=21, color="black", stroke=0.2, size=2) +
+  geom_jitter (aes(x=sample_type, y=median_fwd_cov, fill=sample_type), shape=21, color="black", stroke=0.2, size=2, height=0, width=0.25) +
   scale_y_log10() +
   theme_classic(base_size = 13) +
   theme(legend.position = "none") +
@@ -192,11 +207,11 @@ rRNA_fwd_p <- ggplot(coverage_averages) +
   xlab("")
   
 rRNA_fwd_p
-ggsave("rRNA_fwd_coverage_figure.pdf", width=9, height=6.5, units="in")
+ggsave("rRNA_fwd_coverage_figure.pdf", width=5, height=6.5, units="in")
 
 rRNA_rev_p <- ggplot(coverage_averages) +
   geom_boxplot(aes(x=sample_type, y=median_rev_cov, color=sample_type), fill=NA, size=0.5, outlier.shape=NA) +
-  geom_jitter (aes(x=sample_type, y=median_rev_cov, fill=sample_type), shape=21, color="black", stroke=0.2, size=2) +
+  geom_jitter (aes(x=sample_type, y=median_rev_cov, fill=sample_type), shape=21, color="black", stroke=0.2, size=2, height=0, width=0.25) +
   scale_y_log10() +
   theme_classic(base_size = 13) +
   theme(legend.position = "none") +
@@ -207,14 +222,15 @@ rRNA_rev_p <- ggplot(coverage_averages) +
   xlab("")
 
 rRNA_rev_p
-ggsave("rRNA_rev_coverage_figure.pdf", width=9, height=6.5, units="in")
+ggsave("rRNA_rev_coverage_figure.pdf", width=5, height=6.5, units="in")
 
 # combined plot
 combined_rRNA_plot <- rRNA_ratio_p + rRNA_fwd_p + rRNA_rev_p + plot_layout(ncol = 1)
 combined_rRNA_plot
-ggsave("combined_rRNA_plot.pdf", width=6.5, height=10, units="in")
+ggsave("combined_rRNA_plot.pdf", width=4, height=10, units="in")
 
 # The drosophila genome contains antisense rRNA pseudogenes
+
 
 # -----------------------
 # INTERACTION CATEGORIES 
@@ -240,14 +256,11 @@ coverage_averages_by_category_wide <-
 coverage_averages_by_category_ratios <-
   coverage_averages_by_category_wide %>% 
   mutate(
-    # not_in_structure = not_in_structure / base_paired,
-    # not_paired       = not_paired       / base_paired,
-    # pseudo_knot      = pseudo_knot      / base_paired)  %>% 
-    not_in_structure = not_in_structure / not_paired,
-    base_paired      = base_paired      / not_paired,
-    pseudo_knot      = pseudo_knot      / not_paired)  %>% 
-  # pivot_longer(cols=c(not_in_structure, not_paired, pseudo_knot), names_to = "interaction_category", values_to = "rel_base_paired")
-  pivot_longer(cols=c(not_in_structure, base_paired, pseudo_knot), names_to = "interaction_category", values_to = "rel_not_base_paired")
+    not_in_structure = not_in_structure / base_paired,
+    not_paired       = not_paired       / base_paired,
+    pseudo_knot      = pseudo_knot      / base_paired)  %>% 
+  pivot_longer(cols=c(not_in_structure, not_paired, pseudo_knot), names_to = "interaction_category", values_to = "rel_base_paired")
+
 
 
 coverage_averages_by_category_ratios <- left_join(coverage_averages_by_category_ratios, metadata)
@@ -255,7 +268,7 @@ coverage_averages_by_category_ratios <- left_join(coverage_averages_by_category_
 # change category labels for plotting 
 coverage_averages_by_category_ratios$sample_type <- 
   recode(coverage_averages_by_category_ratios$sample_type, 
-         Old_Collection     = "Old\ncollection", 
+         Old_Collection     = "Old\ncollections", 
          Experimental_dried = "Experimental\ndried",
          Fresh_frozen       = "Fresh\nfrozen")
        
@@ -263,7 +276,6 @@ coverage_averages_by_category_ratios$sample_type <-
 coverage_averages_by_category_ratios$interaction_category <- 
   recode(coverage_averages_by_category_ratios$interaction_category, 
          not_in_structure   = "Bases not in 3D structure",
-         base_paired        = "Bases in structure but base-paired",
          not_paired         = "Bases in structure but not paired",
          pseudo_knot        = "Bases in pseudo knot-type structures")
        
@@ -275,8 +287,8 @@ coverage_averages_by_category_ratios$interaction_category <-
 
 ggplot(filter(coverage_averages_by_category_ratios, cov_type == "total")) +
   geom_boxplot(aes(x=sample_type, y=rel_base_paired, color=sample_type), fill=NA, size=0.5, outlier.shape=NA) +
-  geom_jitter (aes(x=sample_type, y=rel_base_paired, fill =sample_type), shape=21, color="black", stroke=0.2, size=2) +
-  geom_hline  (aes(yintercept = 1), size = 0.25, linetype=2, color="grey80") +
+  geom_jitter (aes(x=sample_type, y=rel_base_paired, fill =sample_type), shape=21, color="black", stroke=0.2, size=3, height=0, width=0.25) +
+  geom_hline  (aes(yintercept = 1), size = 0.25, linetype=2, color="grey50") +
   # scale_y_log10() +
   theme_classic(base_size = 13) +
   theme(legend.position = "none") +
@@ -290,17 +302,6 @@ ggplot(filter(coverage_averages_by_category_ratios, cov_type == "total")) +
 
 ggsave("coverage_by_base_categories.pdf", width=10, height=6.5, units="in")
 
-ggplot(coverage_averages_by_category) +
-  geom_boxplot(aes(x=sample_type, y=median_total_cov, color=interaction_category), fill=NA, size=0.5, outlier.shape=NA) +
-  # geom_jitter (aes(x=sample_type, y=median_fwd_coverage, fill =interaction_category, group = interaction_category), shape=21, color="black", stroke=0.2, size=2) +
-  scale_y_log10() +
-  theme_classic(base_size = 14) +
-  theme(legend.position = "none") +
-  # scale_color_manual(values = fancy_color_scale) +
-  # scale_fill_manual(values = fancy_color_scale) +
-  # ggtitle("There is relatively more antisense ribosomal RNA in older samples") + 
-  ylab("Median -strand coverage (x)") + 
-  xlab("")
 
 # interaction categories in the oldest sample
 ggplot() +
