@@ -1,15 +1,15 @@
 library(tidyverse)
-library(readxl)
 library(gt)
 library(webshot2)
 
 # Old Collections meta data table
-oc_metadata <- read_csv("metadata/LocationData.csv")
+oc_metadata <- read_csv("metadata/LocationData.csv") %>% 
+  select(-c(long, lat))
 
 oc_metadata %>% gt(groupname_col = "Species") %>% 
   tab_header(title = "Museum Collection Specimen Metadata") %>% 
   cols_align(align = "center") %>% 
-  gtsave("plots/MetaData.png", vwidth = 1500)
+  gtsave("plots/MetaData.png", vwidth = 3000)
 
 
 # other viruses- known

@@ -1,37 +1,40 @@
 ﻿year,Drosophila_species,sample_id,sample_location,taxon_id,percent_coverage,region,average_coverage,closest_relative,percent_nucleotide_identity,reference_accession,rep
-1908,melanogaster,1004277,Illinois,Drosophila melanogaster sigmavirus,19,Partial genome,0.6,Drosophila melanogaster sigmavirus,99.6,MH384277,1
-1908,melanogaster,1004277,Illinois,Tobacco mosaic virus,99.9,Complete polyprotein,129.1,Tobacco mosaic virus,98.6,NC_001367.1,1
-1908,melanogaster,1004277,Illinois,Vera virus,97.8,Complete polyprotein,9.3,Vera virus,99.7,"MT742171, MT42172",1
-1908,melanogaster,1004277,Illinois,Galbut virus,100,Complete polyprotein,25.23,Galbut virus,97.87,"MT742164, MT742161, MT742162",1
-1908,melanogaster,1004277,Illinois,Chaq virus,97.4,Complete polyprotein,15.3,Chaq virus,97.4,MT742163,1
-1908,melanogaster,1004277,Illinois,Chaq-like virus,95,Complete polyprotein,8.5,Chaq-like virus,99.7,MT742173,1
-1908,melanogaster,1004277,Illinois,Turnip vein-clearing virus,12.6,Partial genome,0.3,Turnip vein-clearing virus,99.6,NC_001873.1,1
-1942,melanogaster,1004278,Illinois,Craigies Hill virus,98.6,Complete polyprotein,20.5,Craigies Hill virus,99.5,"MH384349, MH384350",1
-1942,melanogaster,1004278,Illinois,Galbut virus,18.3,Partial genome,17.4,Galbut virus,97.1,"MT742164, MT742161, MT742162",1
-1942,melanogaster,1004278,Illinois,Chaq-like virus,100,Complete polyprotein,106.4,Chaq-like virus,99.2,MT742173,1
-1942,melanogaster,1004278,Illinois,Vera virus,50,Partial genome,124.9,Vera virus,99.1,MT742172,1
-1942,melanogaster,1004278,Illinois,Drosophila melanogaster sigmavirus,99.9,Complete polyprotein,30,Drosophila melanogaster sigmavirus,99.7,NC_038281,1
-1915,melanogaster,1004279,Illinois,Galbut virus,37.4,Partial genome,4,Galbut virus,96.1,"MT742164, MT742161, MT742162",1
-1915,melanogaster,1004281,Illinois,Galbut virus,38.6,Partial genome,1.2,Galbut virus,96.5,"MT742164, MT742161, MT742162",2
-1930,melanogaster,1004283,Illinois,Chaq virus,61.7,Partial genome,1.1,Chaq virus,95.8,MT742163,1
-1930,melanogaster,1004283,Illinois,Galbut virus,95.6,Partial genome,5.4,Galbut virus,97.9,"MT742164, MT742161, MT742162",1
-1927,melanogaster,Albany1927,New York,Drosophila melanogaster sigmavirus,26.1,Partial genome,1.5,Drosophila melanogaster sigmavirus,99.2,NC_038281,1
-2011,simulans,BBDIV1550,California,Galbut virus,76.8,Partial genome,6.47,Galbut virus,98.83,"MT742164, MT742161, MT742162",1
-2006,melanogaster,Davidson2006_1,North Carolina,Drosophila C virus,99.9,Complete polyprotein,59.3,Drosophila C virus,99.5,OK188767,1
-2006,melanogaster,Davidson2006_2,North Carolina,Bloomfield virus,10.7,Partial genome,0.9,Bloomfield virus,99.8,"MF416371, KP714091, KP714093, KP714094",2
-1963,melanogaster,Frost_03071963,Pennsylvania,Vera virus,100,Complete polyprotein,177.5,Vera virus,98.4,"MT742171, MT42172",1
-1963,melanogaster,Frost_03071963,Pennsylvania,Chaq-like virus,100,Complete polyprotein,300.8,Chaq-like virus,97.9,MT742173,1
-1963,melanogaster,Frost03211963,Pennsylvania,Galbut virus,73.93,Partial genome,9,Galbut virus,97.83,"MT742164, MT742161, MT742162",1
-1963,melanogaster,Frost03211963,Pennsylvania,Nora virus,77.3,Partial genome,7,Nora virus,99.1,NC_007919.3,1
-1954,melanogaster,Kauai1954,Hawai'i,Galbut virus,60.9,Partial genome,2.7,Galbut virus,95.7,"MT742164, MT742161, MT742162",1
-1953,melanogaster,Kilauea1953,Hawai'i,Galbut virus,68,Partial genome,2.2,Galbut virus,97.7,"MT742164, MT742161, MT742162",1
-2010,melanogaster,PHDIP946,"Ontario, CAN",Vera virus,40.5,Partial genome,6.1,Vera virus,99.7,MT742172,1
-2010,melanogaster,PHDIP946,"Ontario, CAN",Galbut virus,35.66,Partial genome,1.6,Galbut virus,96.53,"MT742164, MT742161, MT742162",1
-2010,melanogaster,PHDIP946,"Ontario, CAN",Drosophila-associated totivirus 2,37.1,Partial genome,0.7,Drosophila-associated totivirus 2,98.6,MZ852364.1,1
-2000,melanogaster,SB_2000_mel,California,La Jolla virus,70.2,Partial genome,4.4,La Jolla virus,99.2,KP714073,1
-2000,melanogaster,SB_2000_mel,California,Chaq virus,86,Partial genome,9.5,Chaq virus,98.3,MT742163,1
-2000,melanogaster,SB_2000_mel,California,Galbut virus,91.27,Partial genome,49.63,Galbut virus,98.4,"MT742164, MT742161, MT742162",1
-2000,simulans,SB_2000_sim,California,Galbut virus,37,Partial genome,1.7,Galbut virus,95,"MT742164, MT742161, MT742162",2
-1919,melanogaster,StPaul1919_3,Minnesota,Dansoman virus,100,Complete polyprotein,20.7,Dansoman virus,98.8,"MH384295, MH384296",1
-1919,melanogaster,StPaul1919_3,Minnesota,Chaq virus,96.6,Complete polyprotein,68.9,Chaq virus,98.9,MT742163,1
-1919,melanogaster,StPaul1919_3,Minnesota,Galbut virus,99.93,Complete polyprotein,125.7,Galbut virus,98.6,"MT742164, MT742161, MT742162",1
+1908,melanogaster,1004277,Illinois,Drosophila melanogaster sigmavirus,19.00,Partial genome,0.60,Drosophila melanogaster sigmavirus,99.60,MH384277,1
+1908,melanogaster,1004277,Illinois,Tobacco mosaic virus,99.70,Complete polyprotein,581.90,Tobacco mosaic virus,99.30,NC_001367.1,1
+1908,melanogaster,1004277,Illinois,Vera virus,97.85,Complete polyprotein,14.70,Vera virus,99.30,"MT742171, MT42172",1
+1908,melanogaster,1004277,Illinois,Galbut virus,99.20,Complete polyprotein,38.30,Galbut virus,95.83,"MT742164, MT742161, MT742162",1
+1908,melanogaster,1004277,Illinois,Chaq virus,97.70,Complete polyprotein,28.60,Chaq virus,90.60,MT742163,1
+1908,melanogaster,1004277,Illinois,Chaq-like virus,98.70,Complete polyprotein,11.10,Chaq-like virus,99.50,MT742173,1
+1908,melanogaster,1004277,Illinois,Turnip vein-clearing virus,12.60,Partial genome,0.30,Turnip vein-clearing virus,99.60,NC_001873.1,1
+1942,melanogaster,1004278,New Jersey,Craigies Hill virus,99.75,Complete polyprotein,30.55,Craigies Hill virus,94.10,"MH384349, MH384350",1
+1942,melanogaster,1004278,New Jersey,Galbut virus,18.30,Partial genome,17.40,Galbut virus,97.10,"MT742164, MT742161, MT742162",1
+1942,melanogaster,1004278,New Jersey,Chaq-like virus,100.00,Complete polyprotein,490.10,Chaq-like virus,99.70,MT742173,1
+1942,melanogaster,1004278,New Jersey,Vera virus,100.00,Complete polyprotein,574.35,Vera virus,99.95,MT742172,1
+1942,melanogaster,1004278,New Jersey,Drosophila melanogaster sigmavirus,99.90,Complete polyprotein,46.20,Drosophila melanogaster sigmavirus,99.20,NC_038281,1
+1915,melanogaster,1004279,Illinois,Galbut virus,37.40,Partial genome,4.00,Galbut virus,96.10,"MT742164, MT742161, MT742162",1
+1915,melanogaster,1004281,Illinois,Galbut virus,38.60,Partial genome,1.20,Galbut virus,96.50,"MT742164, MT742161, MT742162",2
+1930,melanogaster,1004283,Illinois,Tobacco mosaic virus,99.60,Complete polyprotein,267.10,Tobacco mosaic virus,99.30,NC_001367.1,1
+1930,melanogaster,1004283,Illinois,Vera virus,98.25,Partial genome,6.80,Vera virus,94.60,"MT742171, MT42172",1
+1930,melanogaster,1004283,Illinois,Chaq-like virus,99.70,Complete polyprotein,6.40,Chaq-like virus,99.50,MT742173,1
+1930,melanogaster,1004283,Illinois,Chaq virus,76.70,Partial genome,3.30,Chaq virus,89.50,MT742163,1
+1930,melanogaster,1004283,Illinois,Galbut virus,97.37,Partial genome,6.30,Galbut virus,96.90,"MT742164, MT742161, MT742162",1
+1927,melanogaster,Albany1927,New York,Drosophila melanogaster sigmavirus,26.10,Partial genome,1.50,Drosophila melanogaster sigmavirus,99.20,NC_038281,1
+2011,simulans,BBDIV1550,California,Galbut virus,98.37,Complete polyprotein,16.77,Galbut virus,88.10,"MT742164, MT742161, MT742162",1
+2006,melanogaster,Davidson2006_1,North Carolina,Drosophila C virus,99.90,Complete polyprotein,263.90,Drosophila C virus,98.30,OK188767,1
+2006,melanogaster,Davidson2006_2,North Carolina,Bloomfield virus,10.70,Partial genome,0.90,Bloomfield virus,99.80,"MF416371, KP714091, KP714093, KP714094",2
+1963,melanogaster,Frost_03071963,Pennsylvania,Vera virus,99.75,Complete polyprotein,2619.40,Vera virus,99.70,"MT742171, MT42172",1
+1963,melanogaster,Frost_03071963,Pennsylvania,Chaq-like virus,100.00,Complete polyprotein,5323.00,Chaq-like virus,99.80,MT742173,1
+1963,melanogaster,Frost03211963,Pennsylvania,Galbut virus,98.50,Partial genome,41.87,Galbut virus,84.30,"MT742164, MT742161, MT742162",2
+1963,melanogaster,Frost03211963,Pennsylvania,Nora virus,97.20,Partial genome,15.50,Nora virus,96.70,NC_007919.3,2
+1954,melanogaster,Kauai1954,Hawai'i,Galbut virus,60.90,Partial genome,2.70,Galbut virus,95.70,"MT742164, MT742161, MT742162",1
+1953,melanogaster,Kilauea1953,Hawai'i,Galbut virus,68.00,Partial genome,2.20,Galbut virus,97.70,"MT742164, MT742161, MT742162",1
+2010,melanogaster,PHDIP946,"Ontario, CAN",Vera virus,40.50,Partial genome,6.10,Vera virus,99.70,MT742172,1
+2010,melanogaster,PHDIP946,"Ontario, CAN",Galbut virus,70.60,Partial genome,6.60,Galbut virus,87.13,"MT742164, MT742161, MT742162",1
+2010,melanogaster,PHDIP946,"Ontario, CAN",Drosophila-associated totivirus 2,37.10,Partial genome,0.70,Drosophila-associated totivirus 2,98.60,MZ852364.1,1
+2000,simulans,SB_2000_sim,California,La Jolla virus,97.60,Partial genome,10.80,La Jolla virus,93.20,KP714073,1
+2000,simulans,SB_2000_sim,California,Chaq virus,100.00,Complete polyprotein,61.60,Chaq virus,88.20,MT742163,1
+2000,simulans,SB_2000_sim,California,Galbut virus,99.63,Complete polyprotein,224.77,Galbut virus,90.27,"MT742164, MT742161, MT742162",1
+2000,simulans,SB_2000_sim,California,Galbut virus,37.00,Partial genome,1.70,Galbut virus,95.00,"MT742164, MT742161, MT742162",2
+1919,melanogaster,StPaul1919_3,Minnesota,Dansoman virus,99.90,Complete polyprotein,43.35,Dansoman virus,96.90,"MH384295, MH384296",1
+1919,melanogaster,StPaul1919_3,Minnesota,Chaq virus,100.00,Complete polyprotein,311.00,Chaq virus,89.10,MT742163,1
+1919,melanogaster,StPaul1919_3,Minnesota,Galbut virus,99.90,Complete polyprotein,345.77,Galbut virus,99.23,"MT742164, MT742161, MT742162",1

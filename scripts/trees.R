@@ -266,3 +266,19 @@ g3_n_t3 <- g3_n_t2 %<+% rna3_metadata +
 g3_n_t3
 
 ggsave("plots/galbut_RNA3_tree_NO_OC.pdf", width = 15, height = 10)
+
+############
+
+# Trees made with IQ-Tree
+galbut_RNA1 <- read.iqtree("IQ-Tree/Galbut_RNA1_alignment_final.nex.treefile")
+
+rna1_metadata <- read_csv("metadata/galbut_rna1_ML_metadata.csv")
+rna1_metadata <- as.data.frame(rna1_metadata)
+
+n_n <- ggtree(galbut_RNA1, color="grey30", size=0.5) +
+  geom_text(aes(label=node), hjust=-.3)
+n_n
+
+g_r1 <- ggtree(galbut_RNA1) +
+  geom_tiplab()
+g_r1

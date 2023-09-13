@@ -25,7 +25,6 @@ melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destru
 melanogaster,1968,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,13,1.69,0.88,N,StCloud1968_1,IDT8_i7_209,IDT8_i5_209
 melanogaster,1969,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,38.6,2.03,2.12,N,StCloud1969_1,IDT8_i7_210,IDT8_i5_210
 melanogaster,1991,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,24.4,1.89,1.67,N,StCloud1991_1,IDT8_i7_211,IDT8_i5_211
-melanogaster,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,55.4,2.03,1.57,?,SB_2000_mel,IDT8_i7_226,IDT8_i5_226
 melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,71.2,2.15,2.29,N,Frost_4908,IDT8_i7_217,IDT8_i5_217
 melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,13.9,2.05,1.71,N,Frost_4887,IDT8_i7_218,IDT8_i5_218
 melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,42,2.04,0.9,N,Frost_5867,IDT8_i7_219,IDT8_i5_219
@@ -42,6 +41,7 @@ simulans,1953,"Kilauea, HI",University of Hawaii Insect Museum,Dried,Destructive
 simulans,1958,"Maui, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.99,0.16,N,Maui1958_1_sim,NA,NA
 simulans,1960,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.18,0.8,N,Oahu1960_1_sim,NA,NA
 simulans,1965,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.64,1.76,N,Oahu1965_1_sim,IDT8_i7_207,IDT8_i5_207
+simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,55.4,2.03,1.57,?,SB_2000_mel,IDT8_i7_226,IDT8_i5_226
 simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,17.8,1.99,1.77,N,SB_2000_1_sim,IDT8_i7_225,IDT8_i5_225
 simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,74.2,2.13,2.18,N,BBDIV1549-12,IDT8_i7_229,IDT8_i5_229
 simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,15.9,1.98,0.94,?,BBDIV1550-12,IDT8_i7_230,IDT8_i5_230

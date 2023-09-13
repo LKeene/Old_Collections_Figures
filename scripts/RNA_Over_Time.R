@@ -5,6 +5,8 @@ library(ggthemes)
 library(writexl)
 library(ggrepel)
 library(ggpmisc)
+library(rstatix)
+library(ggpubr)
 
 # read in data
 fly <- read_xlsx("tidy_formats/fly_data2.xlsx")
@@ -34,6 +36,7 @@ fly_data3 <- fly_data3 %>%
          target = str_replace(target, "La Jolla", "La Jolla virus"),
          target = str_replace(target, "Nora", "Nora virus"),
          target = str_replace(target, "Thika", "Thika virus"))
+
 
 hline_max1 <- data.frame(group = c("Dry", "Frozen"), target = c("La Jolla virus", 
                                                                 "Nora virus",
@@ -116,6 +119,7 @@ fly_fc <- fly_data3 %>%
   filter(group != "Fresh") %>% 
   filter(length != "short")
 
+
 # relative change for all fly targets
 ggplot(fly_fc, aes(x = week)) +
   geom_point(aes(y = fold_change, fill = group), shape = 21, size = 1, 
@@ -136,27 +140,57 @@ ggplot(fly_fc, aes(x = week)) +
 #ggsave("plots/Relative_fly_log2.pdf", units = "in", width = 10, height = 8)
 #ggsave("plots/Relative_fly_sqrt.pdf", units = "in", width = 10, height = 8)
 
-# delta ct fold change
-ggplot(fly_fc, aes(x = week)) +
-  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.2, 
+# delta ct fold change- three targets
+ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus", "RpL32 mRNA")),
+       aes(x = week)) +
+  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
              stroke = 0.1, color = "black", alpha = 0.75) +
-  geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group)) +
-  scale_fill_manual(values = c("turquoise3", "purple")) +
-  scale_colour_manual(values = c("turquoise3", "purple")) +
+  stat_compare_means(aes(y= delta_ct, group = group), label = "p.signif", 
+                     hide.ns = TRUE, label.y = 7, size = 6.5) +
+  geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group), 
+            linewidth = 0.75, alpha = 0.75) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
+  scale_colour_manual(values = c("firebrick", "navyblue")) +
   geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
-                width = 1, color = "grey50", alpha = 0.4) +  
+                width = 1, color = "grey50", alpha = 0.4) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white")) +
-  facet_wrap(~factor(target, levels = c("Galbut virus", "La Jolla virus", 
-                                        "Nora virus", "Thika virus", 
-                                        "RpL32 mRNA")), ncol = 2, scales = "free_y") +
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
+  facet_wrap(~factor(target, levels = c("Galbut virus", "Nora virus",
+                                        "RpL32 mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
        y = "Log(2) Fold Change Relative to Time Point 0 Fresh FoCo-17", 
        fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 # remove # to save plot
-#ggsave("plots/Relative_fly_dct.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_fly_dct_3targets.pdf", units = "in", width = 10, height = 8)
+
+ggplot(filter(fly_fc, target %in% c("La Jolla virus", "Thika virus")), aes(x = week)) +
+  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
+             stroke = 0.1, color = "black", alpha = 0.75) +
+  stat_compare_means(aes(y= delta_ct, group = group), label = "p.signif", hide.ns = TRUE, label.y = 7, size = 6.5) +
+  geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group), linewidth = 0.75, alpha = 0.75) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
+  scale_colour_manual(values = c("firebrick", "navyblue")) +
+  geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
+                width = 1, color = "grey50", alpha = 0.4) +  
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
+  facet_wrap(~factor(target, levels = c("La Jolla virus", "Thika virus")), ncol = 1, scales = "free_y") +
+  labs(x = 'Weeks After Collection', 
+       y = "Log(2) Fold Change Relative to Time Point 0 Fresh FoCo-17", 
+       fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
+
+ggsave("plots/Relative_fly_dct_SuppTargets.pdf", units = "in", width = 10, height = 8)
 
 # short vs long Galbut & Rpl
 short_v_long <- fly_data3 %>% 
@@ -180,7 +214,7 @@ plot_max_y <- 30
 
 ggplot(short_v_long_wide) +
   geom_point(aes(x = mean_ct_long, y = mean_ct_short, fill = week), shape = 21, 
-             size = 5, stroke = 0.25, alpha = 0.75) +
+             size = 4, stroke = 0.25, alpha = 0.75) +
   geom_errorbarh(aes(xmin = if_else((mean_ct_long - sd_ct_long) < plot_min_x, 
                      plot_min_x,(mean_ct_long - sd_ct_long)), 
                  xmax = if_else((mean_ct_long + sd_ct_long) > plot_max_x,
@@ -200,7 +234,11 @@ ggplot(short_v_long_wide) +
                                  after_stat(rr.label), sep = "*\", \"*"))) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white")) +
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
   coord_fixed(xlim = c(plot_min_x, plot_max_x), ylim = c(plot_min_y, plot_max_y)) +
   geom_text_repel(aes(x = mean_ct_long, y = mean_ct_short, label = week), 
                   size = 4, colour = "grey30") +
@@ -210,7 +248,7 @@ ggplot(short_v_long_wide) +
        y = "Mean Ct of Each Time Point (short primer)", fill = "Week")
 
 # remove # to save plot
-#ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
 
 # dry vs frozen fly
 plot_min_x_df <- 16
@@ -233,7 +271,7 @@ dry_v_frozen_wide$week <- as.factor(dry_v_frozen_wide$week)
 
 ggplot(dry_v_frozen_wide) +
   geom_point(aes(x = mean_ct_Dry, y = mean_ct_Frozen, fill = week), shape = 21, 
-             size = 5, stroke = 0.25, alpha = 0.75) + 
+             size = 4, stroke = 0.25, alpha = 0.75) + 
   geom_errorbarh(aes(xmin = mean_ct_Dry - sd_ct_Dry, 
                      xmax = mean_ct_Dry + sd_ct_Dry, y = mean_ct_Frozen), 
                  height = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.75) +
@@ -251,7 +289,11 @@ ggplot(dry_v_frozen_wide) +
                                  after_stat(rr.label), sep = "*\", \"*"))) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white")) +
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
   coord_fixed(xlim = c(plot_min_x_df, plot_max_x_df), 
               ylim = c(plot_min_y_df, plot_max_y_df)) +
   geom_text_repel(aes(x = mean_ct_Dry, y = mean_ct_Frozen, label = week), 
@@ -347,16 +389,21 @@ ggplot(mosquito_data3, aes(x = week)) +
 
 # delta ct fold change
 ggplot(mosquito_data3, aes(x = week)) +
-  geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group)) +
-  scale_colour_manual(values = c("turquoise3", "purple")) +
-  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.2, 
+  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
              stroke = 0.1, color = "black", alpha = 0.75) +
-  scale_fill_manual(values = c("turquoise3", "purple")) +
+  stat_compare_means(aes(y= delta_ct, group = group), label = "p.signif", hide.ns = TRUE, label.y = 6, size = 6.5) +
+  geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group), linewidth = 0.75, alpha = 0.75) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
+  scale_colour_manual(values = c("firebrick", "navyblue")) +
   geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
-                width = 1, color = "grey50", alpha = 0.4) + 
+                width = 1, color = "grey50", alpha = 0.4) +  
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white")) +
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
   facet_wrap(~factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
                                         "Actin mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
@@ -364,9 +411,9 @@ ggplot(mosquito_data3, aes(x = week)) +
        linetype = "Sample Storage",
        fill = "Sample Storage",
        colour = "Sample Storage") 
-
+  
 # remove # to save plot
-#ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
 
 # dry vs frozen mos
 plot_min_x_df_m <- 14
@@ -387,7 +434,7 @@ dry_v_frozen_wide_mos$week <- as.factor(dry_v_frozen_wide_mos$week)
 
 ggplot(dry_v_frozen_wide_mos) +
   geom_point(aes(x = mean_ct_Dry, y = mean_ct_Frozen, fill = week), shape = 21, 
-             size = 5, stroke = 0.25, alpha = 0.75) +
+             size = 4, stroke = 0.25, alpha = 0.75) +
   geom_errorbarh(aes(xmin = mean_ct_Dry - sd_ct_Dry, 
                      xmax = mean_ct_Dry + sd_ct_Dry, y = mean_ct_Frozen), 
                  height = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.75) +
@@ -404,7 +451,11 @@ ggplot(dry_v_frozen_wide_mos) +
                                  after_stat(rr.label), sep = "*\", \"*"))) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white")) +
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
   geom_text_repel(aes(x = mean_ct_Dry, y = mean_ct_Frozen, label = week), 
                   size = 4, colour = "grey30") +
   geom_abline(intercept = 0, slope = 1, color="grey40", alpha=0.5, linewidth=0.5,
@@ -413,7 +464,7 @@ ggplot(dry_v_frozen_wide_mos) +
        y = "Mean Ct of Each Time Point (Frozen)", fill = "Week")
 
 # remove # to save plot
-#ggsave("plots/dry_vs_frozen_mos.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/dry_vs_frozen_mos.pdf", units = "in", width = 10, height = 8)
 
 # Percent Positive
 fly_summary <- fly %>% 
@@ -423,33 +474,43 @@ fly_summary <- fly %>%
   filter(present == "y") %>% 
   filter(group != "Fresh") 
 
+fly_summary$week <- as.numeric(fly_summary$week)
+
 # long vs short galbut & RpL32
 ggplot(filter(fly_summary, target %in% c("Galbut", "RpL32"))) +
   geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
-              size = 2, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
-  scale_fill_manual(values = c("turquoise3", "purple")) +
+              size = 3, stroke = 0.25, alpha = 0.65, width = 0.5, height = 0.5) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
   facet_grid(length ~ target) +
   theme_few(base_size = 11) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white")) +
-  labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage")
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
+  labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage") 
 
-#ggsave("plots/percent_long_short.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/percent_long_short.pdf", units = "in", width = 10, height = 8)
 
 # other fly targets
 ggplot(filter(fly_summary, target %in% c("Thika", "Nora", "La Jolla"))) +
   geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
-              size = 2, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
-  scale_fill_manual(values = c("turquoise3", "purple")) +
+              size = 3, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
   facet_grid(group ~ target) +
   theme_few(base_size = 11) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white")) +
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
   labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage")
 
-#ggsave("plots/percent_fly_targets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/percent_fly_targets.pdf", units = "in", width = 10, height = 8)
 
 # mosquito targets
 mos_summary <- mosquito %>% 
@@ -460,15 +521,43 @@ mos_summary <- mosquito %>%
   mutate(target = str_replace(target, "Actin", "Actin mRNA"),
          target = str_replace(target, "Rennavirus", "Gaudeloupe mosquito virus"))
 
+mos_summary$week <- as.numeric(mos_summary$week)
+
 ggplot(mos_summary) +
   geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
-              size = 2, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
-  scale_fill_manual(values = c("turquoise3", "purple")) +
+              size = 3, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
   facet_grid(group ~ target) +
   theme_few(base_size = 11) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white")) +
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
   labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage")
 
 ggsave("plots/percent_mos_targets.pdf", units = "in", width = 10, height = 8)
+
+# STATS
+fly_stats <- fly_fc %>% 
+  ungroup() %>% 
+  group_by(week, target) %>% 
+  t_test(delta_ct ~ group)
+
+mos_stats <- mosquito_data3 %>% 
+  ungroup() %>% 
+  group_by(week, target) %>% 
+  filter(target != "Guadeloupe mosquito virus") %>% 
+  t_test(delta_ct ~ group)
+
+mos_stats_gmv <- mosquito_data3 %>% 
+  ungroup() %>% 
+  group_by(week, target) %>% 
+  filter(target == "Guadeloupe mosquito virus",
+         week != 32) %>% 
+  t_test(delta_ct ~ group)
+
+mos_stats_joined <- full_join(mos_stats, mos_stats_gmv)
+

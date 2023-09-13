@@ -14,6 +14,10 @@ ggplot(df, aes(x = date_collected)) +
   scale_x_reverse() +
   theme_bw(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white")) +
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) +
   labs(x = "Year Collected", y = "Concentration ng/ul", fill = 'Extraction Method')
 ggsave("plots/CollectionVsConcentration.pdf", units = "in", width = 10, height = 8)

@@ -185,7 +185,13 @@ p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
   # we don't need a y-axis label because it's repeated in p_new below
   #ylab("Mean length of RNA on Tapestation (nt)") +
   ylab("") +
-  theme_minimal(base_size = 16) 
+  theme_minimal(base_size = 16) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) 
 
 p_oc
 #ggsave("plots/OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
@@ -202,16 +208,22 @@ p_new <- ggplot(df_mean_fly_grouped, aes(as.numeric(weeks))) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
   geom_point(aes(y = mean_length_g, fill = group), show.legend = FALSE,
              shape = 21, size = 4, color = "black", stroke = 0.1, alpha = 0.75) +
-  scale_fill_manual(values = c("turquoise3", "gray30", "purple")) +
+  scale_fill_manual(values = c("firebrick3", "gray30", "navyblue")) +
   geom_errorbar(aes(ymin = (mean_length_g - sd_mean_length_g), ymax = (mean_length_g + sd_mean_length_g)), 
                 width = 0.1, color = "grey50", alpha = 0.15) +
   ylim(c(0,1000)) +
   labs(x = "Weeks since sample storage", 
        y = "Mean length of RNA on Tapestation (nt)", fill = "Group") +
-  theme_minimal(base_size = 16) 
+  theme_minimal(base_size = 16) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) 
 
 p_new
-#ggsave("plots/Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 
 # plot the two plots side by side
 # lay out combined plot using patchwork library
@@ -252,13 +264,19 @@ p_mos <- ggplot(df_mean_mos_grouped, aes(x = as.numeric(weeks))) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
   geom_point(aes(y = mean_length_g, fill = group), 
              shape = 21, size = 4, color = "black", stroke = 0.5, alpha = 0.75) +
-  scale_fill_manual(values = c("turquoise3", "purple")) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
   geom_errorbar(aes(ymin = (mean_length_g - sd_mean_length_g), ymax = (mean_length_g + sd_mean_length_g)), 
                 width = 0.1, color = "grey50", alpha = 0.15) +
   ylim(c(0,1400)) +
   labs(x = "Weeks since sample pinning", 
        y = "Mean length of RNA on Tapestation (nt)", fill = "Group") +
-  theme_minimal(base_size = 16) 
+  theme_minimal(base_size = 16) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")) 
 
 p_mos
 ggsave("plots/Mos_RNA_length_vs_time.pdf", width=10, height=7, units="in")
