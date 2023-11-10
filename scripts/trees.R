@@ -280,5 +280,15 @@ n_n <- ggtree(galbut_RNA1, color="grey30", size=0.5) +
 n_n
 
 g_r1 <- ggtree(galbut_RNA1) +
-  geom_tiplab()
+  theme_tree2()
 g_r1
+
+g_r1_v2 <- g_r1 %<+% rna1_metadata +
+  geom_tiplab(aes(label = name, color = species), 
+              hjust = -0.4, parse = T, size = 3.5) +
+  scale_color_manual(labels = c(substitute(paste(italic("Diptera"))), 
+                                substitute(paste(italic("D. melanogaster"))), 
+                                substitute(paste(italic("D. simulans")))),
+                     values = c("seagreen", "darkblue", "orange2")) +
+  labs(color = "Species")
+g_r1_v2
