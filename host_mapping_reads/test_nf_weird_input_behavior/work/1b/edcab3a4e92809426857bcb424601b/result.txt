@@ -1,1 +1,0 @@
-/home/mdstengl/analyses/2023_1_OC_analyses/fly_mapping_reads/test_nf/work/8d/f13d7f4da3a146810792062d91521f/result.txt
