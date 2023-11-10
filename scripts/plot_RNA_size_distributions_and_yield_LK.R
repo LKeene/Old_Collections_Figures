@@ -180,11 +180,11 @@ p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
   geom_point(aes(x = year, y = mean_length), shape = 21, size = 4, 
              fill = "violetred3", color = "black", stroke = 0.1) +
   scale_x_reverse(breaks = seq(from=1880, to=2020, by=20))+
-  ylim(c(0,1000)) +
+  ylim(c(0,500)) +
   xlab("Year of sample collection") +
   # we don't need a y-axis label because it's repeated in p_new below
   #ylab("Mean length of RNA on Tapestation (nt)") +
-  ylab("") +
+  ylab("Mean length of RNA on Tapestation (nt)") +
   theme_minimal(base_size = 16) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),

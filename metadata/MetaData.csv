@@ -1,6 +1,6 @@
 ﻿Species,Date Collected,Location,Donating Institution,Storage Type,Extraction Method,Concentration ,260/280,260/230,Galbut virus positive (qPCR),Sample_id,I7_index,I5_index
 melanogaster,1896,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,4,2.32,2.11,N,1004284,IDT8_i7_240,IDT8_i5_240
-melanogaster,1902,"Albany, NY",New York State Museum,Dried,Destructive,152,2.1,2,N,Albany1902_1,IDT8_i7_212,IDT8_i5_212
+melanogaster,1908,"Albany, NY",New York State Museum,Dried,Destructive,152,2.1,2,N,Albany1902_1 (now Albany_1908),IDT8_i7_212,IDT8_i5_212
 melanogaster,1908,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,54.6,2.08,1.81,N,1004277,IDT8_i7_233,IDT8_i5_233
 melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,84,1.95,2.46,N,1004279,IDT8_i7_235,IDT8_i5_235
 melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,6.8,1.99,2.27,N,1004280,IDT8_i7_236,IDT8_i5_236
@@ -17,7 +17,7 @@ melanogaster,1950,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructiv
 melanogaster,1951,"Honolulu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.38,0.65,N,Honolulu1951_1_mel,NA,NA
 melanogaster,1951,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.49,1.3,N,Oahu1951_1_mel,NA,NA
 melanogaster,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.95,0.64,N,Kauai1952_1_mel,NA,NA
-melanogaster,1954,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.09,1.94,Y,Kauai1954_1_mel,IDT8_i7_201,IDT8_i5_201
+melanogaster,1953,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.09,1.94,Y,Kauai1954_1_mel (now Kauai1953_1_mel),IDT8_i7_201,IDT8_i5_201
 melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,66.4,2.12,2.13,N,Frost_03071963,IDT8_i7_222,IDT8_i5_222
 melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,24.4,1.99,1.09,?,Frost_03211963_1,IDT8_i7_224,IDT8_i5_224
 melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,84.6,2.09,1.77,N,Frost_03211963_2,IDT8_i7_223,IDT8_i5_223
@@ -41,7 +41,7 @@ simulans,1953,"Kilauea, HI",University of Hawaii Insect Museum,Dried,Destructive
 simulans,1958,"Maui, HI",University of Hawaii Insect Museum,Dried,Destructive,0,0.99,0.16,N,Maui1958_1_sim,NA,NA
 simulans,1960,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.18,0.8,N,Oahu1960_1_sim,NA,NA
 simulans,1965,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0,1.64,1.76,N,Oahu1965_1_sim,IDT8_i7_207,IDT8_i5_207
-simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,55.4,2.03,1.57,?,SB_2000_mel,IDT8_i7_226,IDT8_i5_226
 simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,17.8,1.99,1.77,N,SB_2000_1_sim,IDT8_i7_225,IDT8_i5_225
+simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,55.4,2.03,1.57,?,SB_2000_mel (now SB_2000_sim_2),IDT8_i7_226,IDT8_i5_226
 simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,74.2,2.13,2.18,N,BBDIV1549-12,IDT8_i7_229,IDT8_i5_229
 simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,15.9,1.98,0.94,?,BBDIV1550-12,IDT8_i7_230,IDT8_i5_230
