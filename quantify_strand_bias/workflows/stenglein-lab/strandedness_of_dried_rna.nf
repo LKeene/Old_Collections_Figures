@@ -1,11 +1,12 @@
 include { PARSE_MAPPING_SAMPLESHEET                  } from '../../subworkflows/stenglein-lab/parse_mapping_samplesheet'
-include { PREPROCESS_READS                           } from '../../subworkflows/stenglein-lab/preprocess_reads'
+// include { PREPROCESS_READS                           } from '../../subworkflows/stenglein-lab/preprocess_reads'
+include { MARSHALL_FASTQ                             } from '../../subworkflows/stenglein-lab/marshall_fastq'
 include { QUANTIFY_STRAND_BIAS                       } from '../../subworkflows/stenglein-lab/quantify_strand_bias'
 include { BUILD_BWA_INDEX                            } from '../../subworkflows/stenglein-lab/build_bwa_index'
 
 workflow STRANDEDNESS_OF_DRIED_RNA {                                                    
 
-  PREPROCESS_READS(params.fastq_dir, params.fastq_pattern, params.collapse_duplicate_reads)
+  MARSHALL_FASTQ(params.fastq_dir, params.fastq_pattern, params.collapse_duplicate_reads)
 
   PARSE_MAPPING_SAMPLESHEET(params.mapping_samplesheet)
 
@@ -18,7 +19,7 @@ workflow STRANDEDNESS_OF_DRIED_RNA {
   BUILD_BWA_INDEX(fasta_ch)
   
   // combine matching fastq and fasta from previous outputs into a single channel
-  ch_mapping_1 = PREPROCESS_READS.out.reads
+  ch_mapping_1 = MARSHALL_FASTQ.out.reads
     .join(BUILD_BWA_INDEX.out.index)
   
   // join in orientation info

@@ -24,7 +24,7 @@ process BAM_TO_SAM {
 
   """
   # -F 4 will not output unmapped reads
-  samtools view $bam -h -F 4 --threads $task.cpus -o $sam
+  samtools view $bam $args -h -F 4 --threads $task.cpus -o $sam
 
   cat <<-END_VERSIONS > versions.yml
   "${task.process}":

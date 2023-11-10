@@ -17,9 +17,9 @@ if (!interactive()) {
 } else {
   # if running via RStudio
   # r_lib_dir = "../lib/R/"
-  tsv_input      = "../results/process/all_species_tallies.txt"
+  tsv_input      = "../results_species_id/process/summarized_mapping_stats.txt"
   metadata_input = "../refseq/metadata.csv"
-  output_dir     = "../results/"
+  output_dir     = "../results_species_id/"
 }
 
 #
@@ -34,7 +34,7 @@ if (!interactive()) {
 df <- read.delim(tsv_input, sep="\t", header=F)
 
 # name columns
-colnames(df) <- c("dataset", "species", "count")
+colnames(df) <- c("dataset", "species", "count", "pct_id")
 
 # calculate CO1-mapping count totals for each dataset
 # then determine the fractional counts for CO1-mapping reads
@@ -44,7 +44,7 @@ df <- df %>%
   mutate(total_count = sum(count), 
          fractional_count = count / total_count) %>% 
   filter(fractional_count > 0.1) %>%
-  mutate(accession_species = species,  species = str_match(species, "Drosophila_.*")[,1])
+  mutate(accession_species = species,  species = str_match(species, "_([A-Z].*)")[,2])
 
 
 # top hits for each datset
@@ -72,9 +72,15 @@ Lexi_FoCos <- df %>% filter(str_detect(dataset, "^FoCo2"))
 df_assigned <- df %>% 
   group_by(dataset) %>% 
   arrange(-fractional_count) %>% 
-  summarize(fraction_co1 = max(fractional_count), 
-            count=count[1], 
-            assigned_species = if_else(fraction_co1 > 0.50, species[1], "undetermined"))
+  filter(row_number()==1) %>%
+  mutate(assigned_species = if_else(fractional_count > 0.50, species, "undetermined")) %>%
+  select(dataset, assigned_species, count, fractional_count, pct_id) %>%
+  arrange(dataset)
+
+  # summarize(fraction_co1 = max(fractional_count), 
+            # count=count[1], 
+            # pct_id = pct_id[1],
+            # assigned_species = if_else(fraction_co1 > 0.50, species[1], "undetermined"))
 
 # write output to tsv file
 write.table(df_assigned, 

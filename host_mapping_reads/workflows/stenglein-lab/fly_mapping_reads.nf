@@ -1,4 +1,6 @@
-include { PREPROCESS_READS                           } from '../../subworkflows/stenglein-lab/preprocess_reads'
+// include { PREPROCESS_READS                           } from '../../subworkflows/stenglein-lab/preprocess_reads'
+// assumes input reads have been preprocessed (adapter/quality trimmed)
+include { MARSHALL_FASTQ                             } from '../../subworkflows/stenglein-lab/marshall_fastq'
 
 //genome mapping
 include { BUILD_BWA_INDEX                            } from '../../subworkflows/stenglein-lab/build_bwa_index'
@@ -12,6 +14,11 @@ include { PROCESS_ALFA_OUTPUT                        } from '../../modules/steng
 // transcriptome mapping
 include { BUILD_BWA_INDEX as BUILD_BWA_INDEX_RNA     } from '../../subworkflows/stenglein-lab/build_bwa_index'
 include { MAP_TO_GENOME as MAP_TO_TRANSCRIPTOME      } from '../../subworkflows/stenglein-lab/map_to_genome'
+include { BAM_TO_SAM as BAM_TO_SAM_TRANSCRIPTOME     } from '../../modules/stenglein-lab/bam_to_sam'
+include { TALLY_SAM_SUBJECTS                         } from '../../modules/stenglein-lab/tally_sam_subjects'
+include { PREPEND_TSV_WITH_ID as PREPEND_TALLY_OUTPUT} from '../../modules/stenglein-lab/prepend_tsv_with_id'
+include { PROCESS_TRANSCRIPTOME_OUTPUT               } from '../../modules/stenglein-lab/process_transcriptome_output'
+
 
 // rRNA locus mapping
 include { BUILD_BWA_INDEX as BUILD_BWA_INDEX_RRNA    } from '../../subworkflows/stenglein-lab/build_bwa_index'
@@ -28,11 +35,13 @@ include { PROCESS_MISMATCH_OUTPUT                    } from '../../modules/steng
 
 workflow FLY_MAPPING_READS {                                                    
 
-  PREPROCESS_READS(params.fastq_dir, params.fastq_pattern, params.collapse_duplicate_reads)
+  // PREPROCESS_READS(params.fastq_dir, params.fastq_pattern, params.collapse_duplicate_reads)
+
+  MARSHALL_FASTQ(params.fastq_dir, params.fastq_pattern, params.collapse_duplicate_reads)
 
   BUILD_BWA_INDEX(params.genome_fasta)
 
-  MAP_TO_GENOME(PREPROCESS_READS.out.reads, BUILD_BWA_INDEX.out.index)
+  MAP_TO_GENOME(MARSHALL_FASTQ.out.reads, BUILD_BWA_INDEX.out.index)
 
   // ch_genome_gtf = Channel.fromPath(params.genome_annotation_gtf, checkIfExists: true)
   ch_genome_gtf = file(params.genome_annotation_gtf)
@@ -44,11 +53,16 @@ workflow FLY_MAPPING_READS {
 
   // map to transcriptome
   BUILD_BWA_INDEX_RNA(params.transcriptome_fasta)
-  MAP_TO_TRANSCRIPTOME(PREPROCESS_READS.out.reads, BUILD_BWA_INDEX_RNA.out.index)
+  MAP_TO_TRANSCRIPTOME(MARSHALL_FASTQ.out.reads, BUILD_BWA_INDEX_RNA.out.index)
+  BAM_TO_SAM_TRANSCRIPTOME(MAP_TO_TRANSCRIPTOME.out.bam.filter{it[1].size() > 0})
+  TALLY_SAM_SUBJECTS(BAM_TO_SAM_TRANSCRIPTOME.out.sam)
+  PREPEND_TALLY_OUTPUT(TALLY_SAM_SUBJECTS.out.txt)
+  PROCESS_TRANSCRIPTOME_OUTPUT(PREPEND_TALLY_OUTPUT.out.tsv.collectFile(name: "transcriptome_tallies.txt"){it[1]}, params.metadata)
+
 
   // map to rRNA
   BUILD_BWA_INDEX_RRNA(params.rRNA_fasta)
-  MAP_TO_RRNA_LOCUS(PREPROCESS_READS.out.reads, BUILD_BWA_INDEX_RRNA.out.index)
+  MAP_TO_RRNA_LOCUS(MARSHALL_FASTQ.out.reads, BUILD_BWA_INDEX_RRNA.out.index)
   BAM_TO_COV(MAP_TO_RRNA_LOCUS.out.bam.filter{it[1].size() > 0})
   PREPEND_BTC_OUTPUT(BAM_TO_COV.out.per_base_coverage)
   // TODO: fix R script here

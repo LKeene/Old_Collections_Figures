@@ -22,12 +22,12 @@ workflow QUANTIFY_STRAND_BIAS {
 
   MAP_TO_GENOME(reads, fasta)
 
-  BAM_TO_SAM(MAP_TO_GENOME.out.bam)                                             
+  BAM_TO_SAM(MAP_TO_GENOME.out.bam.filter{it[1].size() > 0})                                             
 
   BAM_TO_SAM.out.sam.join(ori).set{ori_ch}
 
   EXTRACT_STRAND_BIAS(ori_ch)
   PREPEND_TSV_WITH_ID(EXTRACT_STRAND_BIAS.out.txt)                              
                                                                                 
-  PROCESS_STRAND_BIAS_OUTPUT(PREPEND_TSV_WITH_ID.out.tsv.collectFile(name: "collected_strand_bias.tsv"){it[1]}, params.metadata)
+  PROCESS_STRAND_BIAS_OUTPUT(PREPEND_TSV_WITH_ID.out.tsv.collectFile(name: "collected_strand_bias.tsv"){it[1]}, params.metadata, params.refseq_metadata)
 }         

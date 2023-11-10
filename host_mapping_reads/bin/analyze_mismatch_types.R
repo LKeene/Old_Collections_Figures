@@ -52,7 +52,7 @@ dataset_counts <- datasets %>% group_by(sample_id) %>% summarize(total_counts = 
 ggplot(dataset_counts) + geom_histogram(aes(x=total_counts), bins=60) + scale_x_log10() 
 
 # filter out datasets with fewer than 1e7 total counts
-too_few_counts <- datasets_per_sample %>% filter(total_counts < 1e7) %>% pull(sample_id)
+too_few_counts <- dataset_counts %>% filter(total_counts < 1e7) %>% pull(sample_id)
 datasets <- datasets %>% filter(!sample_id %in% too_few_counts)
 
 # make a composite name for the type of mutation (e.g. "G->A")

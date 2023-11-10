@@ -1,4 +1,4 @@
-process PROCESS_SPECIES_OUTPUT {
+process PROCESS_TRANSCRIPTOME_OUTPUT {
   label 'lowmem_non_threaded'
 
   // singularity info for this process
@@ -23,8 +23,7 @@ process PROCESS_SPECIES_OUTPUT {
   def args             = task.ext.args ?: ''
 
   """
-   Rscript ${params.bin_dir}/assign_species_by_co1.R $txt $metadata
-   echo "la la"
+   Rscript ${params.bin_dir}/process_transcriptome_counts.R $txt $metadata
   """
 
 }

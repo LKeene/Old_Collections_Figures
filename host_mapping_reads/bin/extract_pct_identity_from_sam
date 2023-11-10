@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# This script calculates percent identity from SAM format alignments
+# it reads from stdin and writes to stdout
+# it outputs the calculated % identity from each SAM alignment's MD flag and outputs one per line
+# it also outputs the name of the mapped-to reference sequence
+#
+# Mark Stenglein 1/24/2019
+
+# see:
+# https://stackoverflow.com/questions/32743181/efficiently-calculate-statistics-from-single-string-bam-file-by-bowtie2
+
+grep -v ^@ | awk '{
+ match($0, /MD:Z:[0-9A-Z\^]*/,m );
+ split(m[0],v,/[\^:]/);
+ nmatch = split(v[3],vmatch, /[^0-9]/);
+ cmatch=0;
+ for(i=1; i<=nmatch; i++) cmatch+=vmatch[i];
+ printf("%s\t%.2f\n", $3, cmatch*100/(cmatch+nmatch-1));
+}'
+ # printf("%s"OFS"%.2f\n", $4, cmatch*100/(cmatch+nmatch-1));

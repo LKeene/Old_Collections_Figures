@@ -24,9 +24,13 @@ library(patchwork)
 # read in metadata
 metadata <- read.delim(metadata_input, sep=",", 
                        header=T, stringsAsFactors = F)
+# convert to character type in case an integer-like sample ID (e.g. 1004277)
+metadata$sample_id <- as.character(metadata$sample_id)
 
 datasets <- read.delim(file = tsv_input, sep="\t")
 colnames(datasets) <- c("sample_id", "type", "counts", "size_in_genome")
+# convert to character type in case an integer-like sample ID (e.g. 1004277)
+datasets$sample_id <- as.character(datasets$sample_id)
 
 # plot count totals per dataset
 datasets_per_sample <- datasets %>% group_by(sample_id) %>% summarize(total_counts = sum(counts))

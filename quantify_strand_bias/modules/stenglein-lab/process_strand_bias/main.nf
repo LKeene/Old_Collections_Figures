@@ -9,6 +9,7 @@ process PROCESS_STRAND_BIAS_OUTPUT {
   input:
   path (txt)
   path (metadata)
+  path (refseq_metadata)
 
   output:
   path "*.pdf"         , emit: pdf
@@ -23,7 +24,7 @@ process PROCESS_STRAND_BIAS_OUTPUT {
   def args             = task.ext.args ?: ''
 
   """
-   Rscript ${params.bin_dir}/process_strand_bias.R $txt $metadata
+   Rscript ${params.bin_dir}/process_strand_bias.R $txt $metadata $refseq_metadata
   """
 
 }
