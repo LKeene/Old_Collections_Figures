@@ -75,7 +75,8 @@ ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus", "RpL32 mRNA"))
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) +
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
   facet_wrap(~factor(target, levels = c("Galbut virus", "Nora virus",
                                         "RpL32 mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
@@ -84,6 +85,7 @@ ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus", "RpL32 mRNA"))
 
 # remove # to save plot
 ggsave("plots/Relative_fly_dct_3targets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_fly_dct_3targets.svg", units = "in", width = 10, height = 8)
 
 ggplot(filter(fly_fc, target %in% c("La Jolla virus", "Thika virus")), aes(x = week)) +
   geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
@@ -100,13 +102,16 @@ ggplot(filter(fly_fc, target %in% c("La Jolla virus", "Thika virus")), aes(x = w
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) +
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
   facet_wrap(~factor(target, levels = c("La Jolla virus", "Thika virus")), ncol = 1, scales = "free_y") +
   labs(x = 'Weeks After Collection', 
        y = "Log(2) Fold Change Relative to Time Point 0 Fresh FoCo-17", 
        fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 ggsave("plots/Relative_fly_dct_SuppTargets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_fly_dct_SuppTargets.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_fly_dct_SuppTargets.jpg", units = "in", width = 10, height = 8)
 
 # short vs long Galbut & Rpl
 short_v_long <- fly_data3 %>% 
@@ -155,7 +160,8 @@ ggplot(short_v_long_wide) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) +
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
   coord_fixed(xlim = c(plot_min_x, plot_max_x), ylim = c(plot_min_y, plot_max_y)) +
   geom_text_repel(aes(x = mean_ct_long, y = mean_ct_short, label = week), 
                   size = 4, colour = "grey30") +
@@ -166,6 +172,7 @@ ggplot(short_v_long_wide) +
 
 # remove # to save plot
 ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/long_vs_short.svg", units = "in", width = 10, height = 8)
 
 # dry vs frozen fly
 plot_min_x_df <- 16
@@ -211,7 +218,8 @@ ggplot(dry_v_frozen_wide) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) +
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
   coord_fixed(xlim = c(plot_min_x_df, plot_max_x_df), 
               ylim = c(plot_min_y_df, plot_max_y_df)) +
   geom_text_repel(aes(x = mean_ct_Dry, y = mean_ct_Frozen, label = week), 
@@ -223,6 +231,7 @@ ggplot(dry_v_frozen_wide) +
 
 # remove # to save plot
 ggsave("plots/dry_vs_frozen.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/dry_vs_frozen.svg", units = "in", width = 10, height = 8)
 
 
 # Mosquito figures
@@ -279,17 +288,19 @@ ggplot(mos_data3, aes(x = week)) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) +
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
   facet_wrap(~factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
                                         "Actin mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
-       y = "Log(2) Fold Change Relative to Time Point 4 Week Frozen Mosquito",
+       y = "Log(2) Fold Change Relative to Time Point \n4 Week Frozen Mosquito",
        linetype = "Sample Storage",
        fill = "Sample Storage",
        colour = "Sample Storage") 
   
 # remove # to save plot
 ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_mosquito_dct.svg", units = "in", width = 10, height = 8)
 
 # dry vs frozen mos
 plot_min_x_df_m <- 14
@@ -319,7 +330,7 @@ ggplot(dry_v_frozen_wide_mos) +
                     x = mean_ct_Dry), 
                 width = 0.25, color = "slategray3", linewidth = 0.25, alpha = 0.75) +
   facet_wrap(~factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
-                                        "Actin mRNA")), ncol = 1) +
+                                        "Actin mRNA")), ncol = 2) +
   stat_poly_line(aes(x = mean_ct_Dry, mean_ct_Frozen), method = "lm", alpha = 0.5, 
                  se = FALSE, colour = "slategray3", linetype = "dotdash", linewidth = 0.5) +
   stat_poly_eq(aes(x = mean_ct_Dry, mean_ct_Frozen, 
@@ -331,7 +342,8 @@ ggplot(dry_v_frozen_wide_mos) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) +
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
   geom_text_repel(aes(x = mean_ct_Dry, y = mean_ct_Frozen, label = week), 
                   size = 4, colour = "grey30") +
   geom_abline(intercept = 0, slope = 1, color="grey40", alpha=0.5, linewidth=0.5,
@@ -341,21 +353,25 @@ ggplot(dry_v_frozen_wide_mos) +
 
 # remove # to save plot
 ggsave("plots/dry_vs_frozen_mos.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/dry_vs_frozen_mos.svg", units = "in", width = 10, height = 8)
 
-# Percent Positive
+# Number Positive                                                                                                                                                                                                                                                                             
 fly_summary <- fly %>% 
   group_by(target, group, week, length) %>% 
   count(present) %>% 
-  mutate(percent = (n/6) * 100) %>% 
-  filter(present == "y") %>% 
-  filter(group != "Fresh") 
+  filter(group != "Fresh") %>% 
+  mutate(target = str_replace(target, "Galbut", "Galbut virus"),
+         target = str_replace(target, "RpL32", "RpL32 mRNA"),
+         target = str_replace(target, "La Jolla", "La Jolla virus"),
+         target = str_replace(target, "Nora", "Nora virus"),
+         target = str_replace(target, "Thika", "Thika virus"))
 
 fly_summary$week <- as.numeric(fly_summary$week)
 
 # long vs short galbut & RpL32
-ggplot(filter(fly_summary, target %in% c("Galbut", "RpL32"))) +
-  geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
-              size = 3, stroke = 0.25, alpha = 0.65, width = 0.5, height = 0.5) +
+ggplot(filter(fly_summary, target %in% c("Galbut virus", "RpL32 mRNA"))) +
+  geom_point(aes(x = week, y = n, fill = group), shape = 21, 
+              size = 3, stroke = 0.25, alpha = 0.65) +
   scale_fill_manual(values = c("firebrick", "navyblue")) +
   facet_grid(length ~ target) +
   theme_few(base_size = 11) +
@@ -365,17 +381,20 @@ ggplot(filter(fly_summary, target %in% c("Galbut", "RpL32"))) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) +
-  labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage") 
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
+  labs(x = "Weeks After Collection", y = "Number of Flies Positive", fill = "Sample Storage") 
 
-ggsave("plots/percent_long_short.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/n_long_short.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/n_long_short.svg", units = "in", width = 10, height = 8)
 
 # other fly targets
-ggplot(filter(fly_summary, target %in% c("Thika", "Nora", "La Jolla"))) +
-  geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
-              size = 3, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
+ggplot(filter(fly_summary, target %in% c("Thika virus", "Nora virus", "La Jolla virus"))) +
+  geom_point(aes(x = week, y = n, fill = group), shape = 21, 
+              size = 3, stroke = 0.25, alpha = 0.75) +
   scale_fill_manual(values = c("firebrick", "navyblue")) +
-  facet_grid(group ~ target) +
+  facet_grid(group ~ factor(target, levels = c("Nora virus", "La Jolla virus", 
+                                               "Thika virus"))) +
   theme_few(base_size = 11) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
@@ -383,27 +402,29 @@ ggplot(filter(fly_summary, target %in% c("Thika", "Nora", "La Jolla"))) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) +
-  labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage")
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
+  labs(x = "Weeks After Collection", y = "Number of Flies Positive", fill = "Sample Storage")
 
-ggsave("plots/percent_fly_targets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/n_fly_targets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/n_fly_targets.svg", units = "in", width = 10, height = 8)
 
 # mosquito targets
 mos_summary <- mosquito %>% 
   group_by(target, group, week) %>% 
   count(present) %>% 
-  mutate(percent = (n/6) * 100) %>% 
-  filter(present == "y") %>% 
   mutate(target = str_replace(target, "Actin", "Actin mRNA"),
-         target = str_replace(target, "Rennavirus", "Gaudeloupe mosquito virus"))
+         target = str_replace(target, "Rennavirus", "Guadeloupe mosquito virus"),
+         target = str_replace(target, "Verdadero", "Verdadero virus"))
 
 mos_summary$week <- as.numeric(mos_summary$week)
 
 ggplot(mos_summary) +
-  geom_jitter(aes(x = week, y = percent, fill = group), shape = 21, 
-              size = 3, stroke = 0.25, alpha = 0.75, width = 0.5, height = 0.5) +
+  geom_point(aes(x = week, y = n, fill = group), shape = 21, 
+              size = 3, stroke = 0.25, alpha = 0.75) +
   scale_fill_manual(values = c("firebrick", "navyblue")) +
-  facet_grid(group ~ target) +
+  facet_grid(group ~ factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
+                                               "Actin mRNA"))) +
   theme_few(base_size = 11) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
@@ -411,10 +432,12 @@ ggplot(mos_summary) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) +
-  labs(x = "Weeks After Collection", y = "Percent of Flies Positive", fill = "Sample Storage")
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
+  labs(x = "Weeks After Collection", y = "Number of Mosquitoes Positive", fill = "Sample Storage")
 
-ggsave("plots/percent_mos_targets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/n_mos_targets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/n_mos_targets.svg", units = "in", width = 10, height = 8)
 
 # STATS
 fly_stats <- fly_fc %>% 

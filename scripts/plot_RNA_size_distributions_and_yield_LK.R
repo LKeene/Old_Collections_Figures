@@ -177,13 +177,11 @@ df_mean_fly <- left_join(df_mean_fly, metadata_fly, by="id")
 # plot oc samples: we'll show these separately from new/experimental samples
 p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
   # geom_smooth(aes(x=year, y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
-  geom_point(aes(x = year, y = mean_length), shape = 21, size = 4, 
-             fill = "violetred3", color = "black", stroke = 0.1) +
+  geom_point(aes(x = year, y = mean_length), shape = 21, size = 5, 
+             fill = "orchid4", color = "black", stroke = 0.1) +
   scale_x_reverse(breaks = seq(from=1880, to=2020, by=20))+
   ylim(c(0,500)) +
   xlab("Year of sample collection") +
-  # we don't need a y-axis label because it's repeated in p_new below
-  #ylab("Mean length of RNA on Tapestation (nt)") +
   ylab("Mean length of RNA on Tapestation (nt)") +
   theme_minimal(base_size = 16) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
@@ -191,10 +189,12 @@ p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) 
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) 
 
 p_oc
-#ggsave("plots/OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/OC_RNA_length_vs_time.svg", width=10, height=7, units="in")
 
 # get mean and sd of triplicates
 df_mean_fly_grouped <- df_mean_fly %>% 
@@ -207,7 +207,7 @@ df_mean_fly_grouped <- df_mean_fly %>%
 p_new <- ggplot(df_mean_fly_grouped, aes(as.numeric(weeks))) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
   geom_point(aes(y = mean_length_g, fill = group), show.legend = FALSE,
-             shape = 21, size = 4, color = "black", stroke = 0.1, alpha = 0.75) +
+             shape = 21, size = 5, color = "black", stroke = 0.1, alpha = 0.75) +
   scale_fill_manual(values = c("firebrick3", "gray30", "navyblue")) +
   geom_errorbar(aes(ymin = (mean_length_g - sd_mean_length_g), ymax = (mean_length_g + sd_mean_length_g)), 
                 width = 0.1, color = "grey50", alpha = 0.15) +
@@ -220,10 +220,12 @@ p_new <- ggplot(df_mean_fly_grouped, aes(as.numeric(weeks))) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) 
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) 
 
 p_new
 ggsave("plots/Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/Fly_RNA_length_vs_time.svg", width=10, height=7, units="in")
 
 # plot the two plots side by side
 # lay out combined plot using patchwork library
@@ -263,7 +265,7 @@ df_mean_mos_grouped <- df_mean_mos %>%
 p_mos <- ggplot(df_mean_mos_grouped, aes(x = as.numeric(weeks))) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
   geom_point(aes(y = mean_length_g, fill = group), 
-             shape = 21, size = 4, color = "black", stroke = 0.5, alpha = 0.75) +
+             shape = 21, size = 5, color = "black", stroke = 0.5, alpha = 0.75) +
   scale_fill_manual(values = c("firebrick", "navyblue")) +
   geom_errorbar(aes(ymin = (mean_length_g - sd_mean_length_g), ymax = (mean_length_g + sd_mean_length_g)), 
                 width = 0.1, color = "grey50", alpha = 0.15) +
@@ -276,10 +278,13 @@ p_mos <- ggplot(df_mean_mos_grouped, aes(x = as.numeric(weeks))) +
         axis.title = element_text(face = "bold"),
         legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold")) 
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) 
 
 p_mos
 ggsave("plots/Mos_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/Mos_RNA_length_vs_time.svg", width=10, height=7, units="in")
+ggsave("plots/Mos_RNA_length_vs_time.jpg", width=10, height=7, units="in")
 
  # -----------------------------
 # plot some of the sample data
