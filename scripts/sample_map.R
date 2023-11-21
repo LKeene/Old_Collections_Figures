@@ -31,8 +31,6 @@ map <- ggplot() +
               fill = "snow4", color = "grey70", size = 0.2) +
  coord_fixed(xlim = c(-160, -60), ylim = c(20,49), ratio = 1.2) +
  theme_few() +
-# geom_point(data = locations, aes(x = long, y = lat, fill = Date.Collected), 
-#            color="black", shape=21, size=3, alpha=0.50, stroke=0.2) +
  scale_fill_viridis() +
  geom_jitter(data = locations, aes(x = long, y = lat, fill = Date.Collected), 
              shape = 21, stroke = 0.25, size = 4, alpha = 0.6, width = 0.5,
@@ -42,12 +40,15 @@ map <- ggplot() +
       legend.text=element_text(family="Helvetica", size=10),
       axis.ticks=element_blank(),
       axis.title.y=element_blank(),
-      axis.title.x=element_blank())
+      axis.title.x=element_blank(),
+      text = element_text(size = 20))
                                                     
 
-
+map <- map + geom_text() +
+  annotate("text", label = "Hawaii", x = -158, y = 24.5)
 map
 ggsave("plots/location_map.pdf", units = "in", width = 10, height = 3)
+ggsave("plots/location_map.jpg", units = "in", width = 10, height = 3)
 
 
 

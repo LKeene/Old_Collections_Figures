@@ -56,7 +56,7 @@ fly_fc <- fly_data3 %>%
          mean_dct = mean(delta_ct, na.rm = TRUE),
          sd_dct = sd(delta_ct, na.rm = TRUE)) 
 
-# delta ct fold change- three targets
+# delta ct - three targets
 ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus", "RpL32 mRNA")),
        aes(x = week)) +
   geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
@@ -80,12 +80,13 @@ ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus", "RpL32 mRNA"))
   facet_wrap(~factor(target, levels = c("Galbut virus", "Nora virus",
                                         "RpL32 mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
-       y = "Log(2) Fold Change Relative to Time Point 0 Fresh FoCo-17", 
+       y = "Delta Ct Relative to Time Point 0 Fresh FoCo-17", 
        fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 # remove # to save plot
 ggsave("plots/Relative_fly_dct_3targets.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Relative_fly_dct_3targets.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_fly_dct_3targets.jpg", units = "in", width = 10, height = 8)
 
 ggplot(filter(fly_fc, target %in% c("La Jolla virus", "Thika virus")), aes(x = week)) +
   geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
@@ -106,7 +107,7 @@ ggplot(filter(fly_fc, target %in% c("La Jolla virus", "Thika virus")), aes(x = w
         text = element_text(size = 20)) +
   facet_wrap(~factor(target, levels = c("La Jolla virus", "Thika virus")), ncol = 1, scales = "free_y") +
   labs(x = 'Weeks After Collection', 
-       y = "Log(2) Fold Change Relative to Time Point 0 Fresh FoCo-17", 
+       y = "Delta Ct Relative to Time Point 0 Fresh FoCo-17", 
        fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 ggsave("plots/Relative_fly_dct_SuppTargets.pdf", units = "in", width = 10, height = 8)
@@ -173,6 +174,7 @@ ggplot(short_v_long_wide) +
 # remove # to save plot
 ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/long_vs_short.svg", units = "in", width = 10, height = 8)
+ggsave("plots/long_vs_short.jpg", units = "in", width = 10, height = 8)
 
 # dry vs frozen fly
 plot_min_x_df <- 16
@@ -244,7 +246,7 @@ w4 <- mosquito %>%
   select(week, target, ct) %>% 
   type_convert() %>% 
   group_by(week, target) %>% 
-  summarise(mean_ct_fresh = mean(ct))
+  summarise(mean_ct_4w = mean(ct))
 
 # pre-processing mosquito plots
 mosquito <- mosquito %>% 
@@ -257,7 +259,7 @@ mosquito <- mosquito %>%
   ungroup()
 
 mos_data2 <- left_join(mosquito, w4, by = join_by(target)) %>% 
-  mutate(delta_ct = mean_ct_fresh - ct) %>% 
+  mutate(delta_ct = mean_ct_4w - ct) %>% 
   rename(week = week.x)
 
 # get mean fold change
@@ -276,8 +278,10 @@ mos_data3 <- mos_data2 %>%
 ggplot(mos_data3, aes(x = week)) +
   geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
              stroke = 0.1, color = "black", alpha = 0.75) +
-  stat_compare_means(aes(y= delta_ct, group = group), label = "p.signif", hide.ns = TRUE, label.y = 6, size = 6.5) +
-  geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group), linewidth = 0.75, alpha = 0.75) +
+  stat_compare_means(aes(y= delta_ct, group = group), label = "p.signif",
+                     hide.ns = TRUE, label.y = 6, size = 6.5) +
+  geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group), 
+            linewidth = 0.75, alpha = 0.75) +
   scale_fill_manual(values = c("firebrick", "navyblue")) +
   scale_colour_manual(values = c("firebrick", "navyblue")) +
   geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
@@ -293,7 +297,7 @@ ggplot(mos_data3, aes(x = week)) +
   facet_wrap(~factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
                                         "Actin mRNA")), ncol = 1) +
   labs(x = 'Weeks After Collection', 
-       y = "Log(2) Fold Change Relative to Time Point \n4 Week Frozen Mosquito",
+       y = "Delta Ct Relative to Time Point \n4 Week Frozen Mosquito",
        linetype = "Sample Storage",
        fill = "Sample Storage",
        colour = "Sample Storage") 
@@ -301,6 +305,7 @@ ggplot(mos_data3, aes(x = week)) +
 # remove # to save plot
 ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Relative_mosquito_dct.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Relative_mosquito_dct.jpg", units = "in", width = 10, height = 8)
 
 # dry vs frozen mos
 plot_min_x_df_m <- 14

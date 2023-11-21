@@ -1,47 +1,47 @@
-﻿Species,Date Collected,Location,Donating Institution,Storage Type,Extraction Method,Concentration (ng/ul),260/280,260/230,Galbut virus positive
-melanogaster,1896,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,4.0,2.32,2.11,N
-melanogaster,1908,"Albany, NY",New York State Museum,Dried,Destructive,152.0,2.10,2.00,N
-melanogaster,1908,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,54.6,2.08,1.81,N
-melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,84.0,1.95,2.46,N
-melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,6.8,1.99,2.27,N
-melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,12.7,1.97,2.01,N
-melanogaster,1915,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,16.9,2.08,2.32,N
-melanogaster,1919,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,0.0,1.51,0.43,?
-melanogaster,1919,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,21.6,1.84,1.77,N
-melanogaster,1919,"St. Paul, MN","University of Minnesota, Insect Collection",Dried,Destructive,18.9,1.83,1.12,Y
-melanogaster,1927,"Albany, NY",New York State Museum,Dried,Destructive,21.0,1.92,2.02,N
-melanogaster,1930,Illinois,Illinois Natural Histroy Survey,Dried,Non-Destructive,13.6,2.08,1.75,Y
-melanogaster,1942,New Jersey,Illinois Natural Histroy Survey,Dried,Non-Destructive,10.2,1.90,1.41,N
-melanogaster,1950,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,0.95,2.19,N
-melanogaster,1950,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,0.24,0.24,N
-melanogaster,1951,"Honolulu, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,1.38,0.65,N
-melanogaster,1951,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,1.49,1.30,N
-melanogaster,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,0.95,0.64,N
-melanogaster,1953,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,1.09,1.94,Y
-melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,66.4,2.12,2.13,N
-melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,24.4,1.99,1.09,?
-melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,84.6,2.09,1.77,N
-melanogaster,1963,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,48.0,2.05,1.53,N
-melanogaster,1968,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,13.0,1.69,0.88,N
-melanogaster,1969,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,38.6,2.03,2.12,N
-melanogaster,1991,"St. Cloud, MN","University of Minnesota, Insect Collection",Dried,Destructive,24.4,1.89,1.67,N
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,71.2,2.15,2.29,N
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,13.9,2.05,1.71,N
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,42.0,2.04,0.90,N
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,120.0,2.15,2.37,N
-melanogaster,2003,"Lebanon Co, PA",Frost Entomolog Center- PSUC,Dried,Non-Destructive,25.6,2.10,1.74,N
-melanogaster,2006,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,19.6,2.01,2.23,N
-melanogaster,2006,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,56.8,2.08,2.06,N
-melanogaster,2006,"Davidson, NC",The Davidson College Entomology Collection,Dried,Destructive,0.0,1.91,2.00,N
-melanogaster,2010,"Ontario, CAN",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,0.0,1.73,1.88,N
-melanogaster,2010,"Ontario, CAN",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,17.8,1.92,1.39,N
-simulans,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,0.68,-4.05,N
-simulans,1952,"Kauai, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,0.00,0.00,N
-simulans,1953,"Kilauea, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,1.20,-7.00,?
-simulans,1958,"Maui, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,0.99,0.16,N
-simulans,1960,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,1.18,0.80,N
-simulans,1965,"Oahu, HI",University of Hawaii Insect Museum,Dried,Destructive,0.0,1.64,1.76,N
-simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,17.8,1.99,1.77,N
-simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,Dried,Destructive,55.4,2.03,1.57,?
-simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,74.2,2.13,2.18,N
-simulans,2011,"Ventura Co, CA",The Centre for Biodiversity Genomics- University of Guelph,Ethanol,Destructive,15.9,1.98,0.94,?
+﻿Species,Date Collected,Location,Donating Institution,BioSample ID,Sample ID,Storage Type,Extraction Method,Concentration (ng/μl),260/280,260/230,Galbut,long,lat
+D. melanogater,1896,"Urbana, IL",Illinois Natural History Survey,SAMN38071661,1004284,Dried,Non-Destructive,4,2.3,2.1,No,-87.678017,41.436951
+D. melanogater,1908,"Albany, NY",New York State Museum,SAMN38071662,Albany1908_1,Dried,Destructive,152,2.1,2,No,-73.756233,42.65258
+D. melanogater,1908,"Urbana, IL",Illinois Natural History Survey,SAMN38071654,1004277,Dried,Non-Destructive,54.6,2.1,1.8,Yes,-87.678017,41.436951
+D. melanogater,1915,"Urbana, IL",Illinois Natural History Survey,SAMN38071656,1004279,Dried,Non-Destructive,84,2,2.5,Yes,-87.678017,41.436951
+D. melanogater,1915,"Urbana, IL",Illinois Natural History Survey,SAMN38071657,1004280,Dried,Non-Destructive,6.8,2,2.3,No,-87.678017,41.436951
+D. melanogater,1915,"Urbana, IL",Illinois Natural History Survey,SAMN38071658,1004281,Dried,Non-Destructive,12.7,2,2,Yes,-87.678017,41.436951
+D. melanogater,1915,"Urbana, IL",Illinois Natural History Survey,SAMN38071659,1004282,Dried,Non-Destructive,16.9,2.1,2.3,No,-87.678017,41.436951
+D. melanogater,1919,"St. Paul, MN","University of Minnesota, Insect Collection",SAMN38090828,StPaul1919_1,Dried,Destructive,0,1.5,0.4,No,-93.089958,44.953705
+D. melanogater,1919,"St. Paul, MN","University of Minnesota, Insect Collection",SAMN38071687,StPaul1919_2,Dried,Destructive,21.6,1.8,1.8,No,-93.089958,44.953705
+D. melanogater,1919,"St. Paul, MN","University of Minnesota, Insect Collection",SAMN38071688,StPaul1919_3,Dried,Destructive,18.9,1.8,1.1,Yes,-93.089958,44.953705
+D. melanogater,1927,"Albany, NY",New York State Museum,SAMN38071663 ,Albany1927_1,Dried,Destructive,21,1.9,2,No,-73.756233,42.65258
+D. melanogater,1930,"Urbana, IL",Illinois Natural History Survey,SAMN38071660,1004283,Dried,Non-Destructive,13.6,2.1,1.8,Yes,-87.678017,41.436951
+D. melanogater,1942,"Glassboro, NJ",Illinois Natural History Survey,SAMN38071655,1004278,Dried,Non-Destructive,10.2,1.9,1.4,Yes,-74.405663,40.058323
+D. melanogater,1950,"Oahu, HI","University of Hawaii, Insect Museum",Not Sequenced,Oahu1950_1_mel,Dried,Destructive,0,1,2.2,No,-158.041353,21.472832
+D. melanogater,1950,"Oahu, HI","University of Hawaii, Insect Museum",Not Sequenced,Oahu1950_2_mel,Dried,Destructive,0,0.2,0.2,No,-158.041353,21.472832
+D. melanogater,1951,"Honolulu, HI","University of Hawaii, Insect Museum",Not Sequenced,Honolulu1951_1_mel,Dried,Destructive,0,1.4,0.7,No,-157.848782,21.294944
+D. melanogater,1951,"Oahu, HI","University of Hawaii, Insect Museum",Not Sequenced,Oahu1951_1_mel,Dried,Destructive,0,1.5,1.3,No,-158.041353,21.472832
+D. melanogater,1952,"Kauai, HI","University of Hawaii, Insect Museum",Not Sequenced,Kauai1952_1_mel,Dried,Destructive,0,1,0.6,No,-159.499054,21.961817
+D. melanogater,1953,"Kauai, HI","University of Hawaii, Insect Museum",SAMN38071677,Kauai1953_1_mel ,Dried,Destructive,0,1.1,1.9,Yes,-159.499054,21.961817
+D. melanogater,1963,"Lebanon Co, PA",Frost Entomological Museum,SAMN38071668 ,Frost_03071963,Dried,Non-Destructive,66.4,2.1,2.1,No,-76.652817,40.298022
+D. melanogater,1963,"Lebanon Co, PA",Frost Entomological Museum,SAMN38071669,Frost_03211963_1,Dried,Non-Destructive,24.4,2,1.1,Yes,-76.652817,40.298022
+D. melanogater,1963,"Lebanon Co, PA",Frost Entomological Museum,SAMN38071670,Frost_03211963_2,Dried,Non-Destructive,84.6,2.1,1.8,No,-76.652817,40.298022
+D. melanogater,1963,"Lebanon Co, PA",Frost Entomological Museum,SAMN38071671,Frost_03271963,Dried,Non-Destructive,48,2.1,1.5,No,-76.652817,40.298022
+D. melanogater,1968,"St. Cloud, MN","University of Minnesota, Insect Collection",SAMN38071684,StCloud1968_1,Dried,Destructive,13,1.7,0.9,No,-94.142052,45.497914
+D. melanogater,1969,"St. Cloud, MN","University of Minnesota, Insect Collection",SAMN38071685,StCloud1969_1,Dried,Destructive,38.6,2,2.1,No,-94.142052,45.497914
+D. melanogater,1991,"St. Cloud, MN","University of Minnesota, Insect Collection",SAMN38071686,StCloud1991_1,Dried,Destructive,24.4,1.9,1.7,No,-94.142052,45.497914
+D. melanogater,2003,"Lebanon Co, PA",Frost Entomological Museum,SAMN38071673,Frost_4908,Dried,Non-Destructive,71.2,2.2,2.3,No,-76.652817,40.298022
+D. melanogater,2003,"Lebanon Co, PA",Frost Entomological Museum,SAMN38071672,Frost_4887,Dried,Non-Destructive,13.9,2.1,1.7,No,-76.652817,40.298022
+D. melanogater,2003,"Lebanon Co, PA",Frost Entomological Museum,SAMN38071675,Frost_5867,Dried,Non-Destructive,42,2,0.9,No,-76.652817,40.298022
+D. melanogater,2003,"Lebanon Co, PA",Frost Entomological Museum,SAMN38071676,Frost_5873,Dried,Non-Destructive,120,2.2,2.4,No,-76.652817,40.298022
+D. melanogater,2003,"Lebanon Co, PA",Frost Entomological Museum,SAMN38071674,Frost_5863,Dried,Non-Destructive,25.6,2.1,1.7,No,-76.652817,40.298022
+D. melanogater,2006,"Davidson, NC",The Davidson College Entomology Collection,SAMN38071666,Davison2006_1,Dried,Destructive,19.6,2,2.2,No,-80.84877,35.487331
+D. melanogater,2006,"Davidson, NC",The Davidson College Entomology Collection,SAMN38071667,Davison2006_2,Dried,Destructive,56.8,2.1,2.1,No,-80.84877,35.487331
+D. melanogater,2006,"Davidson, NC",The Davidson College Entomology Collection,Not Sequenced,Davison2006_3,Dried,Destructive,0,1.9,2,No,-80.84877,35.487331
+D. melanogater,2010,"Ontario, Canada","University of Guelph, Centre for Biodiversity Genomics",SAMN38071680,PHDIP1072-11,Ethanol,Destructive,0,1.7,1.9,No,-80.247625,43.501662
+D. melanogater,2010,"Ontario, Canada","University of Guelph, Centre for Biodiversity Genomics",SAMN38071681,PHDIP946-11,Ethanol,Destructive,17.8,1.9,1.4,Yes,-80.247625,43.501662
+D. simulans,1952,"Kauai, HI","University of Hawaii, Insect Museum",Not Sequenced,Kauai1952_1_sim,Dried,Destructive,0,0.7,-4.1,No,-159.499054,21.961817
+D. simulans,1952,"Kauai, HI","University of Hawaii, Insect Museum",Not Sequenced,Kauai1952_2_sim,Dried,Destructive,0,0,0,No,-159.499054,21.961817
+D. simulans,1953,"Kilauea, HI","University of Hawaii, Insect Museum",SAMN38071678,Kilauea1953_1_sim,Dried,Destructive,0,1.2,-7,Yes,-159.407812,22.205821
+D. simulans,1958,"Maui, HI","University of Hawaii, Insect Museum",Not Sequenced,Maui1958_1_sim,Dried,Destructive,0,1,0.2,No,-156.295724,20.747778
+D. simulans,1960,"Oahu, HI","University of Hawaii, Insect Museum",Not Sequenced,Oahu1960_1_sim,Dried,Destructive,0,1.2,0.8,No,-158.041353,21.472832
+D. simulans,1965,"Oahu, HI","University of Hawaii, Insect Museum",SAMN38071679,Oahu1965_1_sim,Dried,Destructive,0,1.6,1.8,No,-158.041353,21.472832
+D. simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,SAMN38071683,SB_2000_sim_1,Dried,Destructive,17.8,2,1.8,Yes,-119.685234,34.399682
+D. simulans,2000,"Santa Barbara, CA",Santa Barbara Museum of Natural History,SAMN38071682,SB_2000_sim_2,Dried,Destructive,55.4,2,1.6,Yes,-119.685234,34.399682
+D. simulans,2011,"Ventura Co, CA","University of Guelph, Centre for Biodiversity Genomics",SAMN38071664,BBDIV1549-12,Ethanol,Destructive,74.2,2.1,2.2,No,-119.272977,34.252246
+D. simulans,2011,"Ventura Co, CA","University of Guelph, Centre for Biodiversity Genomics",SAMN38071665,BBDIV1550-12,Ethanol,Destructive,15.9,2,0.9,Yes,-119.272977,34.252246

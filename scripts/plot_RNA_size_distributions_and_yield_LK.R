@@ -195,6 +195,20 @@ p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
 p_oc
 ggsave("plots/OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 ggsave("plots/OC_RNA_length_vs_time.svg", width=10, height=7, units="in")
+ggsave("plots/OC_RNA_length_vs_time.jpg", width=10, height=7, units="in")
+
+# calculate average lengths
+oc_only <- df_mean_fly %>% 
+  filter(tape_id == "oc") %>% 
+  select(mean_length, year)
+
+oc_1960_up <- oc_only %>% 
+  filter(year > 1960) %>% 
+  summarise(mean(mean_length))
+
+oc_1960_below <- oc_only %>% 
+  filter(year < 1960) %>% 
+  summarise(mean(mean_length))
 
 # get mean and sd of triplicates
 df_mean_fly_grouped <- df_mean_fly %>% 
@@ -226,6 +240,7 @@ p_new <- ggplot(df_mean_fly_grouped, aes(as.numeric(weeks))) +
 p_new
 ggsave("plots/Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 ggsave("plots/Fly_RNA_length_vs_time.svg", width=10, height=7, units="in")
+ggsave("plots/Fly_RNA_length_vs_time.jpg", width=10, height=7, units="in")
 
 # plot the two plots side by side
 # lay out combined plot using patchwork library

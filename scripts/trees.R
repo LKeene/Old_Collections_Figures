@@ -270,7 +270,7 @@ ggsave("plots/galbut_RNA3_tree_NO_OC.pdf", width = 15, height = 10)
 ############
 
 # Trees made with IQ-Tree
-galbut_RNA1 <- read.iqtree("IQ-Tree/Galbut_RNA1_alignment_final.nex.treefile")
+galbut_RNA1 <- read.iqtree("IQ-Tree/Galbut_RdRP_alignment_prelim.nex.treefile")
 
 rna1_metadata <- read_csv("metadata/galbut_rna1_ML_metadata.csv")
 rna1_metadata <- as.data.frame(rna1_metadata)
@@ -285,7 +285,7 @@ g_r1
 
 g_r1_v2 <- g_r1 %<+% rna1_metadata +
   geom_tiplab(aes(label = name, color = species), 
-              hjust = -0.4, parse = T, size = 3.5) +
+              hjust = -0.2, parse = T, size = 2) +
   scale_color_manual(labels = c(substitute(paste(italic("Diptera"))), 
                                 substitute(paste(italic("D. melanogaster"))), 
                                 substitute(paste(italic("D. simulans")))),
