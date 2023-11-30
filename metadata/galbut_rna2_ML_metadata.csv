@@ -1,0 +1,43 @@
+﻿name,id,description,species,location
+MT742161,MT742161,"Galbut virus isolate Gv.FoCo17 putative capsid protein gene, complete cds",D. melanogaster,USA
+MT742165,MT742165,"Galbut virus isolate Gv.FoCo18 putative capsid protein gene, complete cds",D. melanogaster,USA
+MH384379,MH384379,"Galbut virus strain MEL195G segment 2 orf1 gene, complete cds",D. melanogaster,Australia
+MH384373,MH384373,"Galbut virus strain MEL187G segment 2 orf1 gene, complete cds",D. melanogaster,Australia
+MH384365,MH384365,"Galbut virus strain MEL163G segment 2 orf1 gene, complete cds",D. melanogaster,Australia
+MH384361,MH384361,"Galbut virus strain MEL191G segment 2 orf1 gene, complete cds",D. melanogaster,Australia
+MH384354,MH384354,"Galbut virus strain MEL193G segment 2 orf1 gene, complete cds",D. melanogaster,Australia
+MH384336,MH384336,"Galbut virus strain MEL216G segment 2 orf1 gene, complete cds",D. melanogaster,Australia
+OR820599,OR820599,D_sim_California_USA_2011_BBDIV1550-galbut_virus_Capsid_Complete_CDS,D. simulans,USA
+OR820595,OR820595,D_sim_California_USA_2000-SB2000-galbut_virus_Capsid_Complete_CDS,D. simulans,USA
+OR820587,OR820587,D_mel_Pennsylvania_USA_1963-Frost03211963-galbut_virus_Capsid_Complete_CDS,D. melanogaster,USA
+OR820574,OR820574,D_mel_Minnesota_USA_1919_galbut_virus_Capsid_Complete_CDS,D. melanogaster,USA
+OR820561,OR820561,D_mel_Illinois_USA_1908-1004277-galbut_virus_Capsid_partial_CDS,D. melanogaster,USA
+OR820568,OR820568,D_mel_Illinois_1930-1004283-galbut_virus_Capsid_CDS,D. melanogaster,USA
+OR729064,OR729064,FoCo21_MDS_21_Galbut_virus_Capsid,D. melanogaster,USA
+OR729063,OR729063,FoCo21_MDS_20_Galbut_virus_Capsid,D. melanogaster,USA
+OR729062,OR729062,FoCo21_MDS_19_Galbut_virus_Capsid,D. melanogaster,USA
+OR729061,OR729061,FoCo21_MDS_18_Galbut_virus_Capsid,D. melanogaster,USA
+OR729060,OR729060,FoCo21_MDS_17_Galbut_virus_Capsid,D. melanogaster,USA
+OR729059,OR729059,FoCo21_MDS_16_Galbut_virus_Capsid,D. melanogaster,USA
+OR729058,OR729058,FoCo21_MDS_15_Galbut_virus_Capsid,D. melanogaster,USA
+OR729057,OR729057,FoCo21_MDS_13_Galbut_virus_Capsid,D. melanogaster,USA
+OR729056,OR729056,FoCo21_MDS_12_Galbut_virus_Capsid,D. melanogaster,USA
+OR729055,OR729055,FoCo21_MDS_11_Galbut_virus_Capsid,D. melanogaster,USA
+OR729054,OR729054,FoCo21_MDS_10_Galbut_virus_Capsid,D. melanogaster,USA
+OR729053,OR729053,FoCo21_MDS_9_Galbut_virus_Capsid ,D. melanogaster,USA
+OR729052,OR729052,FoCo21_MDS_8_Galbut_virus_Capsid ,D. melanogaster,USA
+OR729051,OR729051,FoCo21_MDS_7_Galbut_virus_Capsid ,D. melanogaster,USA
+OR729050,OR729050,FoCo21_MDS_6_Galbut_virus_Capsid ,D. melanogaster,USA
+OR729049,OR729049,FoCo21_MDS_5_Galbut_virus_Capsid ,D. melanogaster,USA
+OR729048,OR729048,FoCo21_MDS_4_Galbut_virus_Capsid ,D. melanogaster,USA
+OR729047,OR729047,FoCo21_MDS_3_Galbut_virus_Capsid ,D. melanogaster,USA
+OR729046,OR729046,FoCo21_MDS_2_Galbut_virus_Capsid ,D. melanogaster,USA
+OR729045,OR729045,FoCo21_MDS_1_Galbut_virus_Capsid ,D. melanogaster,USA
+OR729044,OR729044,FoCo21_LK_6_Galbut_virus_Capsid  ,D. melanogaster,USA
+OR729043,OR729043,FoCo21_LK_1_Galbut_virus_Capsid  ,D. melanogaster,USA
+OR729042,OR729042,FoCo20_TD_6_Galbut_virus_Capsid  ,D. melanogaster,USA
+OR729041,OR729041,FoCo20_TD_5_Galbut_virus_Capsid  ,D. melanogaster,USA
+OR729040,OR729040,FoCo20_TD_3_Galbut_virus_Capsid  ,D. melanogaster,USA
+OR729039,OR729039,FoCo20_TD_2_Galbut_virus_Capsid  ,D. melanogaster,USA
+OR729038,OR729038,FoCo20_TD_1_Galbut_virus_Capsid  ,D. melanogaster,USA
+OR729037,OR729037,FoCo20_AG_1_Galbut_virus_Capsid  ,D. melanogaster,USA

@@ -1,0 +1,43 @@
+﻿name,id,descrition,species,location
+MT742166,MT742166,"Galbut virus isolate Gv.FoCo18 ORF gene, complete cds",D. melanogaster,USA
+MT742162,MT742162,"Galbut virus isolate Gv.FoCo17 ORF gene, complete cds",D. melanogaster,USA
+MH384380,MH384380,"Galbut virus strain MEL195G segment 3 orf1 gene, complete cds",D. melanogaster,Australia
+MH384374,MH384374,"Galbut virus strain MEL187G segment 3 orf1 gene, complete cds",D. melanogaster,Australia
+MH384366,MH384366,"Galbut virus strain MEL163G segment 3 orf1 gene, complete cds",D. melanogaster,Australia
+MH384362,MH384362,"Galbut virus strain MEL191G segment 3 orf1 gene, complete cds",D. melanogaster,Australia
+MH384355,MH384355,"Galbut virus strain MEL193G segment 3 orf1 gene, complete cds",D. melanogaster,Australia
+MH384337,MH384337,"Galbut virus strain MEL216G segment 3 orf1 gene, complete cds",D. melanogaster,Australia
+OR820589,OR820589,D_mel_Pennsylvania_USA_1963-Frost03211963-galbut_virus_RNA3_complete_CDS,D. melanogaster,USA
+OR820601,OR820601,D_sim_California_USA_2011_BBDIV1550_galbut_virus_RNA3_partial_sequence,D. simulans,USA
+OR820597,OR820597,D_sim_California_USA_2000_galbut_virus_RNA_3_complete_CDS,D. simulans,USA
+OR820576,OR820576,D_mel_Minnesota_USA_1919-StPaul1919-galbut_virus_RNA3_Compelete_CDS,D. melanogaster,USA
+OR820563,OR820563,D_mel_Illinois_USA_1908-1004277-galbut_virus_RNA3_complete_CDS,D. melanogaster,USA
+OR820570,OR820570,D_mel_Illinois_1930-1004283-galbut_virus_RNA_3_CDS,D. melanogaster,USA
+OR729092,OR729092,FoCo21_MDS_21_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729091,OR729091,FoCo21_MDS_20_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729090,OR729090,FoCo21_MDS_19_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729089,OR729089,FoCo21_MDS_18_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729088,OR729088,FoCo21_MDS_17_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729087,OR729087,FoCo21_MDS_16_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729086,OR729086,FoCo21_MDS_15_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729085,OR729085,FoCo21_MDS_13_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729084,OR729084,FoCo21_MDS_12_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729083,OR729083,FoCo21_MDS_11_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729082,OR729082,FoCo21_MDS_10_Galbut_virus_RNA3  ,D. melanogaster,USA
+OR729081,OR729081,FoCo21_MDS_9_Galbut_virus_RNA3   ,D. melanogaster,USA
+OR729080,OR729080,FoCo21_MDS_8_Galbut_virus_RNA3   ,D. melanogaster,USA
+OR729079,OR729079,FoCo21_MDS_7_Galbut_virus_RNA3   ,D. melanogaster,USA
+OR729078,OR729078,FoCo21_MDS_6_Galbut_virus_RNA3   ,D. melanogaster,USA
+OR729077,OR729077,FoCo21_MDS_5_Galbut_virus_RNA3   ,D. melanogaster,USA
+OR729076,OR729076,FoCo21_MDS_4_Galbut_virus_RNA3   ,D. melanogaster,USA
+OR729075,OR729075,FoCo21_MDS_3_Galbut_virus_RNA3   ,D. melanogaster,USA
+OR729074,OR729074,FoCo21_MDS_2_Galbut_virus_RNA3   ,D. melanogaster,USA
+OR729073,OR729073,FoCo21_MDS_1_Galbut_virus_RNA3   ,D. melanogaster,USA
+OR729072,OR729072,FoCo21_LK_6_Galbut_virus_RNA3    ,D. melanogaster,USA
+OR729071,OR729071,FoCo21_LK_2_Galbut_virus_RNA3    ,D. melanogaster,USA
+OR729070,OR729070,FoCo20_TD_6_Galbut_virus_RNA3    ,D. melanogaster,USA
+OR729069,OR729069,FoCo20_TD_5_Galbut_virus_RNA3    ,D. melanogaster,USA
+OR729068,OR729068,FoCo20_TD_3_Galbut_virus_RNA3    ,D. melanogaster,USA
+OR729067,OR729067,FoCo20_TD_2_Galbut_virus_RNA3    ,D. melanogaster,USA
+OR729066,OR729066,FoCo20_TD_1_Galbut_virus_RNA3    ,D. melanogaster,USA
+OR729065,OR729065,FoCo20_AG_1_Galbut_virus_RNA3    ,D. melanogaster,USA
