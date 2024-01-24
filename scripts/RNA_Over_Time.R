@@ -70,8 +70,8 @@ ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus", "RpL32 mRNA"))
             linewidth = 0.75, alpha = 1) +
   scale_fill_manual(values = c("firebrick", "navyblue")) +
   scale_colour_manual(values = c("firebrick", "navyblue")) +
-  geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
-                width = 1, color = "grey50", alpha = 0.75) +
+  geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct), color = group), 
+                width = 1, alpha = 0.25) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),
@@ -102,8 +102,8 @@ ggplot(filter(fly_fc, target %in% c("La Jolla virus", "Thika virus")), aes(x = w
             linewidth = 1, alpha = 1) +
   scale_fill_manual(values = c("firebrick", "navyblue")) +
   scale_colour_manual(values = c("firebrick", "navyblue")) +
-  geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
-                width = 1, color = "grey50", alpha = 0.75) +  
+  geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct), color = group), 
+                width = 1, alpha = 0.25) +  
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),
@@ -291,8 +291,8 @@ ggplot(mos_data3, aes(x = week)) +
             linewidth = 1, alpha = 1) +
   scale_fill_manual(values = c("firebrick", "navyblue")) +
   scale_colour_manual(values = c("firebrick", "navyblue")) +
-  geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct)), 
-                width = 1, color = "grey50", alpha = 0.75) +  
+  geom_errorbar(aes(ymin = (mean_dct - sd_dct), ymax = (mean_dct + sd_dct),
+                    color = group), width = 1, alpha = 0.25) +  
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),
@@ -382,46 +382,6 @@ fly_summary <- fly %>%
 
 fly_summary$week <- as.numeric(fly_summary$week)
 
-# long vs short galbut & RpL32
-ggplot(filter(fly_summary, target %in% c("Galbut virus", "RpL32 mRNA"))) +
-  geom_point(aes(x = week, y = n, fill = group), shape = 21, 
-              size = 3, stroke = 0.25, alpha = 0.65) +
-  scale_fill_manual(values = c("firebrick", "navyblue")) +
-  facet_grid(length ~ target) +
-  theme_few(base_size = 11) +
-  theme_minimal(base_size = 11) +
-  theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white"),
-        axis.title = element_text(face = "bold"),
-        legend.title = element_text(face = "bold"),
-        strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold"),
-        text = element_text(size = 20)) +
-  labs(x = "Weeks After Collection", y = "Number of Flies Positive", fill = "Sample Storage") 
-
-ggsave("plots/n_long_short.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/n_long_short.svg", units = "in", width = 10, height = 8)
-
-# other fly targets
-ggplot(filter(fly_summary, target %in% c("Thika virus", "Nora virus", "La Jolla virus"))) +
-  geom_point(aes(x = week, y = n, fill = group), shape = 21, 
-              size = 3, stroke = 0.25, alpha = 0.75) +
-  scale_fill_manual(values = c("firebrick", "navyblue")) +
-  facet_grid(group ~ factor(target, levels = c("Nora virus", "La Jolla virus", 
-                                               "Thika virus"))) +
-  theme_few(base_size = 11) +
-  theme_minimal(base_size = 11) +
-  theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white"),
-        axis.title = element_text(face = "bold"),
-        legend.title = element_text(face = "bold"),
-        strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold"),
-        text = element_text(size = 20)) +
-  labs(x = "Weeks After Collection", y = "Number of Flies Positive", fill = "Sample Storage")
-
-ggsave("plots/n_fly_targets.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/n_fly_targets.svg", units = "in", width = 10, height = 8)
 
 # mosquito targets
 mos_summary <- mosquito %>% 
@@ -433,27 +393,6 @@ mos_summary <- mosquito %>%
          length = "long")
 
 mos_summary$week <- as.numeric(mos_summary$week)
-
-ggplot(mos_summary) +
-  geom_point(aes(x = week, y = n, fill = group), shape = 21, 
-              size = 3, stroke = 0.25, alpha = 0.75) +
-  scale_fill_manual(values = c("firebrick", "navyblue")) +
-  facet_grid(group ~ factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
-                                               "Actin mRNA"))) +
-  theme_few(base_size = 11) +
-  theme_minimal(base_size = 11) +
-  theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white"),
-        axis.title = element_text(face = "bold"),
-        legend.title = element_text(face = "bold"),
-        strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold"),
-        text = element_text(size = 20)) +
-  labs(x = "Weeks After Collection", y = "Number of Mosquitoes Positive", fill = "Sample Storage")
-
-
-
-ggsave("plots/n_mos_targets.svg", units = "in", width = 10, height = 8)
 
 all <- rbind(fly_summary, mos_summary)
 
@@ -481,6 +420,44 @@ ggplot(filter(all, target %in% c("RpL32 mRNA", "Actin mRNA"))) +
 
 ggsave("plots/n_positve_mRNA.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/n_positve_mRNA.jpg", units = "in", width = 10, height = 8)
+
+# RNA Concentrations Over Time
+conc <- read_csv("metadata/OverTimeRNAConcentrations.csv")
+
+ggplot(conc) +
+  geom_point(aes(x = week, y = concentration, color = week)) +
+  facet_grid(organism~storage)
+
+conc2 <- conc %>% 
+  group_by(week, storage, organism) %>% 
+  mutate(mean_conc = mean(concentration),
+         sd_conc = sd(concentration),
+         organism = str_replace(organism, "fly", "D. melanogaster"),
+         organism = str_replace(organism, "mosquito", "Ae. aegypti"),
+         storage = str_replace(storage, "dry", "Dry"),
+         storage = str_replace(storage, "frozen", "Frozen"))
+
+ggplot(conc2) +
+  geom_point(aes(x = week, y = mean_conc, color = storage), size = 4.25, 
+             alpha = 0.75) +
+  scale_color_manual(values = c("firebrick", "navyblue")) +
+  geom_errorbar(aes(x = week, ymin = (mean_conc - sd_conc), ymax = (mean_conc + sd_conc), color = storage), 
+                width = 0.75, alpha = 0.25) + 
+  facet_wrap(~factor(organism, levels = c("D. melanogaster", "Ae. aegypti")), scales = "free_x") +
+  theme_few(base_size = 11) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
+  labs(x = "Weeks After Collection", y = "Mean Concentration (ng/ul)",
+       color = "Sample Storage")
+
+ggsave("plots/RNA_concentrations.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/RNA_concentrations.jpg", units = "in", width = 10, height = 8)
 
 # STATS
 fly_stats <- fly_fc %>% 

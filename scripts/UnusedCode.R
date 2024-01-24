@@ -404,3 +404,66 @@ g3_n_t3 <- g3_n_t2 %<+% rna3_metadata +
 g3_n_t3
 
 ggsave("plots/galbut_RNA3_tree_NO_OC.pdf", width = 15, height = 10)
+
+# long vs short galbut & RpL32
+ggplot(filter(fly_summary, target %in% c("Galbut virus", "RpL32 mRNA"))) +
+  geom_point(aes(x = week, y = n, fill = group), shape = 21, 
+             size = 3, stroke = 0.25, alpha = 0.65) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
+  facet_grid(length ~ target) +
+  theme_few(base_size = 11) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
+  labs(x = "Weeks After Collection", y = "Number of Flies Positive", fill = "Sample Storage") 
+
+ggsave("plots/n_long_short.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/n_long_short.svg", units = "in", width = 10, height = 8)
+
+# other fly targets
+ggplot(filter(fly_summary, target %in% c("Thika virus", "Nora virus", "La Jolla virus"))) +
+  geom_point(aes(x = week, y = n, fill = group), shape = 21, 
+             size = 3, stroke = 0.25, alpha = 0.75) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
+  facet_grid(group ~ factor(target, levels = c("Nora virus", "La Jolla virus", 
+                                               "Thika virus"))) +
+  theme_few(base_size = 11) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
+  labs(x = "Weeks After Collection", y = "Number of Flies Positive", fill = "Sample Storage")
+
+ggsave("plots/n_fly_targets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/n_fly_targets.svg", units = "in", width = 10, height = 8)
+
+
+ggplot(mos_summary) +
+  geom_point(aes(x = week, y = n, fill = group), shape = 21, 
+             size = 3, stroke = 0.25, alpha = 0.75) +
+  scale_fill_manual(values = c("firebrick", "navyblue")) +
+  facet_grid(group ~ factor(target, levels = c("Verdadero virus", "Guadeloupe mosquito virus", 
+                                               "Actin mRNA"))) +
+  theme_few(base_size = 11) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        axis.text = element_text(face = "bold"),
+        text = element_text(size = 20)) +
+  labs(x = "Weeks After Collection", y = "Number of Mosquitoes Positive", fill = "Sample Storage")
+
+
+
+ggsave("plots/n_mos_targets.svg", units = "in", width = 10, height = 8)
