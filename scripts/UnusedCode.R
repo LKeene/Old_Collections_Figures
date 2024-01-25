@@ -467,3 +467,63 @@ ggplot(mos_summary) +
 
 
 ggsave("plots/n_mos_targets.svg", units = "in", width = 10, height = 8)
+
+
+# Tapestation
+# -----------------------------
+# plot some of the sample data
+# -----------------------------
+# things like RNA recovery vs. time or extraction method...
+
+# read in csv
+sample_data <- read.delim("LocationData.csv", sep=",", header=T)
+
+# yield vs.  year
+# a color-blind palette
+# from: http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/ 
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+# compare yield of extraction samples: destructive vs. not 
+dried_sample_data <- filter(sample_data, Storage.Type =="Dried")
+
+p_method <- ggplot(dried_sample_data) +
+  geom_jitter(aes(x=Extraction.Method, y=Concentration, fill=Extraction.Method), 
+              width=0.1, height=0, shape=21, size=2.5, color="black", stroke=0.25) +
+  geom_boxplot(aes(x=Extraction.Method, y=Concentration), 
+               color="grey40", outlier.shape = NA, fill=NA, width=0.25, size=0.25) +
+  scale_fill_manual(values=c(cbPalette[6], cbPalette[7])) +
+  ylab("Concentration of RNA extract (ng/µL)") +
+  xlab("Extraction method") + 
+  theme_minimal(base_size = 14)  +
+  theme(legend.position = "none")
+
+p_method
+ggsave("RNA_yield_vs_extraction_method.pdf", width=10, height=7, units="in")
+
+# compare yield of extraction samples: dried vs. ethanol
+p_storage <- ggplot(sample_data) +
+  geom_jitter(aes(x=Storage.Type, y=Concentration, fill=Storage.Type), 
+              width=0.1, height=0, shape=21, size=2.5, color="black", stroke=0.25) +
+  geom_boxplot(aes(x=Storage.Type, y=Concentration), 
+               color="grey40", outlier.shape = NA, fill=NA, width=0.25, size=0.25) +
+  scale_fill_manual(values=c(cbPalette[2], cbPalette[3])) +
+  ylab("Concentration of RNA extract (ng/µL)") +
+  xlab("") +
+  theme_minimal(base_size = 14)  +
+  theme(legend.position = "none")
+
+p_storage
+ggsave("RNA_yield_vs_storage_method.pdf", width=10, height=7, units="in")
+
+# plot RNA Yield as a function of sample age
+p_year <- ggplot(sample_data) +
+  geom_point(aes(x=Date.Collected, y=Concentration), 
+             shape=21, size=3, fill="slateblue", color="black", stroke=0.25) +
+  # scale_fill_manual(values=c(cbPalette[6], cbPalette[7])) +
+  scale_x_reverse() +
+  ylab("Concentration of RNA extract (ng/µL)") +
+  xlab("Year of sample collection") +
+  theme_minimal(base_size = 14) 
+
+p_year
+ggsave("RNA_yield_vs_sample_age.pdf", width=10, height=7, units="in")
