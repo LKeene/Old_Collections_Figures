@@ -184,17 +184,17 @@ df_mean_fly <- left_join(df_mean_fly, metadata_fly, by="id")
 # plot oc samples: we'll show these separately from new/experimental samples
 p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
   # geom_smooth(aes(x=year, y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
-  geom_point(aes(x = year, y = mean_length), shape = 21, size = 5, 
-             fill = "orchid4", color = "black", stroke = 0.1) +
+  geom_point(aes(x = year, y = mean_length), shape = 21, size = 8, 
+             fill = "orchid4", color = "black", stroke = 0.1, alpha = 0.95) +
   scale_x_reverse(breaks = seq(from=1880, to=2020, by=20))+
   ylim(c(0,500)) +
   xlab("Year of sample collection") +
-  ylab("Mean length of RNA on Tapestation (nt)") +
+  ylab("Mean length of RNA (nt)") +
   theme_minimal(base_size = 16) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),
-        axis.title = element_text(face = "bold"),
-        legend.title = element_text(face = "bold"),
+        #        axis.title = element_text(face = "bold"),
+        #        legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
         axis.text = element_text(face = "bold"),
         text = element_text(size = 20)) 
@@ -227,7 +227,7 @@ df_mean_fly_grouped <- df_mean_fly %>%
 # plot new experimental samples
 p_new <- ggplot(df_mean_fly_grouped, aes(as.numeric(weeks))) +
   geom_point(aes(y = mean_length_g, fill = group), show.legend = FALSE,
-             shape = 21, size = 5, color = "black", stroke = 0.1, alpha = 0.75) +
+             shape = 21, size = 6, color = "black", stroke = 0.1, alpha = 0.75) +
 # stat_compare_means(aes(y= mean_length_g, group = ), label = "p.signif", 
 #                    hide.ns = TRUE, label.y = 7, size = 3.5, alpha = 0.75, symnum.args = 
 #                      list(cutpoints = c(0, 0.0001, 0.001, 0.01, 0.05, Inf), 
@@ -235,15 +235,15 @@ p_new <- ggplot(df_mean_fly_grouped, aes(as.numeric(weeks))) +
   scale_fill_manual(values = c("firebrick3", "gray30", "navyblue")) +
   geom_errorbar(aes(ymin = (mean_length_g - sd_mean_length_g), 
                     ymax = (mean_length_g + sd_mean_length_g), color = group), 
-                width = 0.1, alpha = 0.25, show.legend = FALSE) +
+                width = 1.5, alpha = 0.25, show.legend = FALSE) +
   ylim(c(0,1000)) +
-  labs(x = "Weeks since sample storage", 
-       y = "Mean length of RNA on Tapestation (nt)", fill = "Group") +
+  labs(x = "Weeks After Sample Storage", 
+       y = "Mean length of RNA (nt)", fill = "Group") +
   theme_minimal(base_size = 16) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),
-        axis.title = element_text(face = "bold"),
-        legend.title = element_text(face = "bold"),
+        #        axis.title = element_text(face = "bold"),
+        #        legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
         axis.text = element_text(face = "bold"),
         text = element_text(size = 20)) 
@@ -291,19 +291,19 @@ df_mean_mos_grouped <- df_mean_mos %>%
 p_mos <- ggplot(df_mean_mos_grouped, aes(x = as.numeric(weeks))) +
   # geom_smooth(aes(x=as.numeric(weeks), y=mean_length), alpha=0.25, color="slateblue", size=0.5) +
   geom_point(aes(y = mean_length_g, fill = group), 
-             shape = 21, size = 5, color = "black", stroke = 0.5, alpha = 0.75) +
+             shape = 21, size = 6, color = "black", stroke = 0.5, alpha = 0.75) +
   scale_fill_manual(values = c("firebrick", "gray30", "navyblue")) +
   geom_errorbar(aes(ymin = (mean_length_g - sd_mean_length_g), 
                     ymax = (mean_length_g + sd_mean_length_g), color = group), 
-                width = 0.1, alpha = 0.15, show.legend = FALSE) +
+                width = 1.5, alpha = 0.25, show.legend = FALSE) +
   ylim(c(0,1400)) +
-  labs(x = "Weeks since sample pinning", 
-       y = "Mean length of RNA on Tapestation (nt)", fill = "Group") +
+  labs(x = "weeks After Sample Storage", 
+       y = "Mean length of RNA (nt)", fill = "Group") +
   theme_minimal(base_size = 16) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),
-        axis.title = element_text(face = "bold"),
-        legend.title = element_text(face = "bold"),
+        #        axis.title = element_text(face = "bold"),
+        #        legend.title = element_text(face = "bold"),
         strip.text = element_text(face = "bold"),
         axis.text = element_text(face = "bold"),
         text = element_text(size = 20)) 
@@ -313,6 +313,51 @@ ggsave("plots/Mos_RNA_length_vs_time.pdf", width=10, height=7, units="in")
 ggsave("plots/Mos_RNA_length_vs_time.svg", width=10, height=7, units="in")
 ggsave("plots/Mos_RNA_length_vs_time.jpg", width=10, height=7, units="in")
 
+# MLRs
+fly_mlr_filt <- df_mean_fly %>% 
+  filter(group != "Fresh",
+         group != "old") %>% 
+  group_by(weeks, group) %>% 
+  mutate(mean_length_group = mean(mean_length))
 
+fly_mlr_filt$weeks <- as.factor(fly_mlr_filt$weeks)
 
+fly_mlr <- lm(mean_length ~ weeks + group, data = fly_mlr_filt)
+tidy_fly_length_mlr1 <- tidy(fly_mlr, conf.int = TRUE)
+tidy_fly_length_mlr1 %>% gt() %>% 
+  tab_header(title = "Fly length ~ week (factor) + storage") %>% 
+  cols_align(align = "center")
+
+Anova(fly_mlr)
+
+fly_mlr2 <- lm(mean_length ~ weeks + group + mean_length_group, data = fly_mlr_filt)
+tidy_fly_length_mlr2 <- tidy(fly_mlr2, conf.int = TRUE)
+tidy_fly_length_mlr2 %>% gt() %>% 
+  tab_header(title = "Fly length ~ week (factor) + storage + mean_length_group") %>% 
+  cols_align(align = "center")
+
+Anova(fly_mlr2)
+
+mos_mlr_filt <- df_mean_mos %>% 
+  filter(group != "Fresh") %>% 
+  group_by(weeks, group) %>% 
+  mutate(mean_length_group = mean(mean_length))
+
+mos_mlr_filt$weeks <- as.factor(mos_mlr_filt$weeks)
+
+mos_mlr <- lm(mean_length ~ weeks + group, data = mos_mlr_filt)
+tidy_mos_length_mlr1 <- tidy(mos_mlr, conf.int = TRUE)
+tidy_mos_length_mlr1 %>% gt() %>% 
+  tab_header(title = "Mos length ~ week (factor) + storage") %>% 
+  cols_align(align = "center")
+
+Anova(mos_mlr)
+
+mos_mlr2 <- lm(mean_length ~ weeks + group + mean_length_group, data = mos_mlr_filt)
+tidy_mos_length_mlr2 <- tidy(mos_mlr2, conf.int = TRUE)
+tidy_mos_length_mlr2 %>% gt() %>% 
+  tab_header(title = "Mos length ~ week (factor) + storage + mean_length_group") %>% 
+  cols_align(align = "center")
+
+Anova(mos_mlr2)
 

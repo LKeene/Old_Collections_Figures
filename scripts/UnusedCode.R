@@ -526,4 +526,25 @@ p_year <- ggplot(sample_data) +
   theme_minimal(base_size = 14) 
 
 p_year
+
+
+# OC seqs Accessions
+acc <- read.csv("metadata/OC_Accesions.csv")
+
+acc <- acc %>% 
+  arrange(date) %>% 
+  rename("Year" = "date",
+         "Accession Number" = "Accession",
+         "Location" = "location",
+         "Species" = "species",
+         "Virus Name" = "virus.name",
+         "Segment" = "segment")
+
+acc %>% gt() %>% 
+  tab_style(style = list(cell_text(style = "italic")), locations = cells_body(`Species`)) %>%
+  tab_header(title = "Accession Number for GenBank Submitted Old Collection Sequences") %>% 
+  cols_align(align = "center") %>% 
+  tab_footnote(footnote = "Space is left blank for unsegmented viruses.", 
+               locations = cells_column_labels(columns = `Segment`)) %>% 
+  gtsave("plots/OC_Accession.png", vwidth = 1500)
 ggsave("RNA_yield_vs_sample_age.pdf", width=10, height=7, units="in")

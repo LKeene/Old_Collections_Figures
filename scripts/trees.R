@@ -119,3 +119,36 @@ g_r3_v2 <- g_r3 %<+% rna3_metadata +
 g_r3_v2
 ggsave("plots/galbut_RNA3_tree.pdf", width = 15, height = 10)
 ggsave("plots/galbut_RNA3_tree.jpg", width = 15, height = 10)
+
+## Sigmavirus
+
+sigma <- read.iqtree("IQ-Tree/sigmavirus_outgroup_alignment.phy.treefile")
+
+tree_sig <- ggtree(sigma, color = "grey30", size = 0.5) +
+  geom_text(aes(label = node), hjust = -0.3)
+tree_sig  
+
+labels <- as.data.frame(tree_sig[["data"]][["label"]])  
+labels 
+
+sigma_NO <- read.iqtree("IQ-Tree/sigmavirus_NoOutgroup_alignment.phy.treefile")
+
+sigma_metadata <- read_csv("metadata/sigma_ML_metadata.csv")
+sigma_metadata <- as.data.frame(sigma_metadata)  
+
+tree_sig2 <- ggtree(sigma_NO)  
+tree_sig2  
+
+tree_sig3 <- tree_sig2 %<+% sigma_metadata +
+  geom_tiplab(aes(label = id, color = year), 
+              hjust = -0.01, size = 2.5) +
+  geom_tippoint(aes(shape = location), size = 2) +
+  labs(color = "Year")
+
+
+tree_sig3
+ggsave("plots/sigma_tree.pdf", width = 15, height = 10)
+ggsave("plots/sigma_tree.jpg", width = 15, height = 10)
+
+
+
