@@ -1,34 +1,34 @@
-﻿known,year,Drosophila_species,sample_id,sample_location,virus_name,percent_covered,depth,closest_relative,percent_nucleotide_similarity,region,reference_accession
-Known,1908,D. melanogaster,1004277,Illinois,Drosophila melanogaster sigmavirus,72.9,1.7,Drosophila melanogaster sigmavirus,99.4,Partial genome,MH384277
-Known,1908,D. melanogaster,1004277,Illinois,Tobacco mosaic virus,100,849.9,Tobacco mosaic virus,98.9,Complete polyprotein,NC_001367.1
-Known,1908,D. melanogaster,1004277,Illinois,Vera virus,100,21.6,Vera virus,99.3,Complete polyprotein,"MT742171, MT42172"
-Known,1908,D. melanogaster,1004277,Illinois,Galbut virus,99.8,9.3,Galbut virus,99,Complete polyprotein,"MT742164, MT742161, MT742162"
-Known,1908,D. melanogaster,1004277,Illinois,Chaq-like virus,100,17.5,Chaq-like virus,99.3,Complete polyprotein,MT742173
-Known,1915,D. melanogaster,1004279,Illinois,Galbut virus,37.4,4,Galbut virus,96.1,Partial genome,"MT742164, MT742161, MT742162"
-Known,1915,D. melanogaster,1004281,Illinois,Galbut virus,38.6,1.2,Galbut virus,96.5,Partial genome,"MT742164, MT742161, MT742162"
-Known,1919,D. melanogaster,StPaul1919_3,Minnesota,Dansoman virus,100,43.4,Dansoman virus,98.3,Complete polyprotein,"MH384295, MH384296"
-Known,1919,D. melanogaster,StPaul1919_3,Minnesota,Chaq virus,100,316.6,Chaq virus,99.2,Complete polyprotein,MT742163
-Known,1919,D. melanogaster,StPaul1919_3,Minnesota,Galbut virus,100,345.8,Galbut virus,99,Complete polyprotein,"MT742164, MT742161, MT742162"
-Known,1927,D. melanogaster,Albany1927,New York,Drosophila melanogaster sigmavirus,26.1,1.5,Drosophila melanogaster sigmavirus,99.2,Partial genome,NC_038281
-Known,1930,D. melanogaster,1004283,Illinois,Chaq virus,100,31.5,Chaq virus,98.1,Complete polyprotein,MT742163
-Known,1930,D. melanogaster,1004283,Illinois,Galbut virus,100,36.8,Galbut virus,98.2,Complete polyprotein,"MT742164, MT742161, MT742162"
-Known,1942,D. melanogaster,1004278,New Jersey,Craigies Hill virus,100,30.6,Craigies Hill virus,66.2,Complete polyprotein,"MH384349, MH384350"
-Known,1942,D. melanogaster,1004278,New Jersey,Galbut virus,18.3,17.4,Galbut virus,97.1,Partial genome,"MT742164, MT742161, MT742162"
-Known,1942,D. melanogaster,1004278,New Jersey,Chaq-like virus,100,490.1,Chaq-like virus,99.6,Complete polyprotein,MT742173
-Known,1942,D. melanogaster,1004278,New Jersey,Vera virus,100,574.4,Vera virus,99.6,Complete polyprotein,MT742172
-Known,1942,D. melanogaster,1004278,New Jersey,Drosophila melanogaster sigmavirus,100,46.2,Drosophila melanogaster sigmavirus,99.6,Complete polyprotein,NC_038281
-Known,1953,D. melanogaster,Kauai1953_1_mel ,Hawai'i,Galbut virus,64.5,2.7,Galbut virus,92.4,Partial genome,"MT742164, MT742161, MT742162"
-Known,1953,D. melanogaster,Kilauea1953_1_sim,Hawai'i,Galbut virus,62.9,3.4,Galbut virus,99.7,Partial genome,"MT742164, MT742161, MT742162"
-Known,1963,D. melanogaster,Frost_03071963,Pennsylvania,Vera virus,100,2619.4,Vera virus,99.7,Complete polyprotein,"MT742171, MT42172"
-Known,1963,D. melanogaster,Frost_03071963,Pennsylvania,Chaq-like virus,100,5323,Chaq-like virus,99.6,Complete polyprotein,MT742173
-Known,1963,D. melanogaster,Frost03211963,Pennsylvania,Galbut virus,99.6,41.9,Galbut virus,98.6,Complete polyprotein,"MT742164, MT742161, MT742162"
-Known,1963,D. melanogaster,Frost03211963,Pennsylvania,Nora virus,100,15.5,Nora virus,98.6,Complete polyprotein,NC_007919.3
-Known,2000,D. simulans,SB_2000_sim_2,California,La Jolla virus,97.3,10.8,La Jolla virus,98.8,Partial genome,KP714073
-Known,2000,D. simulans,SB_2000_sim_2,California,Chaq virus,100,61.6,Chaq virus,98.8,Complete polyprotein,MT742163
-Known,2000,D. simulans,SB_2000_sim_2,California,Galbut virus,100,224.8,Galbut virus,98.7,Complete polyprotein,"MT742164, MT742161, MT742162"
-Known,2000,D. simulans,SB_2000_sim_1,California,Galbut virus,37,1.7,Galbut virus,95,Partial genome,"MT742164, MT742161, MT742162"
-Novel,2003,Unkown,Frost_4908,Pennsylvania,Drosophila-associated sobemo-like virus,54,109.85,Zeugodacus cucurbitae sobemovirus isolate CQ-Zc-V3,68.64,Complete polyprotein,MW310351.1
-Known,2006,D. melanogaster,Davidson2006_1,North Carolina,Drosophila C virus,100,263.9,Drosophila C virus,99.7,Complete polyprotein,OK188767
-Known,2006,D. melanogaster,Davidson2006_2,North Carolina,Bloomfield virus,50.4,1.4,Bloomfield virus,99.8,Partial genome,"MF416371, KP714091, KP714093, KP714094"
-Novel,2010,D. melanogaster,PHDIP1072-11,"Ontario, CAN",Puslinch virus,8.5,123.3,"Lakamha virus (L) , Barranqueras virus (M)",71.1,Complete polyprotein,"NC_078564.1, MK896628.1"
-Known,2011,D. simulans,BBDIV1550-12,California,Galbut virus,100,16.8,Galbut virus,99.5,Complete polyprotein,"MT742164, MT742161, MT742162"
+﻿known,year,Drosophila_species,sample_id,sample_location,virus_name,accession,percent_covered,depth,closest_relative,percent_nucleotide_similarity,region,reference_accession,rate
+Known,1908,D. melanogaster,Illinois_1908,Illinois,Drosophila melanogaster sigmavirus,-,73,2,Drosophila melanogaster sigmavirus,99.4,Partial sequence,MH384277,-
+Known,1908,D. melanogaster,Illinois_1908,Illinois,Tobacco mosaic virus,OR820564,100,850,Tobacco mosaic virus,99.7,Coding complete sequence,KY810785,7.13E-05
+Known,1908,D. melanogaster,Illinois_1908,Illinois,Vera virus,"OR820566, OR820565",100,9-34,Vera virus,99.9 - 100,Coding complete sequence,"MT742171, MT742172",1.09E-05 - 0.00E
+Known,1908,D. melanogaster,Illinois_1908,Illinois,Galbut virus,"OR820562, OR820561, OR820563",100,7-14,Galbut virus,98.9  -99.3,Coding complete sequence,"OR729093, MT742165, OR729068",6.43E-05 - 1.00E-04
+Known,1908,D. melanogaster,Illinois_1908,Illinois,Chaq-like virus,OR820560,100,18,Chaq-like virus,99.9,Coding complete sequence,MT742173,6.36E-06
+Known,1915,D. melanogaster,Illinois_1915_1,Illinois,Galbut virus,-,37,4,Galbut virus,96.1,Partial sequence,"MT742164, MT742161, MT742162",-
+Known,1915,D. melanogaster,Illinois_1915_3,Illinois,Galbut virus,-,39,1,Galbut virus,96.5,Partial sequence,"MT742164, MT742161, MT742162",-
+Known,1919,D. melanogaster,Minnesota_1919_3,Minnesota,Dansoman virus,"OR820572, OR820573",100,40-46,Dansoman virus,97.4 - 98.3,Coding complete sequence,"MH384295, MH384270",2.93E-04 - 3.93E-04
+Known,1919,D. melanogaster,Minnesota_1919_3,Minnesota,Chaq virus,OR820571,100,317,Chaq virus,96.9,Coding complete sequence,MH384367,4.11E-04
+Known,1919,D. melanogaster,Minnesota_1919_3,Minnesota,Galbut virus,"OR820575, OR820574, OR820576",100,247-523,Galbut virus,99.4 - 99.6,Coding complete sequence,"MT742164, MT742165, OR729068",4.55E-05 - 9.31E-05
+Known,1927,D. melanogaster,NewYork_1927,New York,Drosophila melanogaster sigmavirus,-,26,2,Drosophila melanogaster sigmavirus,99.2,Partial sequence,NC_038281,-
+Known,1930,D. melanogaster,Illinois_1930,Illinois,Chaq virus,OR820567,100,32,Chaq virus,97.1,Coding complete sequence,MH384311,4.88E-04
+Known,1930,D. melanogaster,Illinois_1930,Illinois,Galbut virus,"OR820569, OR820568, OR820570",100,29-50,Galbut virus,89.3 - 99.7,Coding complete sequence,"OR729094, MT742165, OR729070",3.64E-05 - 1.19E-03
+Known,1942,D. melanogaster,NewJersey_1942,New Jersey,Craigies Hill virus,"OR820579, OR820578",100,22-40,Craigies Hill virus,90.4 - 98.1,Coding complete sequence,"MH384377, MH384349",2.95E-04 - 1.46E-03
+Known,1942,D. melanogaster,NewJersey_1942,New Jersey,Galbut virus,-,18,17,Galbut virus,97.1,Partial sequence,"MT742164, MT742161, MT742162",-
+Known,1942,D. melanogaster,NewJersey_1942,New Jersey,Chaq-like virus,OR820577,100,490,Chaq-like virus,99.9,Coding complete sequence,MT742173,9.21E-06
+Known,1942,D. melanogaster,NewJersey_1942,New Jersey,Vera virus,"OR820582,  OR820581",100,463-686,Vera virus,99.9 - 100,Coding complete sequence,"MT742171, MT742172",1.58E-05 - 0.00E
+Known,1942,D. melanogaster,NewJersey_1942,New Jersey,Drosophila melanogaster sigmavirus,OR820580,100,46,Drosophila melanogaster sigmavirus,99.2,Coding complete sequence,MH384306,1.88E-04
+Known,1953,D. melanogaster,Hawaii_1953_1,Hawai'i,Galbut virus,-,65,3,Galbut virus,92.4,Partial sequence,"MT742164, MT742161, MT742162",-
+Known,1953,D. simulans,Hawaii_1953_2,Hawai'i,Galbut virus,-,63,3,Galbut virus,99.7,Partial sequence,"MT742164, MT742161, MT742162",-
+Known,1963,D. melanogaster,Pennsylvania_1963_1,Pennsylvania,Vera virus,"OR820593, OR820592",100,2512-2727,Vera virus,99.6 - 100,Coding complete sequence,"MT742168, 	MT742172",6.55E-05 - 0.00E
+Known,1963,D. melanogaster,Pennsylvania_1963_1,Pennsylvania,Chaq-like virus,OR820591,100,5323,Chaq-like virus,99.8,Coding complete sequence,MT742173,3.64E-05
+Known,1963,D. melanogaster,Pennsylvania_1963_2,Pennsylvania,Galbut virus,"OR820588, OR820587, OR820589",100,8-81,Galbut virus,96.4 - 99.2,Coding complete sequence,"MH384303, 	MH384304, MH384276",1.73E-04 - 7.98E-04
+Known,1963,D. melanogaster,Pennsylvania_1963_2,Pennsylvania,Nora virus,OR820590,100,16,Nora virus,97.1,Coding complete sequence,JX220408,5.98E-04
+Known,2000,D. simulans,California_2000_2,California,La Jolla virus,OR820598,97,11,La Jolla virus,95.35,Partial sequence,MH384285,5.81E-03
+Known,2000,D. simulans,California_2000_2,California,Chaq virus,OR820594,100,62,Chaq virus,82.8,Coding complete sequence,MT742163,1.01E-02
+Known,2000,D. simulans,California_2000_2,California,Galbut virus,"OR820596, OR820595, OR820597",100,150-271,Galbut virus,83.5 - 92.4,Coding complete sequence,"MH384283, MH384336, MH384366",6.00E-04 - 2.07E-02
+Known,2000,D. simulans,California_2000_1,California,Galbut virus,-,37,2,Galbut virus,95,Partial sequence,"MT742164, MT742161, MT742162",-
+Known,2006,D. melanogaster,NorthCarolina_2006_1,North Carolina,Drosophila C virus,OR820583,100,264,Drosophila C virus,98.3,Coding complete sequence,OK188767,1.86E-03
+Known,2006,D. melanogaster,NorthCarolina_2006_2,North Carolina,Bloomfield virus,-,50,0.4-2,Bloomfield virus,99.6 - 100,Partial sequence,"MF416371, KP714091, KP714093, KP714094",-
+Known,2011,D. simulans,California_2011_2,California,Galbut virus,"OR820600, OR820599, OR820601",100,16-18,Galbut virus,83.8 - 99.4,Coding complete sequence,"MH384283, MH384336, MH384366",2.00E-03 - 2.61E-02
+Novel,2003,Unkown Drosophilidae,Pennsylvania_2003_1,Pennsylvania,Drosophila-associated sobemo-like virus,"OR820603, OR820602",100,84-136,"Enontekio sobemo-like virus, Atrato Sobemo-like virus 4",38.1 - 70.6,Coding complete sequence,"UYL94340.1, QHA33877.1",-
+Novel,2010,D. melanogaster,Canada_2010_1,"Ontario, CAN",Puslinch virus,"OR820586, OR820585, OR820584",100,81-188,"Tai virus, Las Maloyas virus",32.8 - 39.1,Coding complete sequence,"YP_009362026.1, YP_010840683.1, YP_009362024.1",-

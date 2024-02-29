@@ -1,0 +1,42 @@
+﻿Accession ,date,location,species,virus name,segment
+OR820562,1908,Illinois,D. melanogaster,galbut virus,RdRp
+OR820569,1930,Illinois,D. melanogaster,galbut virus,RdRp
+OR820575,1919,Minnesota,D. melanogaster,galbut virus,RdRp
+OR820588,1963,Pennsylvnia,D. melanogaster,galbut virus,RdRp
+OR820596,2000,California,D. simulans,galbut virus,RdRp
+OR820600,2011,California,D. simulans,galbut virus,RdRp
+OR820599,2011,California,D. simulans,galbut virus,capsid
+OR820595,2000,California,D. simulans,galbut virus,capsid
+OR820587,1963,Pennsylvnia,D. melanogaster,galbut virus,capsid
+OR820574,1919,Minnesota,D. melanogaster,galbut virus,capsid
+OR820561,1908,Illinois,D. melanogaster,galbut virus,capsid
+OR820568,1930,Illinois,D. melanogaster,galbut virus,capsid
+OR820589,1963,Pennsylvnia,D. melanogaster,galbut virus,RNA3
+OR820601,2011,California,D. simulans,galbut virus,RNA3
+OR820597,2000,California,D. simulans,galbut virus,RNA3
+OR820576,1919,Minnesota,D. melanogaster,galbut virus,RNA3
+OR820563,1908,Illinois,D. melanogaster,galbut virus,RNA3
+OR820570,1930,Illinois,D. melanogaster,galbut virus,RNA3
+OR820603,2003,Pennsylvnia,Drosophilidae,Drosophila-associated sobemo-like virus,RNA1
+OR820602,2003,Pennsylvnia,Drosophilidae,Drosophila-associated sobemo-like virus,RNA2
+OR820598,2000,California,D. simulans,La Jolla virus,
+OR820593,1963,Pennsylvnia,D. melanogaster,Vera virus,RdRp
+OR820592,1963,Pennsylvnia,D. melanogaster,Vera virus,capsid
+OR820591,1963,Pennsylvnia,D. melanogaster,Chaq-like virus,
+OR820590,1963,Pennsylvnia,D. melanogaster,Nora virus,
+OR820586,2010,Ontario,D. melanogaster,Puslinch virus,S segment
+OR820585,2010,Ontario,D. melanogaster,Puslinch virus,M segment
+OR820584,2010,Ontario,D. melanogaster,Puslinch virus,L segment
+OR820583,2006,North Carolina,D. melanogaster,Drosophila C virus,
+OR820582,1942,New Jersey,D. melanogaster,Vera virus,RdRp
+ OR820581,1942,New Jersey,D. melanogaster,Vera virus,capsid
+OR820580,1942,New Jersey,D. melanogaster,Sigmavirus,
+OR820577,1942,New Jersey,D. melanogaster,Chaq-like virus,
+OR820572,1919,Minnesota,D. melanogaster,Dansoman virus,RdRp
+OR820579,1942,New Jersey,D. melanogaster,Craigies Hill virus,RNA2
+OR820578,1942,New Jersey,D. melanogaster,Craigies Hill virus,RdRp
+OR820573,1919,Minnesota,D. melanogaster,Dansoman virus,RNA2
+OR820566,1908,Illinois,D. melanogaster,Vera virus,RdRp
+OR820565,1908,Illinois,D. melanogaster,Vera virus,capsid
+OR820564,1908,Illinois,D. melanogaster,Tobacco mosaic virus,
+OR820560,1908,Illinois,D. melanogaster,Chaq-like virus,
