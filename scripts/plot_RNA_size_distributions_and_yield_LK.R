@@ -3,6 +3,7 @@ library(tidyverse)
 library(readxl)
 library(patchwork)
 library(rstatix)
+library(performance)
 
 # Load all dried fly data
 dry_fly_rna1 <- read.electrophoresis("tapestation/2022-08-05 - 11-17-40-HSRNA.xml")
@@ -314,50 +315,77 @@ ggsave("plots/Mos_RNA_length_vs_time.svg", width=10, height=7, units="in")
 ggsave("plots/Mos_RNA_length_vs_time.jpg", width=10, height=7, units="in")
 
 # MLRs
+# Fly
 fly_mlr_filt <- df_mean_fly %>% 
   filter(group != "Fresh",
          group != "old") %>% 
   group_by(weeks, group) %>% 
-  mutate(mean_length_group = mean(mean_length))
+  mutate(mean_length_group = mean(mean_length),
+         weeks = as.factor(weeks),
+         group = as.factor(group))
 
-fly_mlr_filt$weeks <- as.factor(fly_mlr_filt$weeks)
-
-fly_mlr <- lm(mean_length ~ weeks + group, data = fly_mlr_filt)
-tidy_fly_length_mlr1 <- tidy(fly_mlr, conf.int = TRUE)
+# Fly length ~ weeks + group
+fly_mlr1 <- lm(mean_length ~ weeks + group, data = fly_mlr_filt)
+tidy_fly_length_mlr1 <- tidy(fly_mlr1, conf.int = TRUE)
 tidy_fly_length_mlr1 %>% gt() %>% 
-  tab_header(title = "Fly length ~ week (factor) + storage") %>% 
+  tab_header(title = "Fly length ~ week + storage") %>% 
   cols_align(align = "center")
 
-Anova(fly_mlr)
+Anova(fly_mlr1) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
 
-fly_mlr2 <- lm(mean_length ~ weeks + group + mean_length_group, data = fly_mlr_filt)
+check_model(fly_mlr1)
+
+# Fly length ~ group + weeks
+fly_mlr2 <- lm(mean_length ~ group + weeks, data = fly_mlr_filt)
 tidy_fly_length_mlr2 <- tidy(fly_mlr2, conf.int = TRUE)
 tidy_fly_length_mlr2 %>% gt() %>% 
-  tab_header(title = "Fly length ~ week (factor) + storage + mean_length_group") %>% 
+  tab_header(title = "Fly length ~ storage + week") %>% 
   cols_align(align = "center")
 
-Anova(fly_mlr2)
+Anova(fly_mlr2) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
 
+check_model(fly_mlr2)
+
+# Mosquito
 mos_mlr_filt <- df_mean_mos %>% 
   filter(group != "Fresh") %>% 
   group_by(weeks, group) %>% 
-  mutate(mean_length_group = mean(mean_length))
+  mutate(mean_length_group = mean(mean_length),
+         weeks = as.factor(weeks),
+         group = as.factor(group))
 
-mos_mlr_filt$weeks <- as.factor(mos_mlr_filt$weeks)
-
-mos_mlr <- lm(mean_length ~ weeks + group, data = mos_mlr_filt)
-tidy_mos_length_mlr1 <- tidy(mos_mlr, conf.int = TRUE)
+# Mos length ~ weeks + storage
+mos_mlr1 <- lm(mean_length ~ weeks + group, data = mos_mlr_filt)
+tidy_mos_length_mlr1 <- tidy(mos_mlr1, conf.int = TRUE)
 tidy_mos_length_mlr1 %>% gt() %>% 
-  tab_header(title = "Mos length ~ week (factor) + storage") %>% 
+  tab_header(title = "Mos length ~ week + storage") %>% 
   cols_align(align = "center")
 
-Anova(mos_mlr)
+Anova(mos_mlr1) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
 
-mos_mlr2 <- lm(mean_length ~ weeks + group + mean_length_group, data = mos_mlr_filt)
+check_model(mos_conc_mlr1)
+
+# Mos length ~ storage + weeks
+mos_mlr2 <- lm(mean_length ~ group + weeks, data = mos_mlr_filt)
 tidy_mos_length_mlr2 <- tidy(mos_mlr2, conf.int = TRUE)
 tidy_mos_length_mlr2 %>% gt() %>% 
-  tab_header(title = "Mos length ~ week (factor) + storage + mean_length_group") %>% 
+  tab_header(title = "Mos length ~ storage + week") %>% 
   cols_align(align = "center")
 
-Anova(mos_mlr2)
+Anova(mos_mlr2) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ storage + week") %>% 
+  cols_align(align = "center")
+
+check_model(mos_conc_mlr2)
+
 

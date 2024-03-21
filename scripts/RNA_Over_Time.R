@@ -466,8 +466,8 @@ ggplot(conc) +
   geom_point(aes(x = week, y = concentration, color = week)) +
   facet_grid(organism~storage)
 
+# Concentration STATS
 conc2 <- conc %>% 
-  mutate(week = as.factor(week)) %>% 
   group_by(week, storage, organism) %>% 
   mutate(mean_conc = mean(concentration),
          sd_conc = sd(concentration),
@@ -477,44 +477,74 @@ conc2 <- conc %>%
          storage = str_replace(storage, "frozen", "Frozen")) 
 
 fly_conc <- conc2 %>% 
-  filter(organism == "D. melanogaster")
+  filter(organism == "D. melanogaster") %>% 
+  mutate(week = as.factor(week),
+         storage = as.factor(storage))
 
+# concentration based on week adjusting for storage
 fly_conc_mlr1 <- lm(concentration ~ week + storage, data = fly_conc)
 tidy_fly_conc_mlr1 <- tidy(fly_conc_mlr1, conf.int = TRUE)
 tidy_fly_conc_mlr1 %>% gt() %>% 
-  tab_header(title = "Fly Concentration ~ week (factor) + stroage") %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
   cols_align(align = "center")
 
-Anova(fly_conc_mlr1)
+Anova(fly_conc_mlr1) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
 
-fly_conc_mlr2 <- lm(concentration ~ week + storage + mean_conc, data = fly_conc)
+check_model(fly_conc_mlr1)
+
+# concentration based on storage adjusting for week
+fly_conc_mlr2 <- lm(concentration ~ storage + week, data = fly_conc)
 tidy_fly_conc_mlr2 <- tidy(fly_conc_mlr2, conf.int = TRUE)
 tidy_fly_conc_mlr2 %>% gt() %>% 
-  tab_header(title = "Fly Concentration ~ week (factor) + storage + mean_conc") %>% 
+  tab_header(title = "Fly Concentration ~ storage + week") %>% 
   cols_align(align = "center")
 
-Anova(fly_conc_mlr2)
+Anova(fly_conc_mlr2) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ storage + week") %>% 
+  cols_align(align = "center")
 
+check_model(fly_conc_mlr2)
+
+# mosquito data 
+# week as a factor
 mos_conc <- conc2 %>% 
-  filter(organism == "Ae. aegypti")
+  filter(organism == "Ae. aegypti")  %>% 
+  mutate(week = as.factor(week),
+         storage = as.factor(storage))
 
+# concentration based on week adjusting for storage
 mos_conc_mlr1 <- lm(concentration ~ week + storage, data = mos_conc)
 tidy_mos_conc_mlr1 <- tidy(mos_conc_mlr1, conf.int = TRUE)
 tidy_mos_conc_mlr1 %>% gt() %>% 
-  tab_header(title = "Mos Concentration ~ week (factor) + storage") %>% 
+  tab_header(title = "Mos Concentration ~ week + storage") %>% 
   cols_align(align = "center")
 
-Anova(mos_conc_mlr1)
+Anova(mos_conc_mlr1) %>% 
+  gt() %>% 
+  tab_header(title = "Mosquito Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
 
-mos_conc_mlr2 <- lm(concentration ~ week + storage + mean_conc, data = mos_conc)
+check_model(mos_conc_mlr1)
+
+# concentration based on storage adjusting for week
+mos_conc_mlr2 <- lm(concentration ~ storage + week, data = mos_conc)
 tidy_mos_conc_mlr2 <- tidy(mos_conc_mlr2, conf.int = TRUE)
 tidy_mos_conc_mlr2 %>% gt() %>% 
-  tab_header(title = "Fly Concentration ~ week (factor) + storage + mean_conc") %>% 
+  tab_header(title = "Mos Concentration ~ storage + week") %>% 
   cols_align(align = "center")
 
-Anova(mos_conc_mlr2)
+Anova(mos_conc_mlr2) %>% 
+  gt() %>% 
+  tab_header(title = "Mosquito Concentration ~ storage + week") %>% 
+  cols_align(align = "center")
 
+check_model(mos_conc_mlr2)
 
+# Concentration Figure
 y_axis <- expression(paste(" Mean Concentration (ng/",mu,"l)"))
 
 conc_fly <- ggplot(filter(conc2, organism == "D. melanogaster")) +
@@ -566,24 +596,5 @@ ggsave("plots/Mos_RNA_concentrations.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Mos_RNA_concentrations.jpg", units = "in", width = 10, height = 8)
 ggsave("plots/Mos_RNA_concentrations.svg", units = "in", width = 10, height = 8)
 
-# STATS
-fly_stats <- fly_fc %>% 
-  ungroup() %>% 
-  group_by(week, target) %>% 
-  t_test(delta_ct ~ group)
 
-mos_stats <- mosquito_data3 %>% 
-  ungroup() %>% 
-  group_by(week, target) %>% 
-  filter(target != "Guadeloupe mosquito virus") %>% 
-  t_test(delta_ct ~ group)
-
-mos_stats_gmv <- mosquito_data3 %>% 
-  ungroup() %>% 
-  group_by(week, target) %>% 
-  filter(target == "Guadeloupe mosquito virus",
-         week != 32) %>% 
-  t_test(delta_ct ~ group)
-
-mos_stats_joined <- full_join(mos_stats, mos_stats_gmv)
 
