@@ -1,5 +1,5 @@
 library(tidyverse)
-library(viridis)
+library(RColorBrewer)
 library(svglite)
 
 rates <- read_csv("metadata/rates_data.csv")
@@ -26,6 +26,7 @@ rates2 <- rates %>%
 rate_plot <- ggplot(filter(rates2, percent_nucleotide_similarity >= 90), aes(x = virus, y = rate)) +
 #  scale_color_viridis() +
   geom_point(aes(color = sample_id), size = 6, alpha = 0.75) +
+  scale_color_brewer(palette = "Dark2") +
   scale_y_log10() +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
@@ -46,6 +47,7 @@ ggsave("plots/rates.jpg", units = "in", width = 10, height = 8)
 # rate as a function of time
 rate_v_time <- ggplot(filter(rates2, percent_nucleotide_similarity >= 90), aes(x = year, y = rate)) +
   geom_point(aes(color = virus), size = 6, alpha = 0.75) +
+  scale_color_brewer(palette = "Dark2") +
   scale_y_log10() +
   scale_x_log10() +
   theme_minimal(base_size = 11) +
@@ -77,6 +79,7 @@ rates3 <- rates2 %>%
   
 rate_v_time2 <- ggplot(rates3, aes(x = year, y = rate)) +
   geom_point(aes(color = virus), size = 8, alpha = 0.85) +
+  scale_color_brewer(palette = "Dark2") +
   scale_y_log10() +
   scale_x_reverse() +
   facet_wrap(~ parent_virus) +
