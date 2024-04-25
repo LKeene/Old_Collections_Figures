@@ -4,6 +4,8 @@ library(readxl)
 library(patchwork)
 library(rstatix)
 library(performance)
+library(gt)
+library(webshot2)
 
 # Load all dried fly data
 dry_fly_rna1 <- read.electrophoresis("tapestation/2022-08-05 - 11-17-40-HSRNA.xml")

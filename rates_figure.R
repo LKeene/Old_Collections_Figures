@@ -47,6 +47,7 @@ ggsave("plots/rates.jpg", units = "in", width = 10, height = 8)
 rate_v_time <- ggplot(filter(rates2, percent_nucleotide_similarity >= 90), aes(x = year, y = rate)) +
   geom_point(aes(color = virus), size = 6, alpha = 0.75) +
   scale_y_log10() +
+  scale_x_log10() +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),
@@ -62,3 +63,35 @@ rate_v_time
 ggsave("plots/rate_v_time.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/rate_v_time.svg", units = "in", width = 10, height = 8)
 ggsave("plots/rate_v_time.jpg", units = "in", width = 10, height = 8)
+
+# rate as time, without single virus sequences
+rates3 <- rates2 %>% 
+  filter(virus %in% c("Galbut virus RNA 1", "Galbut virus RNA 2", 
+                      "Galbut virus RNA 3", "Chaq virus", "Vera virus RNA 1", 
+                      "Vera virus RNA 2", "Chaq-like virus")) %>% 
+  mutate(parent_virus = str_sub(virus, 1, 6),
+         parent_virus = str_replace(parent_virus, "Vera v", "Vera virus"),
+         parent_virus = str_replace(parent_virus, "Galbut", "Galbut virus"),
+         parent_virus = str_replace(parent_virus, "Chaq v", "Galbut virus"),
+         parent_virus = str_replace(parent_virus, "Chaq-l", "Vera virus"))
+  
+rate_v_time2 <- ggplot(rates3, aes(x = year, y = rate)) +
+  geom_point(aes(color = virus), size = 8, alpha = 0.85) +
+  scale_y_log10() +
+  scale_x_reverse() +
+  facet_wrap(~ parent_virus) +
+  theme_minimal(base_size = 11) +
+  theme(panel.border = element_rect(linetype = "solid", fill = NA),
+        strip.background = element_rect(colour = "black", fill = "white"),
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        strip.text = element_text(face = "bold"),
+        #        axis.text = element_text(face = "bold"),
+        text = element_text(size = 15),
+        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  labs(x = "Old Collection Sequence Date (year)", y = "Rate (s/n/y)", color = "Virus Name")
+
+rate_v_time2
+ggsave("plots/rate_v_time2.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/rate_v_time2.svg", units = "in", width = 10, height = 8)
+ggsave("plots/rate_v_time2.jpg", units = "in", width = 10, height = 8)
