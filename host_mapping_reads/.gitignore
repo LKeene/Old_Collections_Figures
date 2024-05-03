@@ -1,0 +1,6 @@
+.nextflow*
+**/*.pdf
+work
+ribovision
+**/*.mds
+**/*.getrid
