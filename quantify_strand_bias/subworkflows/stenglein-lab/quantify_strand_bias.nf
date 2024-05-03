@@ -4,13 +4,18 @@ include { MAP_TO_GENOME                              } from '../../subworkflows/
 include { BAM_TO_SAM                                 } from '../../modules/stenglein-lab/bam_to_sam'
 include { PREPEND_TSV_WITH_ID                        } from '../../modules/stenglein-lab/prepend_tsv_with_id'
                                                                                 
+include { BAM_TO_COV                                 } from '../../../host_mapping_reads/modules/stenglein-lab/bam_to_cov'
+include { PREPEND_TSV_WITH_ID as PREPEND_BTC_OUTPUT  } from '../../modules/stenglein-lab/prepend_tsv_with_id'
+include { PLOT_VIRUS_COVERAGE                        } from '../../modules/stenglein-lab/plot_virus_coverage'
+
 include { EXTRACT_STRAND_BIAS                        } from '../../modules/stenglein-lab/extract_strand_bias'
 include { PROCESS_STRAND_BIAS_OUTPUT                 } from '../../modules/stenglein-lab/process_strand_bias'
 
+include { SAVE_OUTPUT_FILE as SAVE_OUTPUT_FILE_COVERAGE  } from '../../modules/stenglein-lab/save_output_file'
 include { SAVE_OUTPUT_FILE as SAVE_OUTPUT_FILE_METADATA  } from '../../modules/stenglein-lab/save_output_file'
 include { SAVE_OUTPUT_FILE                           } from '../../modules/stenglein-lab/save_output_file'
                                                                                 
-workflow QUANTIFY_STRAND_BIAS {                                            
+workflow QUANTIFY_STRAND_BIAS {
                                                                                 
   take:
   input     // [meta, fastq, bwa_index, R1_orientation]
@@ -52,4 +57,10 @@ workflow QUANTIFY_STRAND_BIAS {
   // this will save main output file
   SAVE_OUTPUT_FILE(PROCESS_STRAND_BIAS_OUTPUT.out.txt)
 
+  // create virus coverage plots
+  BAM_TO_COV(MAP_TO_GENOME.out.bam.filter{it[1].size() > 0})
+  PREPEND_BTC_OUTPUT(BAM_TO_COV.out.per_base_coverage)
+  SAVE_OUTPUT_FILE_COVERAGE(PREPEND_BTC_OUTPUT.out.tsv.collectFile(name: "collected_virus_coverage.tsv"){it[1]}) 
+  PLOT_VIRUS_COVERAGE(SAVE_OUTPUT_FILE_COVERAGE.out.file, COLLECT_METADATA.out.collected_metadata, R_lib_dir, R_script_dir_ch)
+  // PLOT_VIRUS_COVERAGE(PREPEND_BTC_OUTPUT.out.tsv.collectFile(name: "collected_virus_coverage.tsv"){it[1]}, COLLECT_METADATA.out.collected_metadata, R_lib_dir, R_script_dir_ch)
 }         

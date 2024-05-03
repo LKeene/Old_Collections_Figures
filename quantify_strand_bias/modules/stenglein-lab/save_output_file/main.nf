@@ -11,7 +11,7 @@ process SAVE_OUTPUT_FILE {
     path(file_to_save, stageAs: "input/*")
 
     output:
-    path(file_to_save.fileName.name)
+    path(file_to_save.fileName.name), emit: file
 
     when:
     task.ext.when == null || task.ext.when

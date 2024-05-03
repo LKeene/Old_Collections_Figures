@@ -41,13 +41,11 @@ if (R_lib_dir != "NA") {
 }
 # read in color info
 source(paste0(R_script_dir, "/plot_colors.R"))
-fancy_color_scale <- c(old_collection_color, experimental_dried_color, fresh_frozen_color)
+fancy_color_scale <- c(fresh_frozen_color, experimental_dried_color, old_collection_color)
 
 # read in the file with the mismatch data for all datasets
 datasets <- read.delim(tsv_input, header=F, sep="\t")
 colnames(datasets) <- c("sample_id", "sam_file", "refseq", "fwd_count", "rev_count", "fraction_positive_strand")
-
-# datasets %>% group_by(sample_id) %>% summarize()
 
 # only keep datasets with enough mapping reads
 datasets <- datasets %>% mutate(total_count = fwd_count + rev_count)
@@ -62,9 +60,6 @@ refseq_metadata <- read.delim(refseq_metadata_file, sep=",", header=T)
 # join in metadata
 df <- left_join(datasets, metadata, by="sample_id")
 df <- left_join(df, refseq_metadata, by="refseq")
-# filter(refseq_metadata, row_number() == 31)
-# filter(df, row_number() == 5)
-
 
 # remove seqs for which virus not defined
 missing_virus <- df %>% filter(is.na(virus)) %>% group_by(refseq) %>% summarize()
@@ -74,7 +69,7 @@ if (nrow(missing_virus) > 0) {
 }
 
 # relevel categories
-df$sample_type <- fct_relevel(df$sample_type, "Old_Collection", "Experimental_dried", "Fresh_frozen")
+df$sample_type <- fct_relevel(df$sample_type, "Fresh_frozen", "Experimental_dried", "Old_Collection")
 
 # rename categories
 
@@ -83,7 +78,7 @@ df$sample_type_og <- df$sample_type
 
 df$sample_type <- 
   recode(df$sample_type, 
-         Old_Collection     = "Old\ncollections", 
+         Old_Collection     = "Museum\nsamples",
          Experimental_dried = "Experimental\ndried",
          Fresh_frozen       = "Fresh\nfrozen")
 
@@ -137,13 +132,6 @@ df_shapiro_enough <- df_enough %>% group_by(sample_type, virus) %>% shapiro_test
 filter(df_shapiro_enough, p < 0.05)
 
 # not normally distributed, so should do non-parametric test
-
-# df_t_test <- df_stats_enough %>% group_by(virus) %>% t_test(fraction_positive_strand ~ sample_type)
-# df_t_test_plot <- df_t_test %>% add_xy_position(x = "sample_type")
-
-# df_t_test_type <- df_stats_enough %>% group_by(virus_name_type) %>% t_test(fraction_positive_strand ~ sample_type)
-# df_t_test_type_plot <- df_t_test_type %>% add_xy_position(x = "sample_type")
-
 df_wilcoxon      <- df_stats_enough %>% 
   group_by(virus) %>% 
   wilcox_test(fraction_positive_strand ~ sample_type)
@@ -161,7 +149,7 @@ all_p <- ggplot(df) +
               shape=21, color="black", stroke=0.2, size=1.5, height=0, width=0.25, alpha=0.5) +
   geom_boxplot(aes(x=sample_type, y=fraction_positive_strand, color=sample_type), 
                size=0.25, outlier.shape = NA, fill=NA) +
-  theme_bw(base_size=12) +
+  theme_this_paper(base_size=12) +
   scale_y_continuous(limits=c(0,1.1), breaks=seq(0, 1, 0.25)) +
   xlab("") +
   ylab("Fraction of reads from +sense RNA") +
@@ -176,30 +164,8 @@ all_p
 all_p +
   stat_pvalue_manual(df_wilcoxon_type, y.position = c(1.05, 1.09, 1.05),
                      tip.length = 0.01, bracket.shorten=0.1, size=3)
-ggsave(paste0(output_dir, "/Fig_X_fraction_plus_strand_all.pdf"), width=10, height=7, units="in")
+ggsave(paste0(output_dir, "/Fig_5_fraction_virus_plus_strand.pdf"), width=10, height=7, units="in")
 
 
-# plot a plot with viruses that have observations in all 3 categories
-enough_p <- ggplot(df_enough) +
-  geom_jitter(aes(x=sample_type, y=fraction_positive_strand, fill=sample_type), 
-              shape=21, color="black", stroke=0.2, size=2.5, height=0, width=0.25, alpha=0.5) +
-  geom_boxplot(aes(x=sample_type, y=fraction_positive_strand, color=sample_type), 
-               size=0.25, outlier.shape = NA, fill=NA) +
-  theme_bw(base_size=14) +
-  scale_y_continuous(limits=c(0,1.1), breaks=seq(0, 1, 0.25)) +
-  xlab("") +
-  ylab("Fraction of reads from +sense RNA") +
-  scale_color_manual(values = fancy_color_scale) +
-  scale_fill_manual (values = fancy_color_scale) +
-  facet_wrap(~virus) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-  theme(legend.position = "none")  
-
-enough_p
-  
-enough_p + 
-  stat_pvalue_manual(df_wilcoxon, y.position = c(1.05, 1.09, 1.05), tip.length = 0.01, bracket.shorten=0.1, size=3)
-
-ggsave(paste0(output_dir, "/Fig_X_fraction_plus_strand_galbut.pdf"), width=7, height=4, units="in")
 
 
