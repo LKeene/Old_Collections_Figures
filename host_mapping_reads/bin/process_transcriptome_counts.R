@@ -17,15 +17,12 @@ if (!interactive()) {
 } else {
   # if running via RStudio
   # r_lib_dir = "../lib/R/"
-  tsv_input      = "../results/process/all_species_tallies.txt"
-  metadata_input = "../refseq/metadata.csv"
+  tsv_input      = "../results/process/transcriptome_tallies.txt"
+  metadata_input = "../results/collected_metadata.csv"
   output_dir     = "../results/"
 }
 
 #
-# assign Drosophila species based on counts of CO1-mapping reads
-# from a competitive mapping analysis using all available
-# Drosophila CO1 (cytochrome oxidase 1) sequencs
 #
 # MDS 5/6/2020
 #
@@ -33,6 +30,4 @@ if (!interactive()) {
 # read in the data
 df <- read.delim(tsv_input, sep="\t", header=F)
 
-# name columns
-# colnames(df) <- c("dataset", "species", "count")
 

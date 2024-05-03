@@ -4,7 +4,7 @@ process TABULATE_MAPPING_STATS {
 
   // singularity info for this process
   if (workflow.containerEngine == 'singularity'){
-      container "docker://rocker/tidyverse:4.2.2"
+      container "docker://rocker/tidyverse:4.3.2"
   }
 
   input:

@@ -9,7 +9,6 @@ nextflow.enable.dsl=2
 */
 
 include { FLY_MAPPING_READS } from './workflows/stenglein-lab/fly_mapping_reads'
-include { SPECIES_ID        } from './workflows/stenglein-lab/species_id'
 
 //
 // WORKFLOW: Run main analysis pipeline
@@ -26,12 +25,6 @@ workflow {
     MAIN_WORKFLOW ()
 }
 
-//
-// WORKFLOW: Species ID from read mapping
-//
-workflow SPECIES_ID_WORKFLOW {
-    SPECIES_ID ()
-}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

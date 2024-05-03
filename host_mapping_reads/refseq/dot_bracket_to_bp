@@ -4,7 +4,7 @@ use strict;
 use Getopt::Long;
 
 my $print_usage = 0;
-my $offset = 0;
+my $offset = 1;
 my $seq_name = undef;
 
 my $usage = <<USAGE;
@@ -59,7 +59,7 @@ while (<>)
         $category = "base_paired";
      }
      # elsif ($char eq "[" or $char eq "]" or $char eq "{" or $char eq "}") {
-     elsif ($char =~ /[\[\]\{\}\<\>]/) {
+     elsif ($char =~ /[\[\]\{\}\<\>a-zA-Z]/) {
         $category = "pseudo_knot";
      }
      elsif ($char eq "-") {

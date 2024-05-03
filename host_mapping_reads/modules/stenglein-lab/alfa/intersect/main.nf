@@ -10,7 +10,7 @@ process ALFA_INTERSECT {
   }
 
   input:
-  tuple val(meta), path (bam)
+  tuple val(meta), path (bam), val(R1_orientation)
   val  (index_name)
   path (index_files)
 
@@ -26,8 +26,11 @@ process ALFA_INTERSECT {
   script:
   def args             = task.ext.args ?: ''
 
+  // a flag indicating strand-specific orientation of library
+  // def rev_param = R1_orientation == "reverse" ? "reverse" : "forward"
+
   """
-  alfa -g $index_name --bam $bam $meta.id -s forward --pdf ${meta.id}.pdf -p $task.cpus
+  alfa -g $index_name --bam $bam $meta.id -s $R1_orientation --pdf ${meta.id}.pdf -p $task.cpus
 
   cat <<-END_VERSIONS > versions.yml
   "${task.process}":

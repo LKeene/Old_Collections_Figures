@@ -1,10 +1,13 @@
-include { PARSE_MAPPING_SAMPLESHEET                  } from '../../subworkflows/stenglein-lab/parse_mapping_samplesheet'
-// include { PREPROCESS_READS                           } from '../../subworkflows/stenglein-lab/preprocess_reads'
-include { MARSHALL_FASTQ                             } from '../../subworkflows/stenglein-lab/marshall_fastq'
-include { QUANTIFY_STRAND_BIAS                       } from '../../subworkflows/stenglein-lab/quantify_strand_bias'
-include { BUILD_BWA_INDEX                            } from '../../subworkflows/stenglein-lab/build_bwa_index'
+include { PARSE_MAPPING_SAMPLESHEET       } from '../../subworkflows/stenglein-lab/parse_mapping_samplesheet'
+include { MARSHALL_FASTQ                  } from '../../subworkflows/stenglein-lab/marshall_fastq'
+include { SETUP_R_DEPENDENCIES            } from '../../modules/stenglein-lab/setup_R_dependencies'
+include { BUILD_BWA_INDEX                 } from '../../subworkflows/stenglein-lab/build_bwa_index'
+include { QUANTIFY_STRAND_BIAS            } from '../../subworkflows/stenglein-lab/quantify_strand_bias'
 
 workflow STRANDEDNESS_OF_DRIED_RNA {                                                    
+
+  // R_tar_dir_ch = Channel.fromPath(params.R_tar_dir, checkIfExists: true)
+  SETUP_R_DEPENDENCIES(params.R_packages)
 
   MARSHALL_FASTQ(params.fastq_dir, params.fastq_pattern, params.collapse_duplicate_reads)
 
@@ -25,6 +28,6 @@ workflow STRANDEDNESS_OF_DRIED_RNA {
   // join in orientation info
   ch_mapping = ch_mapping_1.join(ori_ch)
 
-  QUANTIFY_STRAND_BIAS(ch_mapping)
+  QUANTIFY_STRAND_BIAS(ch_mapping, SETUP_R_DEPENDENCIES.out.R_lib_dir)
 }
 

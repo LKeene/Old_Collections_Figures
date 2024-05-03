@@ -1,4 +1,8 @@
 #!/bin/bash 
 
 # nextflow run main.nf -profile local,singularity --fastq_dir ../../2023_1_OC_datasets/concatenated_datasets_R1_only,../../2023_1_OC_datasets/2023_4_Lexi_dried_samples,/home/akeene/FoCo20_21_analysis_20230419/FoCo20_21_analysis/input/fastq,../../2023_1_OC_datasets/Additional_Fresh_Samples  --fastq_pattern "*_R[1]*.fastq*" -resume --genome_fasta refseq/Drosophila_melanogaster.BDGP6.32.dna.toplevel.fa.gz --genome_annotation_gtf refseq/Drosophila_melanogaster.BDGP6.32.108.gtf 
-nextflow run main.nf -profile local,singularity --fastq_dir ../../2023_1_OC_datasets/concatenated_datasets_R1_only,../../2023_1_OC_datasets/2023_4_Lexi_dried_samples,../sra_datasets/fastq  --fastq_pattern "*_R[1]*.fastq*" -resume --genome_fasta refseq/Drosophila_melanogaster.BDGP6.32.dna.toplevel.fa.gz --genome_annotation_gtf refseq/Drosophila_melanogaster.BDGP6.32.108.gtf 
+
+# nextflow run main.nf -profile local,singularity --fastq_dir ../../2023_1_OC_datasets/concatenated_datasets_R1_only,../../2023_1_OC_datasets/2023_4_Lexi_dried_samples,../sra_datasets/fastq  --fastq_pattern "*_R[1]*.fastq*" -resume --genome_fasta refseq/Drosophila_melanogaster.BDGP6.32.dna.toplevel.fa.gz --genome_annotation_gtf refseq/Drosophila_melanogaster.BDGP6.32.108.gtf  --mapping_samplesheet ./mapping_samplesheet.txt
+
+nextflow run main.nf -profile local,singularity --fastq_dir ../../2023_11_OC_preprocessed_reads/trimmed_fastq_R1_only --fastq_pattern "*trim.fastq.gz" -resume --genome_fasta refseq/Drosophila_melanogaster.BDGP6.32.dna.toplevel.fa.gz --genome_annotation_gtf refseq/Drosophila_melanogaster.BDGP6.32.108.gtf  --mapping_samplesheet ./mapping_samplesheet.txt
+

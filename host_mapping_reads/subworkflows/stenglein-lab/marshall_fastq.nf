@@ -1,4 +1,6 @@
-include { CHECK_FASTQ_COMPRESSED      } from '../../modules/stenglein-lab/check_fastq_compressed/main'
+include { CHECK_FASTQ_COMPRESSED   } from '../../modules/stenglein-lab/check_fastq_compressed/main'
+include { COUNT_FASTQ              } from '../../modules/stenglein-lab/count_fastq/main'
+
 
 /*
  Create a channel with input fastq, possibly from multiple directories (specified as a comma-separated list)
@@ -20,6 +22,9 @@ workflow MARSHALL_FASTQ {
  collapse_duplicates    // collapse duplicate reads?
 
  main:
+
+  ch_versions         = Channel.empty()
+  ch_fastq_counts     = Channel.empty()
 
   // User can specify multiple directories containing input fastq
   // In this case, the directories should be provided as a 
@@ -74,9 +79,16 @@ workflow MARSHALL_FASTQ {
 
   .set { ch_reads }
 
-  CHECK_FASTQ_COMPRESSED( ch_reads ) 
+  // double check input is compressed - will error if not
+  CHECK_FASTQ_COMPRESSED ( ch_reads ) 
+
+  // count # of reads in each fastq file (or file pair)
+  COUNT_FASTQ ( ch_reads.map{ meta, reads -> [ meta, reads, "post_trimming"] } )
+  ch_fastq_counts = ch_fastq_counts.mix(COUNT_FASTQ.out.count_file)
   
  emit: 
-  reads         = ch_reads
+  reads           = ch_reads
+  versions        = ch_versions
+  fastq_counts    = ch_fastq_counts
 
 }

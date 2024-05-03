@@ -6,38 +6,85 @@
 # (if running in interactive mode, for example in RStudio for troubleshooting
 # or development).  
 #
-if (!interactive()) {
+if  (!interactive()) {
   # if running from Rscript
   args = commandArgs(trailingOnly=TRUE)
   tsv_input                   = args[1]
   metadata_input              = args[2]
   interaction_categories_file = args[3]
+  R_lib_dir                   = args[4]
+  R_script_dir                = args[5]
+  dataset_sizes_file          = args[6]
+  output_dir                  = "./"
 } else {
   # if running via RStudio
   tsv_input                   = "../results/collected_rRNA_locus_coverage.tsv"
-  metadata_input              = "../refseq/metadata.csv"
+  metadata_input              = "../results/collect/collected_metadata.csv"
   interaction_categories_file = "../refseq/interaction_categories.txt"
+  R_lib_dir                   = "../lib/R/"
+  R_script_dir                = "../../scripts/"
+  output_dir                  = "../results/process/"
+  dataset_sizes_file          =  "../results/all_read_counts.txt"
 }
 
-# quit early while developing
-if (!interactive()) {
-  quit(status = 0)
-}
-
+# these libraries are part of the tidyverse, so will be availabile in the
+# tidyverse singularity image we are using (or analogous conda env)
 library(tidyverse)
-library(patchwork)
+
+# these libraries are not part of the standard tidyverse, so may have to load it 
+# from a specified path
+# either from pipeline's R lib dir or from R environment
+if (R_lib_dir != "NA") {
+  library(rstatix, lib.loc=R_lib_dir)
+  library(ggpubr, lib.loc=R_lib_dir)
+  library(patchwork, lib.loc=R_lib_dir)
+  
+} else {
+  # in this case assuming these will be installed
+  library(rstatix)
+  library(ggpubr)
+  library(patchwork)
+}
+
+# create a file for text output
+output_file <-file(paste0(output_dir, "rRNA_coverage_text.txt"))
+output_text <- ""
+
+# read in common color definitions
+source(paste0(R_script_dir, "/plot_colors.R"))
+fancy_color_scale <- c(fresh_frozen_color, experimental_dried_color, old_collection_color)
 
 # read in metadata
 metadata <- read.delim(metadata_input, sep=",", 
                        header=T, stringsAsFactors = F)
 
 # reorder metadata sample types so they display in desired order
-metadata$sample_type <- fct_relevel(metadata$sample_type, "Old_Collection", "Experimental_dried", "Fresh_frozen")
+metadata$sample_type <- fct_relevel(metadata$sample_type, "Fresh_frozen", "Experimental_dried", "Old_Collection")
 
+# reorder sample factors for display
+metadata$sample_id <- fct_reorder(metadata$sample_id, metadata$date_collected, min)
+metadata$sample_id_in_paper <- fct_reorder(metadata$sample_id_in_paper, metadata$date_collected, min)
+
+# change category labels for plotting 
+metadata$sample_type <- 
+  recode(metadata$sample_type, 
+         Old_Collection     = "Museum\nsamples", 
+         Experimental_dried = "Experimental\ndried",
+         Fresh_frozen       = "Fresh\nfrozen")
+
+# read in dataset sizes file
+dataset_sizes <- read.delim(dataset_sizes_file, sep="\t", header=T)
+dataset_sizes <- dataset_sizes %>% filter(count_type == "post_trimming")
+dataset_sizes <- dataset_sizes %>% mutate(total_reads = count) %>% select(-count_type, -count)
+
+# read in rRNA coverage info
 coverage <- read.delim(file = tsv_input, sep="\t", header=F)
-coverage_columns <- c("sample_id", "refseq", 
+# name columns
+colnames(coverage) <- c("sample_id", "refseq",  
                       "position", "fwd_cov", "rev_cov")
-colnames(coverage) <- coverage_columns
+
+# don't keep position 0 - undefined in 1-index sequences
+coverage <- filter(coverage, position > 0)
 
 # confirm that metadata exists for all datasets
 dataset_names <- coverage %>% 
@@ -45,17 +92,19 @@ dataset_names <- coverage %>%
 missing_metadata <- !(dataset_names %in% metadata$sample_id)
 
 if (any(missing_metadata)) {
-  message("ERROR: missing metadata for the following datasets:")
+  message("WARNING: missing metadata for the following datasets:")
   cat(dataset_names[missing_metadata])
 }
 
-# merge metadata into counts table
+# merge metadata into coverage table
 coverage <- left_join(coverage, metadata, by="sample_id")
 
 # read in interaction categories data: a file that has whether individual bases
 # in the rRNA reference sequence are predicted to be involved in base pairing, pseudoknots, etc
 interaction_categories <- read.delim(interaction_categories_file, sep="\t", header = F)
 colnames(interaction_categories) <- c("refseq", "position", "interaction_category")
+
+# relevel interaction categories
 interaction_categories$interaction_category <- 
   fct_relevel(interaction_categories$interaction_category, 
               "base_paired", "not_paired", "pseudo_knot", "not_in_structure")
@@ -64,8 +113,8 @@ interaction_categories$interaction_category <-
 bp_in_refseq <- nrow(interaction_categories) 
 category_fractions <- interaction_categories %>% group_by(interaction_category) %>% summarize (fraction = n() / bp_in_refseq,
                                                                                                n_in_cat = n())
-
 category_fractions
+
 
 # join in interaction categories to coverage
 coverage <- left_join(coverage, interaction_categories, by=c("refseq", "position"))
@@ -89,7 +138,6 @@ coverage <- coverage %>% mutate(fwd_cov_temp = fwd_cov,
 # calculate ratio of Fwd/Rev coverage
 coverage <- coverage %>% mutate(cov_ratio = fwd_cov/rev_cov,
                                 total_cov = fwd_cov + rev_cov)
-# ----------------------------
 
 # what is distribution of total average coverage?
 coverage_averages <- 
@@ -105,18 +153,24 @@ coverage_averages <-
             mean_rev_cov        = mean  (rev_cov, na.rm = T),
             sd_rev_cov          = sd    (rev_cov, na.rm = T))
 
+# join in averages into main coverage df
+coverage <- left_join(coverage, coverage_averages)
+
 coverage_averages <- left_join(coverage_averages, metadata)
+
+# filter out datasets for which no defined sample type metadata: neg ctrl samples
+coverage_averages <- coverage_averages %>% filter (!is.na(sample_type))
             
 # plot median coverage
 coverage_levels <- ggplot(coverage_averages) + 
-  geom_col(aes(x=sample_id, y=median_total_cov)) +
-
+  geom_boxplot(aes(x=sample_type, y=median_total_cov, color=sample_type)) +
     theme_bw() +
   scale_y_log10() +
+  scale_color_manual(values = fancy_color_scale) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 
 coverage_levels
-ggsave("median_coverage_levels.pdf", width=10, height=7.5, units="in" )
+ggsave(paste0(output_dir, "median_coverage_levels.pdf"), width=10, height=7.5, units="in" )
 
 # filter out samples with < 10x median coverage
 min_sufficient_coverage <- 10
@@ -124,13 +178,42 @@ samples_with_sufficient_coverage <- coverage_averages %>% filter(median_total_co
 coverage <- filter(coverage, sample_id %in% samples_with_sufficient_coverage)
 coverage_averages <- filter(coverage_averages, sample_id %in% samples_with_sufficient_coverage)
 
-# filter out D. simulans samples
-non_simulans_samples <- metadata %>% filter(species != "simulans") %>% pull(sample_id)
-coverage <- filter(coverage, sample_id %in% non_simulans_samples)
-coverage_averages <- filter(coverage_averages, sample_id %in% non_simulans_samples)
+# filter out non-melanogaster datasets
+melanogaster_samples <- metadata %>% filter(str_detect(species, "melano")) %>% pull(sample_id)
+coverage <- filter(coverage, sample_id %in% melanogaster_samples)
+coverage_averages <- filter(coverage_averages, sample_id %in% melanogaster_samples)
 
-# reorder sample factors for display
-coverage$sample_id <- fct_reorder(coverage$sample_id, coverage$date_collected, min)
+# calculate coverage at each position realtive to average coverage across whole refseq
+coverage <- coverage %>%
+  mutate(relative_total_cov = total_cov / median_total_cov,
+         relative_fwd_cov   = fwd_cov   / median_fwd_cov,
+         relative_rev_cov   = rev_cov   / median_rev_cov)
+# calculate coverage values normalized to total read counts
+# an RPM-like normalization
+coverage <- left_join(coverage, dataset_sizes)
+coverage <- coverage %>%
+  mutate(total_cov_rpm = total_cov * 1e6 / total_reads,
+         fwd_cov_rpm   = fwd_cov   * 1e6 / total_reads,
+         rev_cov_rpm   = rev_cov   * 1e6 / total_reads)
+
+# create coverage windows 
+window_size <- 20
+coverage <- coverage %>% 
+  mutate(window_start = window_size * (position %/% window_size),
+         window_mid   = window_start + (window_size / 2))
+
+# calculate % base paired in each window
+coverage_windows <- coverage %>% group_by(sample_id, refseq, window_mid) %>% 
+  summarize(mean_fwd_cov = mean(fwd_cov), 
+            mean_rev_cov = mean(rev_cov),
+            mean_relative_fwd_cov = mean(relative_fwd_cov),
+            mean_relative_rev_cov = mean(relative_rev_cov),
+            mean_fwd_cov_rpm      = mean(fwd_cov_rpm),
+            mean_rev_cov_rpm      = mean(rev_cov_rpm),
+            .groups="drop")
+
+# merge metadata into counts table
+coverage_windows <- left_join(coverage_windows, metadata, by="sample_id")
 
 
 # -------------------------------
@@ -147,35 +230,24 @@ ratio_averages <-
 
 ratio_averages <- left_join(ratio_averages, metadata)
 
-#RColorBrewer Dark2 colors
-dark2_lightblue   <- rgb(166/255,206/255,227/255)
-dark2_blue        <- rgb(31/255,120/255,180/255)
-dark2_lightgreen  <- rgb(178/255,223/255,138/255)
-dark2_green       <- rgb(51/255,160/255,44/255)
-dark2_pink        <- rgb(251/255,154/255,153/255)
-dark2_red         <- rgb(227/255,26/255,28/255)
-dark2_lightorange <- rgb(253/255,191/255,111/255)
-dark2_orange      <- rgb(255/255,127/255,0/255)
-dark2_lightpurple <- rgb(202/255,178/255,214/255)
-dark2_purple      <- rgb(106/255,61/255,154/255)
-dark2_yellow      <- rgb(255/255,255/255,153/255)
-dark2_brown       <- rgb(177/255,89/255,40/255)
+# run stats 
 
-fancy_color_scale <- c(dark2_orange, dark2_blue, dark2_green)
+# normally distributed?
+ratio_shapiro <- ratio_averages %>% group_by(sample_type) %>% shapiro_test(median_cov_ratio)
+filter(ratio_shapiro, p<0.05)
 
-# change category labels for plotting 
-ratio_averages$sample_type <- 
-  recode(ratio_averages$sample_type, 
-         Old_Collection     = "Old\ncollections", 
-         Experimental_dried = "Experimental\ndried",
-         Fresh_frozen       = "Fresh\nfrozen")
+# not normally distributed so use non-parametric test 
+df_ratio_wilcox      <- ratio_averages %>% wilcox_test(median_cov_ratio ~ sample_type)
+df_ratio_wilcox_plot <- df_ratio_wilcox %>% add_xy_position(x = "sample_type")
 
+y_positions <- c(3.5,3.7,3.5)
+
+# make a combined strand ratio plot for supp figures
 rRNA_ratio_p <- ggplot(ratio_averages) +
   geom_boxplot(aes(x=sample_type, y=median_cov_ratio, color=sample_type), fill=NA, size=0.5, outlier.shape=NA) +
   geom_jitter(aes(x=sample_type, y=median_cov_ratio, fill=sample_type), shape=21, color="black", stroke=0.2, size=2, height=0, width=0.25) +
   scale_y_log10() +
-  theme_classic(base_size = 13) +
-  theme(legend.position = "none") +
+  theme_this_paper(base_size = 14) + 
   scale_color_manual(values = fancy_color_scale) +
   scale_fill_manual(values = fancy_color_scale) +
   # ggtitle("Surviving ribosomal RNA is preferentially anti-sense", subtitle="consistent with the hypothesis that old RNA is double-stranded") +
@@ -183,338 +255,403 @@ rRNA_ratio_p <- ggplot(ratio_averages) +
         plot.subtitle = element_text(size = 13)) +
   # ylab("Median ratio of +strand to -strand\nrRNA-mapping reads\nin individual datasets") +
   ylab("Median ratio of +strand \nto -strand\nrRNA-mapping reads") + 
-  xlab("")
+  xlab("") +
+  stat_pvalue_manual(df_ratio_wilcox_plot, y.position = y_positions, 
+                     tip.length = 0.01, bracket.shorten=0.1, size=3, bracket.nudget.y=0.1)
+
 
 rRNA_ratio_p
-ggsave("rRNA_ratios_figure.pdf", width=8, height=6.5, units="in")
+ggsave(paste0(output_dir, "Fig_6_rRNA_strandedness_plot.pdf"), width=7, height=4, units="in")
 
-# change category labels for plotting 
-coverage_averages$sample_type <- 
-  recode(coverage_averages$sample_type, 
-         Old_Collection     = "Old\ncollections", 
-         Experimental_dried = "Experimental\ndried",
-         Fresh_frozen       = "Fresh\nfrozen")
+# normally distributed?
+fwd_cov_shapiro <- coverage_averages %>% group_by(sample_type) %>% shapiro_test(median_fwd_cov)
+filter(fwd_cov_shapiro, p<0.05)
 
-  
+# not normally distributed so use non-parametric test 
+df_fwd_cov_wilcox      <- coverage_averages %>% wilcox_test(median_fwd_cov ~ sample_type)
+df_fwd_cov_wilcox_plot <- df_fwd_cov_wilcox %>% add_xy_position(x = "sample_type")
+
+y_positions <- c(6.0,6.2,6.0)
+
 rRNA_fwd_p <- ggplot(coverage_averages) +
   geom_boxplot(aes(x=sample_type, y=median_fwd_cov, color=sample_type), fill=NA, size=0.5, outlier.shape=NA) +
   geom_jitter (aes(x=sample_type, y=median_fwd_cov, fill=sample_type), shape=21, color="black", stroke=0.2, size=2, height=0, width=0.25) +
   scale_y_log10() +
-  theme_classic(base_size = 13) +
-  theme(legend.position = "none") +
+  theme_this_paper(base_size = 14) +
   scale_color_manual(values = fancy_color_scale) +
   scale_fill_manual(values = fancy_color_scale) +
   # ggtitle("Similar +sense rRNA coverage levels in older samples") +
   ylab("Median +strand rRNA\ncoverage depth") + 
-  xlab("")
+  xlab("") +
+  stat_pvalue_manual(df_fwd_cov_wilcox_plot, y.position = y_positions, 
+                     tip.length = 0.01, bracket.shorten=0.1, size=3, bracket.nudget.y=0.1)
   
 rRNA_fwd_p
-ggsave("rRNA_fwd_coverage_figure.pdf", width=8, height=6.5, units="in")
+
+# normally distributed?
+rev_cov_shapiro <- coverage_averages %>% group_by(sample_type) %>% shapiro_test(median_rev_cov)
+filter(rev_cov_shapiro, p<0.05)
+
+# not normally distributed so use non-parametric test 
+df_rev_cov_wilcox      <- coverage_averages %>% wilcox_test(median_rev_cov ~ sample_type)
+df_rev_cov_wilcox_plot <- df_rev_cov_wilcox %>% add_xy_position(x = "sample_type")
+
+y_positions <- c(4.0,4.2,4.0)
 
 rRNA_rev_p <- ggplot(coverage_averages) +
   geom_boxplot(aes(x=sample_type, y=median_rev_cov, color=sample_type), fill=NA, size=0.5, outlier.shape=NA) +
   geom_jitter (aes(x=sample_type, y=median_rev_cov, fill=sample_type), shape=21, color="black", stroke=0.2, size=2, height=0, width=0.25) +
   scale_y_log10() +
-  theme_classic(base_size = 13) +
-  theme(legend.position = "none") +
+  theme_this_paper(base_size = 14) +
   scale_color_manual(values = fancy_color_scale) +
   scale_fill_manual(values = fancy_color_scale) +
   # ggtitle("There is relatively more antisense ribosomal RNA in older samples") + 
   ylab("Median -strand rRNA\ncoverage depth") + 
-  xlab("")
+  xlab("") +
+  stat_pvalue_manual(df_fwd_cov_wilcox_plot, y.position = y_positions, 
+                     tip.length = 0.01, bracket.shorten=0.1, size=3, bracket.nudget.y=0.1)
 
 rRNA_rev_p
-ggsave("rRNA_rev_coverage_figure.pdf", width=8, height=6.5, units="in")
 
 # combined plot
-combined_rRNA_plot <- rRNA_ratio_p + rRNA_fwd_p + rRNA_rev_p + plot_layout(ncol = 1)
-combined_rRNA_plot
-ggsave("combined_rRNA_plot.pdf", width=5, height=9, units="in")
+combined_rRNA_plot <- 
+  # apply_plot_theme(rRNA_ratio_p) + 
+  # apply_plot_theme(rRNA_fwd_p) + 
+  # apply_plot_theme(rRNA_rev_p) + 
+  rRNA_ratio_p + 
+  rRNA_fwd_p + 
+  rRNA_rev_p + 
+  plot_layout(ncol = 1) + 
+  plot_annotation(tag_levels = 'A')
+combined_rRNA_plot 
+ggsave(paste0(output_dir, "Fig_SX_rRNA_strandedness_plot_all.pdf"), width=7, height=9, units="in")
 
-# The drosophila genome contains antisense rRNA pseudogenes
+# output text for paper
 
-# -----------------------
-# INTERACTION CATEGORIES 
-# -----------------------
+ratio_averages_by_type <- ratio_averages %>% group_by(sample_type) %>% summarize(median_ratio = median(median_cov_ratio))
+ff_ratio_avg <- ratio_averages_by_type %>% filter(sample_type == "Fresh\nfrozen") %>% pull(median_ratio)
+ed_ratio_avg <- ratio_averages_by_type %>% filter(sample_type == "Experimental\ndried") %>% pull(median_ratio)
+oc_ratio_avg <- ratio_averages_by_type %>% filter(sample_type == "Museum\nsamples") %>% pull(median_ratio)
 
-coverage_long <- coverage %>% pivot_longer(cols = c(total_cov, fwd_cov, rev_cov), names_to = "cov_type", names_pattern = "(.*)_.*", values_to="cov")
+ed_ratio_pval <- df_ratio_wilcox %>% filter(group1 == "Experimental\ndried" & group2 == "Fresh\nfrozen") %>% pull(p.adj)
+oc_ratio_pval <- df_ratio_wilcox %>% filter(group1 == "Museum\nsamples" & group2 == "Fresh\nfrozen") %>% pull(p.adj)
 
-# calculate coverage averages, but break down by RNApdbee interaction category
-coverage_averages_by_category <- 
-  coverage_long %>% 
-  group_by(sample_id, interaction_category, cov_type) %>% 
-  summarize(median_cov    = median(cov, na.rm = T),
+output_text <- paste0(
+  output_text,
+  "There was evidence that double-stranded rRNA preferentially survived in old samples. ",
+  "In fresh frozen samples, most rRNA was +strand: the ratio of +strand to -strand RNA was ",
+  sprintf("%0.0f", ff_ratio_avg), ":1. ",
+  "In dried and museum sample, the +strand:-strand ratio dropped to ",
+  sprintf("%0.0f", ed_ratio_avg), ":1 and ", 
+  sprintf("%0.0f", oc_ratio_avg), ":1 (p = ",
+  sprintf("%0.1e", ed_ratio_pval), " and ",
+  sprintf("%0.1e", oc_ratio_pval), " respectively; Fig. XA). ",
+  "This decreased ratio was driven by a relative decrease in +strand RNA and a relative ",
+  "increase in -strand RNA in older samples (Figs. XB & XC & Supp Fig X). ",
+  "negative-sense rRNA could derive from anti-sense transcription of rRNA genes or psuedogenes. ",
+  "Indeed, oppsite-strand transcripts levels were elevated in old samples (Fig. X), ",
+  "consistent with preferential survival of sense:antisense duplexes. ",
+  "\n\n"
+)
+
+writeLines(output_text, output_file)
+
+# an example of -strand rRNA transcription:
+# http://flybase.org/jbrowse/?data=data%2Fjson%2Fdmel&loc=X%3A23276863..23284877&tracks=Gene_span%2Ctopoview_NCBI_aggregate_100&highlight=
+
+# ---------------------------------------------------
+# Coverage by base type (base-paired, unpaired, etc)
+# ---------------------------------------------------
+
+category_coverage_averages <- coverage %>% 
+  group_by(sample_id, refseq, interaction_category) %>%
+  summarize(median_category_fwd_cov = median(fwd_cov), .groups="drop")
+
+sample_coverage_averages <- coverage %>% 
+  group_by(sample_id, refseq) %>%
+  summarize(median_refseq_fwd_cov = median(fwd_cov), .groups="drop")
+
+category_coverage_averages <- left_join(category_coverage_averages, sample_coverage_averages)
+
+category_coverage_averages <- mutate(category_coverage_averages, relative_category_fwd_cov = median_category_fwd_cov / median_refseq_fwd_cov)
+
+category_coverage_averages <- left_join(category_coverage_averages, metadata)
+
+# total median coverage for each category / sample-type
+coverage_averages_by_category <- category_coverage_averages %>%
+  group_by(sample_type, interaction_category) %>%
+  summarize(median_relative_category_fwd_cov = median(relative_category_fwd_cov),
             .groups="drop")
 
-coverage_averages_by_category_wide <- 
-  coverage_averages_by_category %>% pivot_wider(names_from = interaction_category, values_from=median_cov)
-
-coverage_averages_by_category_ratios <-
-  coverage_averages_by_category_wide %>% 
-  mutate(
-    not_in_structure = not_in_structure / base_paired,
-    not_paired       = not_paired       / base_paired,
-    pseudo_knot      = pseudo_knot      / base_paired)  %>% 
-  pivot_longer(cols=c(not_in_structure, not_paired, pseudo_knot), names_to = "interaction_category", values_to = "rel_base_paired")
-
-coverage_averages_by_category_ratios <- left_join(coverage_averages_by_category_ratios, metadata)
 
 # change category labels for plotting 
-coverage_averages_by_category_ratios$sample_type <- 
-  recode(coverage_averages_by_category_ratios$sample_type, 
-         Old_Collection     = "Old\ncollections", 
-         Experimental_dried = "Experimental\ndried",
-         Fresh_frozen       = "Fresh\nfrozen")
-       
-# change category labels for plotting 
-coverage_averages_by_category_ratios$interaction_category <- 
-  recode(coverage_averages_by_category_ratios$interaction_category, 
+category_coverage_averages$interaction_category <- 
+  recode(category_coverage_averages$interaction_category, 
          not_in_structure   = "Bases not in 3D structure",
-         not_paired         = "Bases in structure but not paired",
-         pseudo_knot        = "Bases in pseudo knot-type structures")
-       
-coverage_averages_by_category_ratios$interaction_category <- 
-  fct_relevel(coverage_averages_by_category_ratios$interaction_category, 
-              "Bases not in 3D structure",
-              "Bases in structure but not paired",
-              "Bases in pseudo knot-type structures")
+         base_paired        = "Paired bases",
+         not_paired         = "Unpaired bases",
+         pseudo_knot        = "Bases in pseudo-knot\ntype structure")
 
-ggplot(filter(coverage_averages_by_category_ratios, cov_type == "total")) +
-  geom_boxplot(aes(x=sample_type, y=rel_base_paired, color=sample_type), fill=NA, size=0.5, outlier.shape=NA) +
-  geom_jitter (aes(x=sample_type, y=rel_base_paired, fill =sample_type), shape=21, color="black", stroke=0.2, size=3, height=0, width=0.25) +
+# do stats
+
+# is normal?
+category_shapiro <- category_coverage_averages %>% 
+  group_by(sample_type, interaction_category) %>% shapiro_test(relative_category_fwd_cov)
+filter(category_shapiro, p < 0.05)
+
+# not normally distributed so do Wilcoxon
+df_cat_wilcox      <- category_coverage_averages %>% group_by(interaction_category) %>% wilcox_test(relative_category_fwd_cov ~ sample_type)
+df_cat_wilcox_plot <- df_cat_wilcox %>% add_xy_position(x = "sample_type")
+
+y_positions <- rep(c(4.05,4.2,4.05), 4)
+       
+ggplot(category_coverage_averages) +
+  geom_boxplot(aes(x=sample_type, y=relative_category_fwd_cov, color=sample_type), 
+               fill=NA, size=0.3, outlier.shape=NA) +
+  geom_jitter (aes(x=sample_type, y=relative_category_fwd_cov, fill =sample_type), 
+               shape=21, color="black", stroke=0.2, size=2, height=0, width=0.25, alpha=0.5) +
   geom_hline  (aes(yintercept = 1), size = 0.25, linetype=2, color="grey50") +
-  # scale_y_log10() +
-  theme_classic(base_size = 13) +
-  theme(legend.position = "none") +
+  facet_wrap(~interaction_category, nrow=1) +
   scale_color_manual(values = fancy_color_scale) +
   scale_fill_manual(values = fancy_color_scale) +
-  # ggtitle("There is relatively more antisense ribosomal RNA in older samples") + 
-  # facet_grid(cov_type ~ interaction_category) +
-  facet_wrap(~interaction_category) +
-  ylab("Median coverage levels relative to coverage of bases\nthat are base-paired in ribosome cryo-EM structure") +
-  xlab("")
-
-ggsave("coverage_by_base_categories.pdf", width=10, height=6.5, units="in")
-
-# what is distribution of total average coverage?
-total_coverage_averages <- 
-  coverage %>% 
-  group_by(sample_id, refseq) %>% 
-  summarize(median_total_cov    = median(total_cov, na.rm = T),
-            mean_total_cov      = mean  (total_cov, na.rm = T),
-            sd_total_cov        = sd    (total_cov, na.rm = T),
-            .groups             = "drop")
-
-# calculate normalized  total coverage relative to average for that sample
-coverage <- left_join(coverage, total_coverage_averages)
-coverage <- coverage %>% mutate(normalized_total_cov = total_cov / median_total_cov)
-
-# create coverage windows 
-window_size <- 10
-coverage <- coverage %>% mutate(window_start = window_size * (position %/% window_size),
-                         window_mid   = window_start + (window_size / 2))
-
-# calculate % base paired in each window
-coverage_windows <- coverage %>% group_by(sample_id, refseq, window_mid) %>% 
-  summarize(mean_fwd_cov = mean(fwd_cov), .groups="drop")
-
-# merge metadata into counts table
-coverage_windows <- left_join(coverage_windows, metadata, by="sample_id")
-
-samples_to_highlight <- c("1004283", "StPaul1919_3", 
-                           "PosCtrl_Pool1", "FoCo17_Pos")
-
-cov_to_plot <-  filter(coverage_windows, sample_id %in% samples_to_highlight)
-  
-cov_to_plot$refseq    <- recode(cov_to_plot$refseq, B2 = "SSU (18S) rRNA", A5 = "LSU (28S) rRNA")
-cov_to_plot$sample_id <- recode(cov_to_plot$sample_id, 
-                                     "1004283"     = "1930", 
-                                     StPaul1919_3  = "1919",
-                                     FoCo17_Pos    = "2021-a",
-                                     PosCtrl_Pool1 = "2021-b")
+  ylab("Median coverage of bases relative to overall median coverage") + 
+  xlab("") +
+  theme_this_paper(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  stat_pvalue_manual(df_cat_wilcox_plot, y.position = y_positions, 
+                     # label="p.adj",
+                     tip.length = 0.01, bracket.shorten=0.1, size=3, bracket.nudget.y=0.1)
 
 
-ggplot(cov_to_plot) +
-  geom_line(aes(x=window_mid, y=mean_fwd_cov, color=sample_type)) +
+ggsave(paste0(output_dir, "Fig_8C_ribosomal_coverage_by_base_categories.pdf"), width=7.5, height=5.5, units="in")
+
+# text for paper
+output_text <- paste0(
+  output_text,
+  "In addition to different ratios of +strand to -strand rRNA, rRNA coverage patterns varied in old samples (Fig. X). ",
+  "rRNA coverage in fresh sample datasets was relatively even. In contrast coverage levels in older samples flucuated across rRNAs, ",
+  " with some regions exhibiting reproducibly lower than average coverage. ",
+  "For instance, coverage around base 3000 of the 28S rRNA had consistently lower coverage in most old samples (Fig. X). ",
+  "\n\n",
+  "To investigate why some rRNA regions might be differentially represented in old samples ",
+  "we took advantage of a 3-dimensional structure of the D. melanogaster ribosome [PMID: 23636399]. ",
+  "This structure includes ribosomal proteins and RNA (Fig. XA). ",
+  "It is possible to see whether individual RNA bases in the structure ",
+  "are interacting with other bases, and whether individual bases are actually present in the structure (Fig. XB). ",
+  "\n\n"
+  )
+
+# text for paper
+output_text <- paste0(
+  output_text,
+  "Using RNApdbee software, we categorized rRNA bases into one of 4 categories: ",
+  "base-paired, ",  
+  "unpaired, present in a higher-order secondary structure like pseudoknots, or missing from the 3D structure ",
+  "[PMID:  15941360, 29718468, 23636399]. ",
+  sprintf ("%0.1f",
+           category_fractions %>% filter(interaction_category == "base_paired") %>% pull(fraction) * 100) ,
+  "% of rRNA bases were categorized as paired with another rRNA base, ",
+  sprintf ("%0.1f",
+           category_fractions %>% filter(interaction_category == "not_paired") %>% pull(fraction) * 100) ,
+  "% as unpaired, ",
+  sprintf ("%0.1f",
+           category_fractions %>% filter(interaction_category == "pseudo_knot") %>% pull(fraction) * 100) ,
+  "% in higher order secondary structures, and ",
+  sprintf ("%0.1f",
+           category_fractions %>% filter(interaction_category == "not_in_structure") %>% pull(fraction) * 100) ,
+  "% were not present in the 3D structure (Fig. X)." ,
+  "\n\n"
+)
+
+# pull out certain p values
+oc_v_f_bp_p <- df_cat_wilcox %>% 
+  filter(interaction_category == "Paired bases" & group1 == "Museum\nsamples" & group2 == "Fresh\nfrozen") %>%
+  pull(p.adj)
+
+oc_v_f_up_p <- df_cat_wilcox %>% 
+  filter(interaction_category == "Unpaired bases" & group1 == "Museum\nsamples" & group2 == "Fresh\nfrozen") %>%
+  pull(p.adj)
+
+oc_v_f_pk_p <- df_cat_wilcox %>% 
+  filter(interaction_category == "Bases in pseudo knot-type structures" & group1 == "Museum\nsamples" & group2 == "Fresh\nfrozen") %>%
+  pull(p.adj)
+
+oc_v_f_np_p <- df_cat_wilcox %>% 
+  filter(interaction_category == "Bases not in 3D structure" & group1 == "Museum\nsamples" & group2 == "Fresh\nfrozen") %>%
+  pull(p.adj)
+
+oc_v_f_np_fd <- coverage_averages_by_category %>% 
+  filter(interaction_category == "not_in_structure" & sample_type == "Museum\nsamples") %>%
+  pull(median_relative_category_fwd_cov) 
+
+
+output_text <- paste0(
+  output_text,
+ "We calculated the median coverage of bases in each of these 4 categories ",
+ "relative to total median coverage (Fig X). ",
+ "Paired bases had higher average coverage in older samples (p = ",
+ sprintf("%0.1e", oc_v_f_bp_p),
+ " in museum samples vs. fresh ones). ",
+ "Similarly, bases in higher-order secondary structures had higher coverage in old samples (p = ",
+ sprintf("%0.1e ", oc_v_f_pk_p),
+ "relative to fresh). ",
+ "In contrast, unpaired bases had lower average coverage in old samples (p = ",
+ sprintf("%0.1e", oc_v_f_up_p),
+ "vs. fresh samples). ",
+ "Bases that were not captured in the 3D structure were the least well reprented in older samples, ",
+ " with coverage levels ",
+ sprintf("%0.0f", 1/oc_v_f_np_fd),
+ "x lower than overall average coverage levels in museum samples ",
+ "(p = ",
+ sprintf("%0.1e ", oc_v_f_np_p),
+ "relative to Fresh frozen). ",
+ "Experimentally dried sample coverage levels were generally intermediate between ",
+ "fresh and museum samples, consistent with their intermediate age (Fig. X). ",
+ "\n\n"
+ )
+ 
+# new paragraph summarizing
+output_text <- paste0(
+  output_text,
+ "These patterns suggested that the molecular environment immediately surrounding RNA bases influenced the likelihood that they ",
+ "would survive over long periods.  Being base-paired or in a higher-order RNA secondary structure protected bases, ",
+ "enabling them to survive over long periods. ",
+ "In contrast, unpaired bases or bases not present in the 3D structure ",
+ "- presumably because they were outside of the protective environment of the ribosome - ",
+ "were less likely to surivive. ",
+ "\n\n"
+)
+
+# Figure legend
+output_text <- paste0(
+  output_text,
+  "Figure X: Certain types of bases tended to survive in old rRNA. ",
+  "The median coverage level of bases in the indicated categories relative to total median coverage is plotted. ",
+  "Each point represents a dataset from an individual fly. ",
+  "Signifcance levels of Wilcoxon test adjusted pvalues are indicated. ",
+  "\n\n"
+)
+       
+       
+# Methods text:   What do significance asterisks mean?  
+# from: http://rpkgs.datanovia.com/ggpubr/reference/stat_compare_means.html
+output_text <- paste0(
+  output_text,
+  "P-values adjusted for multiple testing are shown on plots using the following significance levels:  ",
+  "ns: p > 0.05; ",
+  "*: p <= 0.05; ",
+  "**: p <= 0.01; ",
+  "***: p <= 0.001; ",
+  "****: p <= 0.0001; ",
+  "\n\n"
+)  
+
+## ggpubr citation:
+output_text <- paste0(output_text,
+       "Kassambara A (2023). ggpubr: 'ggplot2' Based Publication Ready Plots. R package version 0.6.0, https://rpkgs.datanovia.com/ggpubr/.\n\n")
+
+print(output_text)
+writeLines(output_text, output_file)
+
+# ---------------------------------
+# Plot coverage by position
+# ---------------------------------
+
+# relabel refseq names
+# A2/B5 refer to 3D structure chains in PDB
+coverage_windows$refseq    <- recode(coverage_windows$refseq, B2 = "18S SSU rRNA", A5 = "28S LSU rRNA")
+
+# reorder sample factors for display
+coverage_windows$sample_id <- fct_reorder(coverage_windows$sample_id, coverage_windows$date_collected, min)
+
+# plot coverage with individual datasets as individual lines
+ggplot(coverage_windows) + 
+  geom_line(aes(x=window_mid, y=mean_fwd_cov_rpm, group=sample_id, color=sample_type), linewidth=0.25) +
   scale_color_manual(values = fancy_color_scale) +
   scale_y_log10() +
-  facet_grid(sample_id~refseq, scales="free_x") +
-  theme_bw(base_size = 14)  +
+  facet_grid(sample_type~refseq, scales="free_x") +
+  theme_this_paper(base_size = 14)  +
+  theme(strip.text.y = element_text(angle = 0))+
   theme(legend.position = "none") +
-  ylab("+strand rRNA coverage") +
-  xlab("Position in rRNA") +
-  annotate("rect", xmin = 2297, xmax = 2385, ymin = 1e-1, ymax = 1e6,
-               alpha = .2, fill="yellow") +
-  annotate("rect", xmin = 1814, xmax = 1858, ymin = 1e-1, ymax = 1e6,
-               alpha = .2, fill="yellow") +
-  annotate("rect", xmin = 2416, xmax = 2445, ymin = 1e-1, ymax = 1e6,
-               alpha = .2, fill="yellow") 
+  ylab(paste0("Mean +strand coverage per million reads")) +
+  xlab("Position in rRNA") 
 
-ggsave("characteristic_dips_in_rRNA_coverage.pdf", width=10, height=7, units="in")
+ggsave(paste0(output_dir, "Fig_7_rRNA_coverage_traces.pdf"), width=10, height=7.5, units="in")
 
-# some_dataset_ids <- c("Albany1902_1", "1004279", "1004283", "Davidson2006_1", "FoCo17_Pos", "PosCtrl_Pool1")
-some_dataset_ids <- c("Albany1902_1", "1004283","PosCtrl_Pool1")
-some_datasets <- filter(coverage, sample_id %in% some_dataset_ids)
-cov_plot <- ggplot(some_datasets) +
-  geom_line(aes(x=position, y=fwd_cov, color=sample_id)) +
+# plot -strand coverage with individual datasets as individual lines
+ggplot(coverage_windows) + 
+  geom_line(aes(x=window_mid, y=mean_rev_cov_rpm, group=sample_id, color=sample_type), linewidth=0.25) +
+  scale_color_manual(values = fancy_color_scale) +
   scale_y_log10() +
-  # facet_wrap(~sample_id, ncol=1) +
-  facet_wrap(~sample_id) +
-  xlab("") + 
-  ylab ("Coverage of sense mapping reads") +
-  theme_bw(base_size=14) +
-  theme(legend.position = "none")
-  
-cov_plot
-  
-bp_plot <- ggplot (bp_windows) +
-  geom_line(aes(x=window_mid, y=percent_base_paired)) +
-  theme_bw(base_size = 14) +
-  ylab(paste0("Fraction of ", window_size, " nt windows\nin structure\nor base-paired")) +
-  xlab("Position in pre-rRNA (nt)") 
+  facet_grid(sample_type~refseq, scales="free_x") +
+  theme_this_paper(base_size = 14)  +
+  theme(strip.text.y = element_text(angle = 0))+
+  theme(legend.position = "none") +
+  ylab(paste0("Mean -strand coverage per million reads")) +
+  xlab("Position in rRNA") 
 
-bp_plot
+ggsave(paste0(output_dir, "Fig_SX_neg_strand_rRNA_coverage.pdf"), width=7.5, height=7.5, units="in")
 
-cov_plot + bp_plot  + plot_layout(ncol=1, heights=c(8,2))
-
-ggsave("coverage_bp_plot.pdf", units="in", height=7.5, width=10)
-
-# scatter plot of cov vs. %basepaired
-some_datasets <- filter(cov_bp_windows, sample_id %in% some_dataset_ids)
-
-ggplot(some_datasets) +
-  geom_point(aes(x=percent_base_paired, y=mean_fwd_cov, fill=sample_id), 
-             shape=21, size=1, color="black", stroke=0.25) +
-  geom_smooth(aes(x=percent_base_paired, y=mean_fwd_cov)) +
-  theme_bw() +
-  # scale_x_log10() +
+# plot +strand vs. -strand coverage as scatter plot
+ggplot(coverage_windows) + 
+  geom_point(aes(x=mean_fwd_cov_rpm, y=mean_rev_cov_rpm, fill=sample_type), shape=21, color="black", size=1, stroke=0.25, alpha=0.25) +
+  geom_abline(slope=1, intercept=0, color="slateblue", linewidth=0.5, linetype=2, alpha=0.5) +
+  scale_color_manual(values = fancy_color_scale) +
+  scale_fill_manual(values = fancy_color_scale) +
+  scale_x_log10() +
   scale_y_log10() +
-  xlab("Percent of window base paired or in structure") +
-  ylab("Mean sense coverage(x)") +
-  facet_wrap(~sample_id)
+  coord_equal()+
+  facet_grid(sample_type~refseq) +
+  theme_this_paper(base_size = 14)  +
+  theme(strip.text.y = element_text(angle = 0))+
+  theme(legend.position = "none") +
+  ylab(paste0("Mean -strand coverage per million reads")) +
+  ylab(paste0("Mean +strand coverage per million reads")) 
 
-ggplot(coverage) +
-  geom_line(aes(x=position, y=rev_coverage, color=sample_id)) +
-  scale_y_log10() +
-  facet_wrap(~sample_id) +
-  theme_bw() 
+ggsave(paste0(output_dir, "Fig_SX_both_strand_rRNA_coverage_scatter_plot.pdf"), width=7.5, height=7.5, units="in")
 
-# individual base data
-individual_positions <- left_join(coverage, bp)
-individual_positions <- individual_positions %>% filter(!is.na(in_bp))
+# is +strand and -strand coverage correlated?
+cov_cor <- coverage %>% group_by(sample_id, refseq) %>% cor_test(fwd_cov, rev_cov)
+cov_cor <- left_join(cov_cor, metadata)
 
-some_individual_positions <- filter(individual_positions, sample_id %in% some_dataset_ids)
+# how well correlated are +strand and -strand
+ggplot(cov_cor) +
+  geom_boxplot(aes(x=sample_type, y=cor, color=sample_type),
+               fill=NA, size=0.3) +
+  scale_color_manual(values = fancy_color_scale) +
+  facet_wrap(~refseq, nrow = 1) + 
+  theme_this_paper(base_size = 14)  +
+  theme(strip.text.y = element_text(angle = 0))+
+  theme(legend.position = "none") +
+  ylab("Correlation coefficient of +strand coverage to -strand coverage") +
+  xlab("") 
 
-ggplot(some_individual_positions) +
-  geom_point(aes(x=in_bp, y=fwd_coverage)) +
-  geom_boxplot(aes(x=in_bp, y=fwd_coverage, group=in_bp)) +
-  theme_bw() + 
-  scale_y_log10() +
-  facet_wrap(~sample_id)
+ggsave(paste0(output_dir, "Fig_SX_both_strand_rRNA_coverage_correlation.pdf"), width=7.5, height=7.5, units="in")
 
-# 
-# 
-# # FR3D interaction categories
-# # from Ribovision: https://github.com/RiboZones/RiboVision
-# # ----------------------------
-# 
-# ssu_bp <- read.delim("../refseq/DM_SSU_BasePairs.csv", sep=",", skip=2)
-# colnames(ssu_bp) <- c("index", "pos1", "pos2", "bp_type")
-# ssu_bp$refseq <- "B2"
-# 
-# lsu_bp <- read.delim("../refseq/DM_LSU_BasePairs.csv", sep=",", skip=2)
-# colnames(lsu_bp) <- c("index", "pos1", "pos2", "bp_type")
-# lsu_bp$refseq <- "A5"
-# 
-# bp_types <- rbind(ssu_bp, lsu_bp) %>% select(-index)
-# 
-# # simplify bp types
-# bp_types <- bp_types %>% pivot_longer(starts_with("pos"), 
-#                           names_to  = "which_pos",
-#                           values_to = "position") %>%
-#   select(-which_pos)
-# head(bp_types)
-# 
-# # add 1 to position # since seem to be 0 indexed (some positions are 0)
-# bp_types <- bp_types %>% mutate(position = position + 1)
-# 
-# bp_types_short <- bp_types %>% group_by(refseq, position) %>% summarize(.groups="drop")
-# 
-# bp_ww <- bp_types %>% filter(bp_type == "cWW")
-# 
-# bp_types_short <- left_join(bp_types_short, bp_ww)
-# bp_types_short$bp_type <- replace_na(bp_types_short$bp_type, "other")
-# 
-# 
-# coverage <- left_join(coverage, bp_types_short)
-# coverage$bp_type <- replace_na(coverage$bp_type, "none")
-# 
-# 
-# 
-# 
-# 
-# # coverage averages by ribovision category
-# # calculate coverage averages, but break down by RNApdbee interaction category
-# coverage_averages_by_ribovision_category <- 
-#   coverage_long %>%
-#   group_by(sample_id, bp_type, cov_type) %>% 
-#   summarize(median_cov    = median(cov, na.rm = T),
-#             .groups="drop")
-# 
-# ribovision_wide <- 
-#   coverage_averages_by_ribovision_category %>% filter(cov_type == "fwd") %>%
-#   pivot_wider(names_from = bp_type, values_from=median_cov)
-# 
-# ribovision_ratios <-
-#   ribovision_wide %>% 
-#   mutate(
-#     not_base_paired  = none / cWW,
-#     non_canonical    = other / cWW) %>% 
-#   pivot_longer(cols=c(not_base_paired, non_canonical), names_to = "bp_type", values_to = "rel_coverage")
-# 
-# 
-# ribovision_ratios <- left_join(ribovision_ratios, metadata)
-# 
-# ggplot(ribovision_ratios) +
-#   geom_jitter(aes(x=bp_type, y=rel_coverage))
-# 
-# ggplot(ribovision_ratios) +
-#   geom_boxplot(aes(x=sample_type, y=rel_coverage, color=sample_type), fill=NA, size=0.5, outlier.shape=NA) +
-#   geom_jitter (aes(x=sample_type, y=rel_coverage, fill =sample_type), shape=21, color="black", stroke=0.2, size=3, height=0, width=0.25) +
-#   # geom_hline  (aes(yintercept = 1), size = 0.25, linetype=2, color="grey50") +
-#   # scale_y_log10() +
-#   theme_classic(base_size = 13) +
-#   theme(legend.position = "none") +
-#   scale_color_manual(values = fancy_color_scale) +
-#   scale_fill_manual(values = fancy_color_scale) +
-#   # ggtitle("There is relatively more antisense ribosomal RNA in older samples") + 
-#   # facet_grid(cov_type ~ interaction_category) +
-#   facet_wrap(~bp_type) +
-#   ylab("Median coverage levels relative to coverage of bases\nthat are base-paired in ribosome cryo-EM structure") +
-#   xlab("")
-# 
-# 
-# 
-# # what about surface accessibility? 
-# 
-# # read in sasa data
-# 
-# # A5 LSU rRNA
-# sasa_A5 <- read.delim("../freesasa/4V6W.A5.rsa.txt", skip=9, header=F, sep="")
-# sasa_A5 <- sasa_A5[, c(3,4)]
-# sasa_A5$refseq <- "A5"
-# 
-# # B2 SSU rRNA
-# sasa_B2 <- read.delim("../freesasa/4V6W.B2.rsa.txt", skip=9, header=F, sep="")
-# sasa_B2 <- sasa_B2[, c(3,4)]
-# sasa_B2$refseq <- "B2"
-# 
-# sasa <- rbind(sasa_A5, sasa_B2)
-# colnames(sasa) <- c("position", "sasa", "refseq")
-# 
-# # parse integer out of freesasa position # (chain+position)
-# # and switch to 0 index coordinates
-# sasa$position <- as.integer(str_match(sasa$position, "(\\d+)")[,2])
-# sasa <- sasa %>% mutate(position = position - 1)
-# 
-# coverage <- left_join(coverage, sasa, by=c("refseq", "position"))
+# a function to plot coverage by position for one or more datasets
+# with datasets faceted
+plot_coverage_by_position <- function (df_to_plot, facet_var="sample_id_in_paper"){
+  ggplot(df_to_plot) + 
+    geom_line(aes(x=window_mid, y=mean_fwd_cov_rpm, color=sample_type)) +
+    scale_color_manual(values = fancy_color_scale) +
+    scale_y_log10() +
+    facet_grid( vars(.data[[facet_var]]), vars(refseq), scales="free_x") +
+    theme_this_paper(base_size = 14)  +
+    theme(strip.text.y = element_text(angle = 0))+
+    theme(legend.position = "none") +
+    ylab("+strand rRNA coverage per million reads") +
+    xlab("Position in rRNA") 
+}
+
+plot_coverage_by_position(filter(coverage_windows, sample_type == "Museum\nsamples"))
+ggsave(paste0(output_dir, "Fig_SX_OC_sample_coverage.pdf"), width=7.5, height=7.5, units="in")
+
+plot_coverage_by_position(filter(coverage_windows, sample_type == "Experimental\ndried"), facet_var="sample_id")
+ggsave(paste0(output_dir, "Fig_SX_ED_sample_coverage.pdf"), width=7.5, height=7.5, units="in")
+
+plot_coverage_by_position(filter(coverage_windows, sample_type == "Fresh\nfrozen"), facet_var="sample_id")
+ggsave(paste0(output_dir, "Fig_SX_FF_sample_coverage.pdf"), width=7.5, height=7.5, units="in")
+
+
+# close file 
+close(output_file)

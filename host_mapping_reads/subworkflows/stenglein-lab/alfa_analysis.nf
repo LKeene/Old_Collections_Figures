@@ -4,8 +4,8 @@ include { ALFA_INTERSECT              } from '../../modules/stenglein-lab/alfa/i
 workflow ALFA_ANALYSIS {
 
  take:
-  bam
-  genome_annotation_gtf
+  bam                    // [meta, bam, R1_orientation]
+  genome_annotation_gtf  // 
 
  main:
 
