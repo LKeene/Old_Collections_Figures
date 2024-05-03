@@ -1,3 +1,5 @@
+## Analysis of host-mapping reads in datasets from old and new RNA
+
 This directory contains code used to analyze host-mapping (fly-mapping) reads in Old Collection datasets.  
 
 The main questions we sought to address are:
