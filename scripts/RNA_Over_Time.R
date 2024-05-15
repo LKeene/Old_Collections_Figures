@@ -13,6 +13,7 @@ library(broom)
 library(knitr)
 library(gt)
 library(webshot2)
+library(performance)
 
 # read in data
 fly <- read_xlsx("tidy_formats/fly_data2.xlsx")
@@ -93,9 +94,9 @@ rel_fly_dct <- ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus",
 
 rel_fly_dct
 # remove # to save plot
-ggsave("plots/Relative_fly_dct_3targets.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/Relative_fly_dct_3targets.svg", units = "in", width = 10, height = 8)
-ggsave("plots/Relative_fly_dct_3targets.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/Relative_fly_dct_3targets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/Relative_fly_dct_3targets.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/Relative_fly_dct_3targets.jpg", units = "in", width = 10, height = 8)
 
 rel_fly_supp <- ggplot(filter(fly_fc, target %in% c("La Jolla virus", "Thika virus")), aes(x = week)) +
   geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
@@ -125,9 +126,9 @@ rel_fly_supp <- ggplot(filter(fly_fc, target %in% c("La Jolla virus", "Thika vir
        fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 rel_fly_supp
-ggsave("plots/Relative_fly_dct_SuppTargets.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/Relative_fly_dct_SuppTargets.svg", units = "in", width = 10, height = 8)
-ggsave("plots/Relative_fly_dct_SuppTargets.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental1/Relative_fly_dct_SuppTargets.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental1/Relative_fly_dct_SuppTargets.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental1/Relative_fly_dct_SuppTargets.jpg", units = "in", width = 10, height = 8)
 
 # short vs long Galbut & Rpl
 short_v_long <- fly_data3 %>% 
@@ -187,9 +188,9 @@ long_vs_short <- ggplot(short_v_long_wide) +
 
 long_vs_short
 # remove # to save plot
-ggsave("plots/long_vs_short.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/long_vs_short.svg", units = "in", width = 10, height = 8)
-ggsave("plots/long_vs_short.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/long_vs_short.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/long_vs_short.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/long_vs_short.jpg", units = "in", width = 10, height = 8)
 
 # dry vs frozen fly
 plot_min_x_df <- 16
@@ -246,9 +247,9 @@ dry_vs_frozen_fly <- ggplot(dry_v_frozen_wide) +
 
 dry_vs_frozen_fly
 # remove # to save plot
-ggsave("plots/dry_vs_frozen.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/dry_vs_frozen.svg", units = "in", width = 10, height = 8)
-ggsave("plots/dry_vs_frozen.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental1/dry_vs_frozen.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental1/dry_vs_frozen.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental1/dry_vs_frozen.jpg", units = "in", width = 10, height = 8)
 
 
 # Mosquito figures
@@ -321,9 +322,9 @@ rel_mos_dct <- ggplot(mos_data3, aes(x = week)) +
 
 rel_mos_dct  
 # remove # to save plot
-ggsave("plots/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/Relative_mosquito_dct.svg", units = "in", width = 10, height = 8)
-ggsave("plots/Relative_mosquito_dct.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/Relative_mosquito_dct.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/Relative_mosquito_dct.jpg", units = "in", width = 10, height = 8)
 
 # dry vs frozen mos
 plot_min_x_df_m <- 14
@@ -377,9 +378,9 @@ dry_vs_frozen_mos <- ggplot(dry_v_frozen_wide_mos) +
 
 dry_vs_frozen_mos
 # remove # to save plot
-ggsave("plots/dry_vs_frozen_mos.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/dry_vs_frozen_mos.svg", units = "in", width = 10, height = 8)
-ggsave("plots/dry_vs_frozen_mos.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/dry_vs_frozen_mos.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/dry_vs_frozen_mos.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/dry_vs_frozen_mos.jpg", units = "in", width = 10, height = 8)
 
 # Number Positive                                                                                                                                                                                                                                                                             
 fly_summary <- fly %>% 
@@ -432,9 +433,9 @@ n_pos_fly <- ggplot(filter(all, target == "RpL32 mRNA")) +
        color = "Sample Storage", shape = "Primer Length")
 
 n_pos_fly
-ggsave("plots/n_positve_fly_mRNA.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/n_positve_fly_mRNA.jpg", units = "in", width = 10, height = 8)
-ggsave("plots/n_positve_fly_mRNA.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/n_positve_fly_mRNA.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/n_positve_fly_mRNA.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/n_positve_fly_mRNA.svg", units = "in", width = 10, height = 8)
 
 n_pos_mos <- ggplot(filter(all, target == "Actin mRNA")) +
   geom_point(aes(x = week, y = n, color = group), 
@@ -455,9 +456,9 @@ n_pos_mos <- ggplot(filter(all, target == "Actin mRNA")) +
        color = "Sample Storage", shape = "Primer Length")
 
 n_pos_mos
-ggsave("plots/n_positve_mos_mRNA.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/n_positve_mos_mRNA.jpg", units = "in", width = 10, height = 8)
-ggsave("plots/n_positve_mos_mRNA.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/n_positve_mos_mRNA.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/n_positve_mos_mRNA.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/n_positve_mos_mRNA.svg", units = "in", width = 10, height = 8)
 
 # RNA Concentrations Over Time
 conc <- read_csv("metadata/OverTimeRNAConcentrations.csv")
@@ -465,84 +466,6 @@ conc <- read_csv("metadata/OverTimeRNAConcentrations.csv")
 ggplot(conc) +
   geom_point(aes(x = week, y = concentration, color = week)) +
   facet_grid(organism~storage)
-
-# Concentration STATS
-conc2 <- conc %>% 
-  group_by(week, storage, organism) %>% 
-  mutate(mean_conc = mean(concentration),
-         sd_conc = sd(concentration),
-         organism = str_replace(organism, "fly", "D. melanogaster"),
-         organism = str_replace(organism, "mosquito", "Ae. aegypti"),
-         storage = str_replace(storage, "dry", "Dry"),
-         storage = str_replace(storage, "frozen", "Frozen")) 
-
-fly_conc <- conc2 %>% 
-  filter(organism == "D. melanogaster") %>% 
-  mutate(week = as.factor(week),
-         storage = as.factor(storage))
-
-# concentration based on week adjusting for storage
-fly_conc_mlr1 <- lm(concentration ~ week + storage, data = fly_conc)
-tidy_fly_conc_mlr1 <- tidy(fly_conc_mlr1, conf.int = TRUE)
-tidy_fly_conc_mlr1 %>% gt() %>% 
-  tab_header(title = "Fly Concentration ~ week + storage") %>% 
-  cols_align(align = "center")
-
-Anova(fly_conc_mlr1) %>% 
-  gt() %>% 
-  tab_header(title = "Fly Concentration ~ week + storage") %>% 
-  cols_align(align = "center")
-
-check_model(fly_conc_mlr1)
-
-# concentration based on storage adjusting for week
-fly_conc_mlr2 <- lm(concentration ~ storage + week, data = fly_conc)
-tidy_fly_conc_mlr2 <- tidy(fly_conc_mlr2, conf.int = TRUE)
-tidy_fly_conc_mlr2 %>% gt() %>% 
-  tab_header(title = "Fly Concentration ~ storage + week") %>% 
-  cols_align(align = "center")
-
-Anova(fly_conc_mlr2) %>% 
-  gt() %>% 
-  tab_header(title = "Fly Concentration ~ storage + week") %>% 
-  cols_align(align = "center")
-
-check_model(fly_conc_mlr2)
-
-# mosquito data 
-# week as a factor
-mos_conc <- conc2 %>% 
-  filter(organism == "Ae. aegypti")  %>% 
-  mutate(week = as.factor(week),
-         storage = as.factor(storage))
-
-# concentration based on week adjusting for storage
-mos_conc_mlr1 <- lm(concentration ~ week + storage, data = mos_conc)
-tidy_mos_conc_mlr1 <- tidy(mos_conc_mlr1, conf.int = TRUE)
-tidy_mos_conc_mlr1 %>% gt() %>% 
-  tab_header(title = "Mos Concentration ~ week + storage") %>% 
-  cols_align(align = "center")
-
-Anova(mos_conc_mlr1) %>% 
-  gt() %>% 
-  tab_header(title = "Mosquito Concentration ~ week + storage") %>% 
-  cols_align(align = "center")
-
-check_model(mos_conc_mlr1)
-
-# concentration based on storage adjusting for week
-mos_conc_mlr2 <- lm(concentration ~ storage + week, data = mos_conc)
-tidy_mos_conc_mlr2 <- tidy(mos_conc_mlr2, conf.int = TRUE)
-tidy_mos_conc_mlr2 %>% gt() %>% 
-  tab_header(title = "Mos Concentration ~ storage + week") %>% 
-  cols_align(align = "center")
-
-Anova(mos_conc_mlr2) %>% 
-  gt() %>% 
-  tab_header(title = "Mosquito Concentration ~ storage + week") %>% 
-  cols_align(align = "center")
-
-check_model(mos_conc_mlr2)
 
 # Concentration Figure
 y_axis <- expression(paste(" Mean Concentration (ng/",mu,"l)"))
@@ -567,9 +490,9 @@ conc_fly <- ggplot(filter(conc2, organism == "D. melanogaster")) +
         text = element_text(size = 20)) 
 
 conc_fly
-ggsave("plots/Fly_RNA_concentrations.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/Fly_RNA_concentrations.jpg", units = "in", width = 10, height = 8)
-ggsave("plots/Fly_RNA_concentrations.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/Fly_RNA_concentrations.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/Fly_RNA_concentrations.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure1/Fly_RNA_concentrations.svg", units = "in", width = 10, height = 8)
 
 # Mosquito Concentration
 conc_mos <- ggplot(filter(conc2, organism == "Ae. aegypti")) +
@@ -592,9 +515,9 @@ conc_mos <- ggplot(filter(conc2, organism == "Ae. aegypti")) +
        color = "Sample Storage")
 
 conc_mos
-ggsave("plots/Mos_RNA_concentrations.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/Mos_RNA_concentrations.jpg", units = "in", width = 10, height = 8)
-ggsave("plots/Mos_RNA_concentrations.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/Mos_RNA_concentrations.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/Mos_RNA_concentrations.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental2/Mos_RNA_concentrations.svg", units = "in", width = 10, height = 8)
 
 
 

@@ -6,7 +6,7 @@ library(ggthemes)
 library(writexl)
 
 # There were some manual changes made to ensure that all the sample names followed
-# the appropriate format.
+# the appropriate format..
 
 # Load in data
 all_data <- multiple_excel_reader("qPCR_data", pattern = "*.xls", 

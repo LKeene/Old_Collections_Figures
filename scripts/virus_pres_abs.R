@@ -5,14 +5,14 @@ library(svglite)
 other_viruses <- read_csv("metadata/OtherViruses_known.csv")
 
 other_viruses <- other_viruses %>% 
-  mutate(sample_id = factor(sample_id, levels = c("California_2011_rep2", "Canada_2010_rep1", 
-                                    "NorthCarolina_2006_rep1", "NorthCarolina_2006_rep2", 
-                                    "Pennsylvania_2003_rep1", "California_2000_rep1",
-                                    "California_2000_rep2", "Pennsylvania_1963_rep1", "Pennsylvania_1963_rep2", 
-                                    "Hawaii_1953_rep1", "Hawaii_1953_rep2", 
+  mutate(sample_id = factor(sample_id, levels = c("California_2011_2", "Canada_2010_1", 
+                                    "NorthCarolina_2006_1", "NorthCarolina_2006_2", 
+                                    "Pennsylvania_2003_1", "California_2000_1",
+                                    "California_2000_2", "Pennsylvania_1963_1", "Pennsylvania_1963_2", 
+                                    "Hawaii_1953_1", "Hawaii_1953_2", 
                                     "NewJersey_1942", "Illinois_1930",
-                                    "NewYork_1927", "Minnesota_1919_rep3", 
-                                    "Illinois_1915_rep1", "Illinois_1915_rep3", "Illinois_1908"))) %>% 
+                                    "NewYork_1927", "Minnesota_1919_3", 
+                                    "Illinois_1915_1", "Illinois_1915_3", "Illinois_1908"))) %>% 
   mutate(virus_name = factor(virus_name, levels = c("Puslinch virus", "Drosophila-associated sobemo-like virus", 
                                                     "Tobacco mosaic virus", "Nora virus", 
                                                     "La Jolla virus", "Drosophila C virus", 
@@ -40,6 +40,6 @@ fig <- ggplot(other_viruses, aes(x = sample_id, y = virus_name)) +
   labs(x = "", y = "", color = "% of Sequence \nCovered", shape = "Species") 
 
 fig
-ggsave("plots/virus_pres_abs.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/virus_pres_abs.jpg", units = "in", width = 12, height = 8)
-ggsave("plots/virus_pres_abs.svg", units = "in", width = 12, height = 8)
+ggsave("plots/Figure3/virus_pres_abs.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Figure3/virus_pres_abs.jpg", units = "in", width = 12, height = 8)
+ggsave("plots/Figure3/virus_pres_abs.svg", units = "in", width = 12, height = 8)

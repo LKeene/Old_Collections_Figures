@@ -26,9 +26,9 @@ OC_conc <- ggplot(df2, aes(x = date_collected)) +
   labs(x = "Year Collected", y = "Concentration ng/ul", shape = "Storage Type")
 
 OC_conc
-ggsave("plots/CollectionVsConcentration.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/CollectionVsConcentration.jpg", units = "in", width = 10, height = 8)
-ggsave("plots/CollectionVsConcentration.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure2/CollectionVsConcentration.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Figure2/CollectionVsConcentration.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Figure2/CollectionVsConcentration.svg", units = "in", width = 10, height = 8)
 
 df_mlr <- lm(concentration ~ method + Storage.Type, data = df2)
 summary(df_mlr)
@@ -62,9 +62,9 @@ HI_vs_other <- ggplot(df3, aes(x = date_collected, y = concentration)) +
   labs(x = "Year Collected", y = "Concentration ng/ul", shape = "Storage Type")
  
 HI_vs_other  
-ggsave("plots/HIvsOther.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/HIvsOther.svg", units = "in", width = 10, height = 8)
-ggsave("plots/HIvsOther.jpg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental4/HIvsOther.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental4/HIvsOther.svg", units = "in", width = 10, height = 8)
+ggsave("plots/Supplemental4/HIvsOther.jpg", units = "in", width = 10, height = 8)
 
 df4 <- df3 %>% 
   filter(HI == "Other")

@@ -548,3 +548,157 @@ acc %>% gt() %>%
                locations = cells_column_labels(columns = `Segment`)) %>% 
   gtsave("plots/OC_Accession.png", vwidth = 1500)
 ggsave("RNA_yield_vs_sample_age.pdf", width=10, height=7, units="in")
+
+#Incorrect MLRs
+# Concentration STATS
+conc2 <- conc %>% 
+  group_by(week, storage, organism) %>% 
+  mutate(mean_conc = mean(concentration),
+         sd_conc = sd(concentration),
+         organism = str_replace(organism, "fly", "D. melanogaster"),
+         organism = str_replace(organism, "mosquito", "Ae. aegypti"),
+         storage = str_replace(storage, "dry", "Dry"),
+         storage = str_replace(storage, "frozen", "Frozen")) 
+
+fly_conc <- conc2 %>% 
+  filter(organism == "D. melanogaster") %>% 
+  mutate(week = as.factor(week),
+         storage = as.factor(storage))
+
+# concentration based on week adjusting for storage
+fly_conc_mlr1 <- lm(concentration ~ week + storage, data = fly_conc)
+tidy_fly_conc_mlr1 <- tidy(fly_conc_mlr1, conf.int = TRUE)
+tidy_fly_conc_mlr1 %>% gt() %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
+
+Anova(fly_conc_mlr1) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
+
+check_model(fly_conc_mlr1)
+
+# concentration based on storage adjusting for week
+fly_conc_mlr2 <- lm(concentration ~ storage + week, data = fly_conc)
+tidy_fly_conc_mlr2 <- tidy(fly_conc_mlr2, conf.int = TRUE)
+tidy_fly_conc_mlr2 %>% gt() %>% 
+  tab_header(title = "Fly Concentration ~ storage + week") %>% 
+  cols_align(align = "center")
+
+Anova(fly_conc_mlr2) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ storage + week") %>% 
+  cols_align(align = "center")
+
+check_model(fly_conc_mlr2)
+
+# mosquito data 
+# week as a factor
+mos_conc <- conc2 %>% 
+  filter(organism == "Ae. aegypti")  %>% 
+  mutate(week = as.factor(week),
+         storage = as.factor(storage))
+
+# concentration based on week adjusting for storage
+mos_conc_mlr1 <- lm(concentration ~ week + storage, data = mos_conc)
+tidy_mos_conc_mlr1 <- tidy(mos_conc_mlr1, conf.int = TRUE)
+tidy_mos_conc_mlr1 %>% gt() %>% 
+  tab_header(title = "Mos Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
+
+Anova(mos_conc_mlr1) %>% 
+  gt() %>% 
+  tab_header(title = "Mosquito Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
+
+check_model(mos_conc_mlr1)
+
+# concentration based on storage adjusting for week
+mos_conc_mlr2 <- lm(concentration ~ storage + week, data = mos_conc)
+tidy_mos_conc_mlr2 <- tidy(mos_conc_mlr2, conf.int = TRUE)
+tidy_mos_conc_mlr2 %>% gt() %>% 
+  tab_header(title = "Mos Concentration ~ storage + week") %>% 
+  cols_align(align = "center")
+
+Anova(mos_conc_mlr2) %>% 
+  gt() %>% 
+  tab_header(title = "Mosquito Concentration ~ storage + week") %>% 
+  cols_align(align = "center")
+
+check_model(mos_conc_mlr2)
+
+# MLRs
+# Fly
+fly_mlr_filt <- df_mean_fly %>% 
+  filter(group != "Fresh",
+         group != "old") %>% 
+  group_by(weeks, group) %>% 
+  mutate(mean_length_group = mean(mean_length),
+         weeks = as.factor(weeks),
+         group = as.factor(group))
+
+# Fly length ~ weeks + group
+fly_mlr1 <- lm(mean_length ~ weeks + group, data = fly_mlr_filt)
+tidy_fly_length_mlr1 <- tidy(fly_mlr1, conf.int = TRUE)
+tidy_fly_length_mlr1 %>% gt() %>% 
+  tab_header(title = "Fly length ~ week + storage") %>% 
+  cols_align(align = "center")
+
+Anova(fly_mlr1) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
+
+check_model(fly_mlr1)
+
+# Fly length ~ group + weeks
+fly_mlr2 <- lm(mean_length ~ group + weeks, data = fly_mlr_filt)
+tidy_fly_length_mlr2 <- tidy(fly_mlr2, conf.int = TRUE)
+tidy_fly_length_mlr2 %>% gt() %>% 
+  tab_header(title = "Fly length ~ storage + week") %>% 
+  cols_align(align = "center")
+
+Anova(fly_mlr2) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
+
+check_model(fly_mlr2)
+
+# Mosquito
+mos_mlr_filt <- df_mean_mos %>% 
+  filter(group != "Fresh") %>% 
+  group_by(weeks, group) %>% 
+  mutate(mean_length_group = mean(mean_length),
+         weeks = as.factor(weeks),
+         group = as.factor(group))
+
+# Mos length ~ weeks + storage
+mos_mlr1 <- lm(mean_length ~ weeks + group, data = mos_mlr_filt)
+tidy_mos_length_mlr1 <- tidy(mos_mlr1, conf.int = TRUE)
+tidy_mos_length_mlr1 %>% gt() %>% 
+  tab_header(title = "Mos length ~ week + storage") %>% 
+  cols_align(align = "center")
+
+Anova(mos_mlr1) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ week + storage") %>% 
+  cols_align(align = "center")
+
+check_model(mos_conc_mlr1)
+
+# Mos length ~ storage + weeks
+mos_mlr2 <- lm(mean_length ~ group + weeks, data = mos_mlr_filt)
+tidy_mos_length_mlr2 <- tidy(mos_mlr2, conf.int = TRUE)
+tidy_mos_length_mlr2 %>% gt() %>% 
+  tab_header(title = "Mos length ~ storage + week") %>% 
+  cols_align(align = "center")
+
+Anova(mos_mlr2) %>% 
+  gt() %>% 
+  tab_header(title = "Fly Concentration ~ storage + week") %>% 
+  cols_align(align = "center")
+
+check_model(mos_conc_mlr2)
+

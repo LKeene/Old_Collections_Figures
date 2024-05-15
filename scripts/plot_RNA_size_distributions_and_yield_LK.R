@@ -176,6 +176,7 @@ df_mean_fly <- fly_data %>%
 
 # merge in metadata
 df_mean_fly <- left_join(df_mean_fly, metadata_fly, by="id")
+#write_csv(df_mean_fly, "metadata/fly_length_data.csv")
 
 # investigate filtering impact
 #ggplot(filter(df, tape_id=="oc" & sample.index < 8)) +
@@ -203,9 +204,9 @@ p_oc <- ggplot(filter(df_mean_fly, group == "old")) +
         text = element_text(size = 20)) 
 
 p_oc
-ggsave("plots/OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
-ggsave("plots/OC_RNA_length_vs_time.svg", width=10, height=7, units="in")
-ggsave("plots/OC_RNA_length_vs_time.jpg", width=10, height=7, units="in")
+ggsave("plots/Figure2/OC_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/Figure2/OC_RNA_length_vs_time.svg", width=10, height=7, units="in")
+ggsave("plots/Figure2/OC_RNA_length_vs_time.jpg", width=10, height=7, units="in")
 
 # calculate average lengths
 oc_only <- df_mean_fly %>% 
@@ -252,9 +253,9 @@ p_new <- ggplot(df_mean_fly_grouped, aes(as.numeric(weeks))) +
         text = element_text(size = 20)) 
 
 p_new
-ggsave("plots/Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
-ggsave("plots/Fly_RNA_length_vs_time.svg", width=10, height=7, units="in")
-ggsave("plots/Fly_RNA_length_vs_time.jpg", width=10, height=7, units="in")
+ggsave("plots/Figure1/Fly_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/Figure1/Fly_RNA_length_vs_time.svg", width=10, height=7, units="in")
+ggsave("plots/Figure1/Fly_RNA_length_vs_time.jpg", width=10, height=7, units="in")
 
 # plot the two plots side by side
 # lay out combined plot using patchwork library
@@ -284,6 +285,7 @@ df_mean_mos <- mos_data %>%
 
 # merge in metadata
 df_mean_mos <- left_join(df_mean_mos, metadata_mos, by="id")
+#write_csv(df_mean_mos, "metadata/mos_length_data.csv")
 
 # get mean and sd of triplicates
 df_mean_mos_grouped <- df_mean_mos %>% 
@@ -312,82 +314,8 @@ p_mos <- ggplot(df_mean_mos_grouped, aes(x = as.numeric(weeks))) +
         text = element_text(size = 20)) 
 
 p_mos
-ggsave("plots/Mos_RNA_length_vs_time.pdf", width=10, height=7, units="in")
-ggsave("plots/Mos_RNA_length_vs_time.svg", width=10, height=7, units="in")
-ggsave("plots/Mos_RNA_length_vs_time.jpg", width=10, height=7, units="in")
-
-# MLRs
-# Fly
-fly_mlr_filt <- df_mean_fly %>% 
-  filter(group != "Fresh",
-         group != "old") %>% 
-  group_by(weeks, group) %>% 
-  mutate(mean_length_group = mean(mean_length),
-         weeks = as.factor(weeks),
-         group = as.factor(group))
-
-# Fly length ~ weeks + group
-fly_mlr1 <- lm(mean_length ~ weeks + group, data = fly_mlr_filt)
-tidy_fly_length_mlr1 <- tidy(fly_mlr1, conf.int = TRUE)
-tidy_fly_length_mlr1 %>% gt() %>% 
-  tab_header(title = "Fly length ~ week + storage") %>% 
-  cols_align(align = "center")
-
-Anova(fly_mlr1) %>% 
-  gt() %>% 
-  tab_header(title = "Fly Concentration ~ week + storage") %>% 
-  cols_align(align = "center")
-
-check_model(fly_mlr1)
-
-# Fly length ~ group + weeks
-fly_mlr2 <- lm(mean_length ~ group + weeks, data = fly_mlr_filt)
-tidy_fly_length_mlr2 <- tidy(fly_mlr2, conf.int = TRUE)
-tidy_fly_length_mlr2 %>% gt() %>% 
-  tab_header(title = "Fly length ~ storage + week") %>% 
-  cols_align(align = "center")
-
-Anova(fly_mlr2) %>% 
-  gt() %>% 
-  tab_header(title = "Fly Concentration ~ week + storage") %>% 
-  cols_align(align = "center")
-
-check_model(fly_mlr2)
-
-# Mosquito
-mos_mlr_filt <- df_mean_mos %>% 
-  filter(group != "Fresh") %>% 
-  group_by(weeks, group) %>% 
-  mutate(mean_length_group = mean(mean_length),
-         weeks = as.factor(weeks),
-         group = as.factor(group))
-
-# Mos length ~ weeks + storage
-mos_mlr1 <- lm(mean_length ~ weeks + group, data = mos_mlr_filt)
-tidy_mos_length_mlr1 <- tidy(mos_mlr1, conf.int = TRUE)
-tidy_mos_length_mlr1 %>% gt() %>% 
-  tab_header(title = "Mos length ~ week + storage") %>% 
-  cols_align(align = "center")
-
-Anova(mos_mlr1) %>% 
-  gt() %>% 
-  tab_header(title = "Fly Concentration ~ week + storage") %>% 
-  cols_align(align = "center")
-
-check_model(mos_conc_mlr1)
-
-# Mos length ~ storage + weeks
-mos_mlr2 <- lm(mean_length ~ group + weeks, data = mos_mlr_filt)
-tidy_mos_length_mlr2 <- tidy(mos_mlr2, conf.int = TRUE)
-tidy_mos_length_mlr2 %>% gt() %>% 
-  tab_header(title = "Mos length ~ storage + week") %>% 
-  cols_align(align = "center")
-
-Anova(mos_mlr2) %>% 
-  gt() %>% 
-  tab_header(title = "Fly Concentration ~ storage + week") %>% 
-  cols_align(align = "center")
-
-check_model(mos_conc_mlr2)
+ggsave("plots/Supplemental2/Mos_RNA_length_vs_time.pdf", width=10, height=7, units="in")
+ggsave("plots/Supplemental2//Mos_RNA_length_vs_time.svg", width=10, height=7, units="in")
+ggsave("plots/Supplemental2//Mos_RNA_length_vs_time.jpg", width=10, height=7, units="in")
 
 

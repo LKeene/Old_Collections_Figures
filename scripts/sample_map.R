@@ -2,7 +2,6 @@ library(ggplot2)
 library(ggmap)
 library(maps)
 library(mapdata)
-library(maptools)
 library(dplyr)
 library(readxl)
 library(gridExtra)
@@ -47,8 +46,8 @@ map <- ggplot() +
 map <- map + geom_text() +
   annotate("text", label = "Hawaii", x = -158, y = 24.5)
 map
-ggsave("plots/location_map.pdf", units = "in", width = 10, height = 3)
-ggsave("plots/location_map.jpg", units = "in", width = 10, height = 3)
+ggsave("plots/Figure2/location_map.pdf", units = "in", width = 10, height = 3)
+ggsave("plots/Figure2/location_map.jpg", units = "in", width = 10, height = 3)
 
 
 
