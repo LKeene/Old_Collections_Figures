@@ -4,7 +4,7 @@ library(tidyverse)
 library(gt)
 library(webshot2)
 
-# Old Collections meta data table- Supplemental
+# Old Collections meta data table- Supplemental- full data
 oc_metadata <- read_csv("metadata/LocationData.csv") %>% 
   select(-c(lat, long)) 
   
