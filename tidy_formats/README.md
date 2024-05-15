@@ -1,1 +1,1 @@
-# Directory wit tidy formats of RT-qPCR data generated fromt eh qPCR cleaning script
+# Directory wit tidy formats of RT-qPCR data generated from the qPCR cleaning script
