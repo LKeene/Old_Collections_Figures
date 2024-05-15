@@ -1,3 +1,6 @@
+# This script cntains code that was taken out of formal analyses but could be 
+# useful for future studies/amnalyses.
+
 hline_max1 <- data.frame(group = c("Dry", "Frozen"), target = c("La Jolla virus", 
                                                                 "Nora virus",
                                                                 "Thika virus"), 

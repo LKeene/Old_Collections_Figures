@@ -1,3 +1,8 @@
+#This script reads in metadata from an excel sheet with information on the yield of RNA
+# from museum specimens and generates two visualizations. It also performs a MLR analysis 
+# to determine if there is a statistically significant difference in RNA cocnentration 
+# based on time and whether the Hawaii samples are removed.
+
 library(tidyverse)
 library(svglite)
 
@@ -33,7 +38,7 @@ ggsave("plots/Figure2/CollectionVsConcentration.svg", units = "in", width = 10, 
 df_mlr <- lm(concentration ~ method + Storage.Type, data = df2)
 summary(df_mlr)
 
-# Hawaii vs everything else\
+# Hawaii vs everything else
 df3 <- df %>% 
   select(Date.Collected, Concentration..ng.μl., Extraction.Method, Storage.Type,
          Location) %>% 

@@ -1,3 +1,7 @@
+# This script takes raw Tapestation output files to generate figures depicting 
+# the average length of RNA obtained from experimentally dried and frozen specimens
+# as well as museum specimens.
+
 library(bioanalyzeR)
 library(tidyverse)
 library(readxl)

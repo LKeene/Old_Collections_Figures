@@ -1,3 +1,6 @@
+# This script visualizes identified virus sequences in museum collections as a 
+# heatmap.
+
 library(tidyverse)
 library(viridis)
 library(svglite)

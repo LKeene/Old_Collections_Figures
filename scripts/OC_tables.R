@@ -1,3 +1,5 @@
+# The script generates .png tables for tables in the main text of the manuscript.
+
 library(tidyverse)
 library(gt)
 library(webshot2)

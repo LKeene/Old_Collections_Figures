@@ -1,3 +1,6 @@
+# This script uses location metadata to generate a map of where and when museum 
+# specimens used in this study were collected.
+
 library(ggplot2)
 library(ggmap)
 library(maps)

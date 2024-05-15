@@ -1,3 +1,7 @@
+# This script uses the SangerTools r package to read in raw qPCR data and then 
+# uses tidy functions to join and cleanup the data into a single tidy format for
+# downstream analysis.
+
 # Packages
 library(tidyverse)
 library(readxl)

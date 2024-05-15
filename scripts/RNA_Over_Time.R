@@ -1,3 +1,6 @@
+# This script generates various visualizations of the RT-qPCR data and of the RNA
+# concentrations for ecperimentally dried or frozen insect comparisons.
+
 # load libraries
 library(tidyverse)
 library(readxl)

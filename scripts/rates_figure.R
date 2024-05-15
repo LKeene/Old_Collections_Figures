@@ -1,3 +1,6 @@
+# This script generates figures to visualize the different estimated evolutionary
+# rates for the viruses described in this study.
+
 library(tidyverse)
 library(RColorBrewer)
 library(svglite)
