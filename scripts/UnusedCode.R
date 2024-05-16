@@ -705,3 +705,36 @@ Anova(mos_mlr2) %>%
 
 check_model(mos_conc_mlr2)
 
+# Comparison of OC samples and final pool
+
+# rename the sample indexes
+df5["sample.index"][df5["sample.index"] == 2] <- 1
+df6["sample.index"][df6["sample.index"] == 7] <- 4
+df6["sample.index"][df6["sample.index"] == 11] <- 3
+df6["sample.index"][df6["sample.index"] == 9] <- 2
+# Combine OC samples with pool sample
+comb_df2 <- rbind(df5, df6)
+
+pool_vs_old <- ggplot(filter(comb_df2, length > lower_marker_length_max)) +       
+  geom_line(aes(x=length, y=fluorescence, group=sample.index)) +
+  # add in coloring under the lines: 
+  # length < lower_marker_mlength_max will produce a T/F value, which we can color with scale_fill_manual
+  geom_area(aes(x=length, y=fluorescence, fill = length <= lower_marker_length_max)) +
+  scale_fill_manual(values=c("grey60", "lightsteelblue")) +
+  # get rid of the ugly legend
+  theme_classic(base_size=10) +
+  # scale_x_log10(lim = c(0,1000)) +
+  scale_x_log10(lim = c(32,1400)) +
+  xlab("RNA Length (nt)") +
+  ylab("Fluorescence (arbitrary units)") +
+  facet_wrap(~sample.index, ncol=1, scales = "free_y") +
+  theme(legend.position="none",
+        strip.text.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.y  = element_blank()) 
+
+pool_vs_old
+ggsave("plots/PoolVsSample_Bioanalyzer.pdf", height=7, width=10, units="in")
+ggsave("plots/PoolVsSample_Bioanalyzer.svg", width=10, height=7, units="in")
+ggsave("plots/PoolVsSample_Bioanalyzer.jpg", width=10, height=7, units="in")
+
