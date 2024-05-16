@@ -81,8 +81,8 @@ over_time <- ggplot(filter(comb_df, length > lower_marker_length_max)) +
         axis.text.y  = element_blank()) 
 
 over_time
-ggsave("plots/Supplemental2/RNAVsTime_Bioanalyzer.pdf", height=10, width=7, units="in")
-ggsave("plots/Supplemental2/RNAVsTime_Bioanalyzer.svg", width=10, height=7, units="in")
-ggsave("plots/Supplemental2/RNAVsTime_Bioanalyzer.jpg", width=10, height=7, units="in")
+ggsave("plots/Supplemental3/RNAVsTime_Bioanalyzer.pdf", height=10, width=7, units="in")
+ggsave("plots/Supplemental3/RNAVsTime_Bioanalyzer.svg", width=10, height=7, units="in")
+ggsave("plots/Supplemental3/RNAVsTime_Bioanalyzer.jpg", width=10, height=7, units="in")
 
 
