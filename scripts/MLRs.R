@@ -15,8 +15,7 @@ mos_length <- read_csv("metadata/mos_length_data.csv")
 # Cleanup & convert predictors to factors
 conc <- conc %>% 
   select(week, storage, organism, concentration) %>% 
-  mutate(week = as.factor(week),
-         storage = as.factor(storage))
+  mutate(storage = as.factor(storage))
 
 # Fly concentration summary table
 conc %>% 
@@ -42,8 +41,7 @@ fly_length <- fly_length %>%
   select(weeks, group, mean_length, sample_name) %>% 
   group_by(weeks, group) %>% 
   filter(group != "old") %>% 
-  mutate(weeks = as.factor(weeks),
-         group = as.factor(group))
+  mutate(group = as.factor(group))
 
 # Fly length summary table
 fly_length %>% 
@@ -57,8 +55,7 @@ fly_length %>%
 mos_length <- mos_length %>% 
   select(weeks, group, mean_length, sample_name) %>% 
   group_by(weeks, group) %>% 
-  mutate(weeks = as.factor(weeks),
-         group = as.factor(group))
+  mutate(group = as.factor(group))
 
 # Mosquito length summary table
 mos_length %>% 
@@ -90,13 +87,13 @@ fly_conc <- conc_mean %>%
   filter(organism == "fly")
 
 # Fly concentration One-Way Model
-conc_fly_mlr2 <- lm(concentration~week+storage, data = fly_conc)
-#tidy(conc_fly_mlr2)
-Anova(conc_fly_mlr2)
+conc_fly_mlr <- lm(concentration~week+storage, data = fly_conc)
+tidy(conc_fly_mlr)
+Anova(conc_fly_mlr)
 
-check_model(conc_fly_mlr2, check = c("qq", "linearity", "homogeneity"))
+check_model(conc_fly_mlr, check = c("qq", "linearity", "homogeneity"))
 
-emm_fly_conc <- emmeans(conc_fly_mlr2, ~week)
+emm_fly_conc <- emmeans(conc_fly_mlr, ~week)
 pwpp(emm_fly_conc)
 
 ## Mosquito Concentration
@@ -104,37 +101,39 @@ mos_conc <- conc_mean %>%
   filter(organism == "mosquito")
 
 # Mosquito concentration One-Way Model
-conc_mos_mlr2 <- lm(concentration~week+storage, data = mos_conc)
-#tidy(conc_mos_mlr2)
-Anova(conc_mos_mlr2)
+conc_mos_mlr <- lm(concentration~week+storage, data = mos_conc)
+tidy(conc_mos_mlr)
+Anova(conc_mos_mlr)
 
-check_model(conc_mos_mlr2, check = c("qq", "linearity", "homogeneity"))
+check_model(conc_mos_mlr, check = c("qq", "linearity", "homogeneity"))
 
-emm_mos_conc <- emmeans(conc_mos_mlr2, ~week)
+emm_mos_conc <- emmeans(conc_mos_mlr, ~week)
 pwpp(emm_mos_conc)
 
 df_mean_fly <- df_mean_fly %>% 
   filter(group != "Fresh")
 
 # Fly length One-Way Model
-length_fly_mlr2 <- lm(mean_length_g~weeks+group, data = df_mean_fly)
-#tidy(length_fly_mlr2)
-Anova(length_fly_mlr2)
+length_fly_mlr <- lm(mean_length_g~weeks+group, data = df_mean_fly)
+tidy(length_fly_mlr)
+Anova(length_fly_mlr)
 
-check_model(length_fly_mlr2, check = c("qq", "linearity", "homogeneity"))
+check_model(length_fly_mlr, check = c("qq", "linearity", "homogeneity"))
 
-emm_fly_leng <- emmeans(length_fly_mlr2, ~weeks)
+emm_fly_leng <- emmeans(length_fly_mlr, ~weeks)
 pwpp(emm_fly_leng)
 
 # Mosquito length One-Way Model
 df_mean_mos <- df_mean_mos %>% 
   filter(group != "Fresh")
-length_mos_mlr2 <- lm(mean_length_g~weeks+group, data = df_mean_mos)
-#tidy(length_mos_mlr2)
-Anova(length_mos_mlr2)
+length_mos_mlr <- lm(mean_length_g~weeks+group, data = df_mean_mos)
+tidy(length_mos_mlr)
+Anova(length_mos_mlr)
 
-check_model(length_mos_mlr2, check = c("qq", "linearity", "homogeneity"))
+check_model(length_mos_mlr, check = c("qq", "linearity", "homogeneity"))
 
-emm_mos_leng <- emmeans(length_mos_mlr2, ~weeks)
+emm_mos_leng <- emmeans(length_mos_mlr, ~weeks)
 pwpp(emm_mos_leng)
+
+
 
