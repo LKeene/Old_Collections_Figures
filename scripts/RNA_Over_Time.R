@@ -13,10 +13,6 @@ library(ggpubr)
 library(viridis)
 library(svglite)
 library(broom)
-library(knitr)
-library(gt)
-library(webshot2)
-library(performance)
 
 # read in data
 fly <- read_xlsx("tidy_formats/fly_data2.xlsx")
@@ -102,8 +98,8 @@ ggsave("plots/Figure1/Relative_fly_dct_3targets.svg", units = "in", width = 10, 
 ggsave("plots/Figure1/Relative_fly_dct_3targets.jpg", units = "in", width = 10, height = 8)
 
 rel_fly_supp <- ggplot(filter(fly_fc, target %in% c("La Jolla virus", "Thika virus")), aes(x = week)) +
-  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
-             stroke = 0.1, color = "black", alpha = 0) +
+#  geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
+#             stroke = 0.1, color = "black", alpha = 0) +
   stat_compare_means(aes(y= delta_ct, group = group), label = "p.signif", 
                      hide.ns = TRUE, label.y = 7, size = 3.5, alpha = 0.75, symnum.args = 
                        list(cutpoints = c(0, 0.0001, 0.001, 0.01, 0.05, Inf), 
@@ -132,6 +128,19 @@ rel_fly_supp
 ggsave("plots/Supplemental1/Relative_fly_dct_SuppTargets.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Supplemental1/Relative_fly_dct_SuppTargets.svg", units = "in", width = 10, height = 8)
 ggsave("plots/Supplemental1/Relative_fly_dct_SuppTargets.jpg", units = "in", width = 10, height = 8)
+
+# Calc. ct differences
+changes <- fly_fc %>% 
+  filter(week %in% c(2, 72),
+         sex == "F",
+         rep == 3) %>% 
+  select(week, group, target, mean_dct)
+
+changes_wide <- changes %>% 
+  pivot_wider(names_from = week, values_from = mean_dct) %>% 
+  rename(`2_week` = `2`,
+         `72_week` = `72`) %>% 
+  mutate(diff = `2_week` - `72_week`)
 
 # short vs long Galbut & Rpl
 short_v_long <- fly_data3 %>% 
@@ -328,6 +337,19 @@ rel_mos_dct
 ggsave("plots/Supplemental2/Relative_mosquito_dct.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Supplemental2/Relative_mosquito_dct.svg", units = "in", width = 10, height = 8)
 ggsave("plots/Supplemental2/Relative_mosquito_dct.jpg", units = "in", width = 10, height = 8)
+
+# Calc. ct differences
+changes2 <- mos_data3 %>% 
+  filter(week %in% c(4, 52),
+         sex == "M",
+         rep == 1) %>% 
+  select(week, group, target, mean_dct)
+
+changes2_wide <- changes2 %>% 
+  pivot_wider(names_from = week, values_from = mean_dct) %>% 
+  rename(`4_week` = `4`,
+         `52_week` = `52`) %>% 
+  mutate(diff = `4_week` - `52_week`)
 
 # dry vs frozen mos
 plot_min_x_df_m <- 14
