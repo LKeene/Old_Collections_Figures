@@ -1,4 +1,4 @@
-﻿Species,Date Collected,Location,Donating Institution,BioSample ,Sample ID,Museum ID,Fastq ID,Storage Type,Extraction Method,Concentration (ng/μl),260/280,260/230,Galbut,long,lat
+﻿Species,Date Collected,Location,Donating Institution,BioSample ,Sample ID,Museum Accession,Fastq ID,Storage Type,Extraction Method,Concentration (ng/μl),260/280,260/230,Galbut virus RT-qPCR Result,long,lat
 D. melanogater,1896,"Urbana, IL",Illinois Natural History Survey,SAMN38071661,Illinois_1896,1004284,1004284,Dried,Non-Destructive,4,2.3,2.1,No,-87.678017,41.436951
 D. melanogater,1908,"Albany, NY",New York State Museum,SAMN38071662,NewYork_1908,-,Albany1902_1,Dried,Destructive,152,2.1,2,No,-73.756233,42.65258
 D. melanogater,1908,"Urbana, IL",Illinois Natural History Survey,SAMN38071654,Illinois_1908,1004277,1004277,Dried,Non-Destructive,54.6,2.1,1.8,Yes,-87.678017,41.436951

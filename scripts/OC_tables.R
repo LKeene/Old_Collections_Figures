@@ -6,7 +6,7 @@ library(webshot2)
 
 # Old Collections meta data table- Supplemental- full data
 oc_metadata <- read_csv("metadata/LocationData.csv") %>% 
-  select(-c(lat, long)) 
+  select(-c(lat, long, "Fastq ID")) 
   
 
 oc_metadata %>% gt(groupname_col = "Species") %>% 
@@ -26,11 +26,13 @@ oc_metadata %>% gt(groupname_col = "Species") %>%
                locations = cells_column_labels(columns = `260/280`)) %>% 
   tab_footnote(footnote = "RNA quality was assessed using a spectrophotometer", 
                locations = cells_column_labels(columns = `260/230`)) %>%
+  tab_footnote(footnote = "Galbut virus RNA 1 positive using primer numbers 1948 & 1949 (supplemental table 2)", 
+               locations = cells_column_labels(columns = `Galbut virus RT-qPCR Result`)) %>% 
   gtsave("plots/Tables/MetaData_Supp.png", vwidth = 3000)
 
 # Old Collections meta data table- Main
 oc_metadata2 <- read_csv("metadata/LocationData.csv") %>% 
-  select(-c("Galbut Virus RT-qPCR Result", lat, long, "260/280", "260/230"))
+  select(-c("Galbut virus RT-qPCR Result", "Fastq ID", lat, long, "260/280", "260/230"))
 
 oc_metadata2 %>% gt(groupname_col = "Species") %>% 
   tab_style(style = list(cell_text(style = "italic")), locations = cells_row_groups()) %>% 
@@ -74,7 +76,7 @@ others %>% gt(groupname_col = "known") %>%
   cols_move(columns = `GenBank Sequence Accession`, after = `Virus`) %>% 
   cols_move(columns = `Nearest GenBank`, after = `GenBank Sequence Accession`) %>% 
   tab_footnote(footnote = "Nearest GenBank sequence is provided for RdRp of 
-               Drosophila-associated sobemo-like virus and the L and M segment of
+               Drosophila-associated sobemo-like virus and the L, M and S segment of
                Puslinch virus.",
                locations = cells_column_labels(columns = `Nearest GenBank`)) %>% 
   tab_footnote(footnote = "% Query coverage from BLASTN alignment",
@@ -82,17 +84,16 @@ others %>% gt(groupname_col = "known") %>%
   tab_footnote(footnote = "% Query coverage from BLASTN alignment for novel virus sequences was 
                determined based on nearest GenBank sequence.",
                locations = cells_column_labels(columns = `% Query Coverage`)) %>% 
-  tab_footnote(footnote = "nt, percentage nucleotide identity calculated for 
-               genome length sequences.", 
+  tab_footnote(footnote = "nt, percentage nucleotide identity to closest GenBank sequence identified via BLASTn.", 
                locations = cells_column_labels(columns = `% Identity`)) %>% 
   tab_footnote(footnote = "For novel virus sequences, % nt identity to the 
                reference sequence is shown.", 
                locations = cells_column_labels(columns = `% Identity`)) %>% 
   tab_footnote(footnote = "Average mapped read coverage across contigs as 
-               reported in Geneious", 
+               reported in Geneious.", 
                locations = cells_column_labels(columns = `Average Coverage`)) %>% 
   tab_footnote(footnote = "Calculated using the nearest GenBank sequence with 
-               date collected data", 
+               date collected data.", 
                locations = cells_column_labels(columns = `Estimated Evolutionary Rate`)) %>%
   gtsave("plots/Tables/OtherViruses.png", vwidth = 1500)
 
