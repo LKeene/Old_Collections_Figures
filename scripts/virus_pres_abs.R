@@ -15,10 +15,11 @@ other_viruses <- other_viruses %>%
                                     "Hawaii_1953_1", "Hawaii_1953_2", 
                                     "NewJersey_1942", "Illinois_1930",
                                     "NewYork_1927", "Minnesota_1919_3", 
-                                    "Illinois_1915_1", "Illinois_1915_3", "Illinois_1908"))) %>% 
+                                    "Illinois_1915_1", "Illinois_1915_3", "Illinois_1908", 
+                                    "Positive_Control_1", "Positive_Control_2"))) %>% 
   mutate(virus_name = factor(virus_name, levels = c("Puslinch virus", "Drosophila-associated sobemo-like virus", 
-                                                    "Tobacco mosaic virus", "Nora virus", 
-                                                    "La Jolla virus", "Drosophila C virus", 
+                                                    "Tobacco mosaic virus", "Thika virus", "Nora virus", 
+                                                    "La Jolla virus", "Drosophila C virus", "Drosophila A virus",
                                                     "Dansoman virus", "Craigies Hill virus", 
                                                     "Bloomfield virus", "Drosophila melanogaster sigmavirus", 
                                                     "Chaq-like virus", "Vera virus", 
