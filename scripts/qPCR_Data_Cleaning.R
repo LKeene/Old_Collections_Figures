@@ -85,3 +85,32 @@ fly_data1 <- rbind(fly_data1, cleaned_short)
 write_xlsx(fly_data1, "tidy_formats/fly_data1.xlsx")
 
 write_xlsx(mosquito_data1, "tidy_formats/mosquito_data1.xlsx")
+
+## Look at the controls
+all_data2 <- multiple_excel_reader("qPCR_data", pattern = "*.xls", 
+                                  sheet = 3, rows_to_skip = 43, col_names = TRUE)
+
+all_data2 <- all_data2 %>% 
+  select(sample_name, ct, tm1, target_name, tm2, tm3, tm4)
+
+controls <- all_data2 %>% 
+  filter(str_detect(sample_name, "Ctrl|cDNA|qPCR|ET|cDAN"))
+
+# Remove unnecessary ctrls
+controls2 <- controls %>% 
+  filter(str_detect(sample_name, "Wk"))
+
+# separate sample name into week 
+cleaned_controls <- controls2 %>% 
+  mutate(sample = sample_name) %>% 
+  separate(col = sample_name, into = c("week", "type", "status"))
+
+cleaned_controls <- cleaned_controls %>% 
+  mutate(week = str_remove(week, "Wk"))
+
+write_xlsx(cleaned_controls, "tidy_formats/qPCR_control.xlsx")
+
+
+
+
+
