@@ -97,3 +97,18 @@ others %>% gt(groupname_col = "known") %>%
                locations = cells_column_labels(columns = `Estimated Evolutionary Rate`)) %>%
   gtsave("plots/Tables/OtherViruses.png", vwidth = 1500)
 
+# Old Collections Dates- Supplemental Methods
+oc_dates <- read_csv("metadata/Extraction_Prep_Dates_Table.csv")
+
+
+oc_dates %>% gt() %>% 
+  tab_style(style = list(cell_text(style = "italic")), locations = cells_row_groups()) %>% 
+  cols_align(align = "center") %>% 
+  tab_footnote(footnote = "Select specimens sequenced a second time to increase
+               coverage of virus sequecnes", 
+               locations = cells_column_labels(columns = `Secondary Library Preparation Date`)) %>% 
+  tab_footnote(footnote = "Select specimens sequenced a second or third time to
+               increase coverage of virus sequences", 
+               locations = cells_column_labels(columns = `Tertiary Library Preparation Date`)) %>% 
+  gtsave("plots/Tables/Date_Supp.png", vwidth = 3000)
+
