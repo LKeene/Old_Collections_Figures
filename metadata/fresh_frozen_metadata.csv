@@ -1,0 +1,19 @@
+﻿species,date_collected,weeks_dried,location,donating_institution,storage_type,extraction_method,RNA_concentration,260_280,260_230,galbut_virus_positive_qPCR,sample_id,sample_id_in_paper,sample_type,R1_strand
+melanogaster,2022,10,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,10Wk_F,,Fresh_frozen,reverse
+melanogaster,2022,10,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,10Wk_M,,Fresh_frozen,reverse
+melanogaster,2022,12,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,12Wk_F,,Fresh_frozen,reverse
+melanogaster,2022,12,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,12Wk_M,,Fresh_frozen,reverse
+melanogaster,2022,16,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,16Wk_F,,Fresh_frozen,reverse
+melanogaster,2022,16,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,16Wk_M,,Fresh_frozen,reverse
+melanogaster,2022,20,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,20Wk_F,,Fresh_frozen,reverse
+melanogaster,2022,20,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,20Wk_M,,Fresh_frozen,reverse
+melanogaster,2022,24,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,24Wk_F,,Fresh_frozen,reverse
+melanogaster,2022,24,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,24Wk_M,,Fresh_frozen,reverse
+melanogaster,2022,2,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,2Wk_F,,Fresh_frozen,reverse
+melanogaster,2022,2,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,2Wk_M,,Fresh_frozen,reverse
+melanogaster,2022,4,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,4Wk_F,,Fresh_frozen,reverse
+melanogaster,2022,4,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,4Wk_M,,Fresh_frozen,reverse
+melanogaster,2022,6,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,6Wk_F,,Fresh_frozen,reverse
+melanogaster,2022,6,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,6Wk_M,,Fresh_frozen,reverse
+melanogaster,2022,8,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,8Wk_F,,Fresh_frozen,reverse
+melanogaster,2022,8,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,,8Wk_M,,Fresh_frozen,reverse

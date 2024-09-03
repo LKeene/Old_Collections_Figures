@@ -1,0 +1,6 @@
+﻿species,date_collected,weeks_dried,location,donating_institution,storage_type,extraction_method,RNA_concentration,260_280,260_230,galbut_virus_positive_qPCR,sample_id,sample_id_in_paper,sample_type,R1_strand
+melanogaster,2022,0.01,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,Y,FoCo17_Pos,Pos_control_1,Positive_control,reverse
+melanogaster,2022,0.02,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,Y,PosCtrl_Pool1,Pos_control_2,Positive_control,reverse
+melanogaster,2022,0.03,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,N,cDNA_Neg,Neg_control_1,Negative_control,reverse
+melanogaster,2022,0.04,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,N,Water_NegCtrl,Neg_control_2,Negative_control,reverse
+melanogaster,2022,0.05,"Fort Collins, CO",Colorado State University,Fresh,NA,,,,N,NegCtrl_NewPrep,Neg_control_3,Negative_control,reverse

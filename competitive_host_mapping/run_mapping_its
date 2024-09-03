@@ -1,0 +1,15 @@
+#!/bin/bash 
+
+# run competetive mapping workflow for OC datasets
+# MDS 6/1/2024
+
+nextflow run main.nf \
+  -resume \
+  -profile local,singularity \
+  --outdir results_its \
+  --fastq_dir ../../2023_11_OC_preprocessed_reads/trimmed_fastq_R1_only \
+  --fastq_pattern "*trim.fastq.gz" \
+  --skip_per_base_coverage false \
+  --genome_fasta refseq/mapping_baits.fa \
+  --contig_species_map_file refseq/host_contig_map_its.txt \
+  --output_processing_R_script bin/tabulate_competitive_mapping_ITS.R
