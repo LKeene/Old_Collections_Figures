@@ -61,6 +61,6 @@ workflow QUANTIFY_STRAND_BIAS {
   BAM_TO_COV(MAP_TO_GENOME.out.bam.filter{it[1].size() > 0})
   PREPEND_BTC_OUTPUT(BAM_TO_COV.out.per_base_coverage)
   SAVE_OUTPUT_FILE_COVERAGE(PREPEND_BTC_OUTPUT.out.tsv.collectFile(name: "collected_virus_coverage.tsv"){it[1]}) 
-  PLOT_VIRUS_COVERAGE(SAVE_OUTPUT_FILE_COVERAGE.out.file, COLLECT_METADATA.out.collected_metadata, R_lib_dir, R_script_dir_ch)
+  PLOT_VIRUS_COVERAGE(SAVE_OUTPUT_FILE_COVERAGE.out.file, COLLECT_METADATA.out.collected_metadata, virus_refseq_ch, R_lib_dir, R_script_dir_ch)
   // PLOT_VIRUS_COVERAGE(PREPEND_BTC_OUTPUT.out.tsv.collectFile(name: "collected_virus_coverage.tsv"){it[1]}, COLLECT_METADATA.out.collected_metadata, R_lib_dir, R_script_dir_ch)
 }         

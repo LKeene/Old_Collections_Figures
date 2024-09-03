@@ -20,7 +20,7 @@ process BWA_INDEX {
     script:
     def args = task.ext.args ?: ''
     """
-    mkdir bwa
+    mkdir -p bwa
     bwa \\
         index \\
         $args \\

@@ -20,7 +20,7 @@ if  (!interactive()) {
   tsv_input                   = "../results/collected_virus_coverage.tsv"
   metadata_input              = "../results/collect/collected_metadata.csv"
   refseq_metadata_file  = "../../metadata/virus_refseq_metadata.csv"
-  R_lib_dir                   = "../lib/R/"
+  R_lib_dir                   = "../../lib/R/"
   R_script_dir                = "../../scripts/"
   output_dir                  = "../results/plot/"
 }

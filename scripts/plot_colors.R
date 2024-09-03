@@ -4,6 +4,8 @@
 fresh_frozen_color       = "navyblue"
 experimental_dried_color = "firebrick"
 old_collection_color     = "orchid4"
+positive_control_color   = "grey30"
+negative_control_color   = "grey90"
 
 theme_this_paper <- function(base_size = 12) {
     theme_minimal(base_size = base_size) +
