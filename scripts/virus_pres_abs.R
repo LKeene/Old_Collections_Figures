@@ -16,7 +16,8 @@ other_viruses <- other_viruses %>%
                                     "NewJersey_1942", "Illinois_1930",
                                     "NewYork_1927", "Minnesota_1919_3", 
                                     "Illinois_1915_1", "Illinois_1915_3", "Illinois_1908", 
-                                    "Positive_Control_1", "Positive_Control_2"))) %>% 
+                                    "Positive_Control_1", "Positive_Control_2", 
+                                    "cDNA_Neg", "NegCtrl_NewPrep", "Water_NegCtrl"))) %>% 
   mutate(virus_name = factor(virus_name, levels = c("Puslinch virus", "Drosophila-associated sobemo-like virus", 
                                                     "Tobacco mosaic virus", "Thika virus", "Nora virus", 
                                                     "La Jolla virus", "Drosophila C virus", "Drosophila A virus",
@@ -31,7 +32,7 @@ fig <- ggplot(other_viruses, aes(x = sample_id, y = virus_name)) +
   scale_shape_manual(labels = c(substitute(paste(italic("D. melanogaster"))), 
                                 substitute(paste(italic("D. simulans"))),
                                 substitute(paste(italic("Unknown Drosophilidae")))),
-                     values = c(15, 17, 19)) +
+                     values = c(15, 17, 19, 16)) +
   theme_minimal(base_size = 11) +
   theme(panel.border = element_rect(linetype = "solid", fill = NA),
         strip.background = element_rect(colour = "black", fill = "white"),
@@ -44,6 +45,6 @@ fig <- ggplot(other_viruses, aes(x = sample_id, y = virus_name)) +
   labs(x = "", y = "", color = "% of Sequence \nCovered", shape = "Species") 
 
 fig
-ggsave("plots/Figure3/virus_pres_abs.pdf", units = "in", width = 10, height = 8)
+ggsave("plots/Figure3/virus_pres_abs.pdf", units = "in", width = 14, height = 8)
 ggsave("plots/Figure3/virus_pres_abs.jpg", units = "in", width = 12, height = 8)
 ggsave("plots/Figure3/virus_pres_abs.svg", units = "in", width = 12, height = 8)

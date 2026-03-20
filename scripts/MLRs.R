@@ -10,7 +10,6 @@ library(car)
 # Read in the data
 conc <- read_csv("metadata/OverTimeRNAConcentrations.csv")
 fly_length <- read_csv("metadata/fly_length_data.csv")
-mos_length <- read_csv("metadata/mos_length_data.csv")
 
 # Cleanup & convert predictors to factors
 conc <- conc %>% 
@@ -27,16 +26,6 @@ conc %>%
             SD = sd(concentration),
             SE_mean = SD/sqrt(n)) 
 
-# Mosquito concentration summary table
-conc %>% 
-  filter(organism == "mosquito") %>% 
-  select(week, storage, concentration) %>% 
-  group_by(week, storage) %>% 
-  summarize(n = n(),
-            Mean = mean(concentration),
-            SD = sd(concentration),
-            SE_mean = SD/sqrt(n))
-
 fly_length <- fly_length %>% 
   select(weeks, group, mean_length, sample_name) %>% 
   group_by(weeks, group) %>% 
@@ -52,20 +41,6 @@ fly_length %>%
             SD = sd(mean_length),
             SE_mean = SD/sqrt(n))
 
-mos_length <- mos_length %>% 
-  select(weeks, group, mean_length, sample_name) %>% 
-  group_by(weeks, group) %>% 
-  mutate(group = as.factor(group))
-
-# Mosquito length summary table
-mos_length %>% 
-  select(weeks, group, mean_length) %>% 
-  group_by(weeks, group) %>% 
-  summarize(n = n(),
-            Mean = mean(mean_length),
-            SD = sd(mean_length),
-            SE_mean = SD/sqrt(n)) 
-
 # Get averages and standard deviations
 conc_mean <- conc %>% 
   group_by(week, storage, organism) %>% 
@@ -73,11 +48,6 @@ conc_mean <- conc %>%
          sd_conc = sd(concentration))
 
 df_mean_fly <- fly_length %>% 
-  group_by(group, weeks) %>% 
-  mutate(mean_length_g = mean(mean_length),
-         sd_mean_length_g = sd(mean_length))
-
-df_mean_mos <- mos_length %>% 
   group_by(group, weeks) %>% 
   mutate(mean_length_g = mean(mean_length),
          sd_mean_length_g = sd(mean_length))
@@ -96,20 +66,6 @@ check_model(conc_fly_mlr, check = c("qq", "linearity", "homogeneity"))
 emm_fly_conc <- emmeans(conc_fly_mlr, ~week)
 pwpp(emm_fly_conc)
 
-## Mosquito Concentration
-mos_conc <- conc_mean %>% 
-  filter(organism == "mosquito")
-
-# Mosquito concentration One-Way Model
-conc_mos_mlr <- lm(concentration~week+storage, data = mos_conc)
-tidy(conc_mos_mlr)
-Anova(conc_mos_mlr)
-
-check_model(conc_mos_mlr, check = c("qq", "linearity", "homogeneity"))
-
-emm_mos_conc <- emmeans(conc_mos_mlr, ~week)
-pwpp(emm_mos_conc)
-
 df_mean_fly <- df_mean_fly %>% 
   filter(group != "Fresh")
 
@@ -123,17 +79,6 @@ check_model(length_fly_mlr, check = c("qq", "linearity", "homogeneity"))
 emm_fly_leng <- emmeans(length_fly_mlr, ~weeks)
 pwpp(emm_fly_leng)
 
-# Mosquito length One-Way Model
-df_mean_mos <- df_mean_mos %>% 
-  filter(group != "Fresh")
-length_mos_mlr <- lm(mean_length_g~weeks+group, data = df_mean_mos)
-tidy(length_mos_mlr)
-Anova(length_mos_mlr)
-
-check_model(length_mos_mlr, check = c("qq", "linearity", "homogeneity"))
-
-emm_mos_leng <- emmeans(length_mos_mlr, ~weeks)
-pwpp(emm_mos_leng)
 
 
 

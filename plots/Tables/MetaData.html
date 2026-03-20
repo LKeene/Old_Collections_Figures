@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+
+
+</head>
+<body>
+<div id="qucrycyuli" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  <style>#qucrycyuli table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#qucrycyuli thead, #qucrycyuli tbody, #qucrycyuli tfoot, #qucrycyuli tr, #qucrycyuli td, #qucrycyuli th {
+  border-style: none;
+}
+
+#qucrycyuli p {
+  margin: 0;
+  padding: 0;
+}
+
+#qucrycyuli .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#qucrycyuli .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#qucrycyuli .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#qucrycyuli .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qucrycyuli .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qucrycyuli .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qucrycyuli .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qucrycyuli .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qucrycyuli .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#qucrycyuli .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#qucrycyuli .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qucrycyuli .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qucrycyuli .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qucrycyuli .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qucrycyuli .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qucrycyuli .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#qucrycyuli .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#qucrycyuli .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#qucrycyuli .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qucrycyuli .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#qucrycyuli .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qucrycyuli .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qucrycyuli .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qucrycyuli .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qucrycyuli .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qucrycyuli .gt_left {
+  text-align: left;
+}
+
+#qucrycyuli .gt_center {
+  text-align: center;
+}
+
+#qucrycyuli .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qucrycyuli .gt_font_normal {
+  font-weight: normal;
+}
+
+#qucrycyuli .gt_font_bold {
+  font-weight: bold;
+}
+
+#qucrycyuli .gt_font_italic {
+  font-style: italic;
+}
+
+#qucrycyuli .gt_super {
+  font-size: 65%;
+}
+
+#qucrycyuli .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#qucrycyuli .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#qucrycyuli .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#qucrycyuli .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#qucrycyuli .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#qucrycyuli .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#qucrycyuli .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+  <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Date Collected">Date Collected</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Location&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;">Location<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Donating Institution">Donating Institution</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="BioSample&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/span&gt;">BioSample<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>2</sup></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Sample ID&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/span&gt;">Sample ID<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>3</sup></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Museum Accession">Museum Accession</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Storage Type">Storage Type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Extraction Method">Extraction Method</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Concentration (ng/μl)&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;4&lt;/sup&gt;&lt;/span&gt;">Concentration (ng/μl)<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>4</sup></span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="9" class="gt_group_heading" style="font-style: italic;" scope="colgroup" id="D. melanogaster&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;5&lt;/sup&gt;&lt;/span&gt;">D. melanogaster<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>5</sup></span></th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1896</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Urbana, IL</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">Illinois Natural History Survey</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071661</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Illinois_1896</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">1004284</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">4.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1908</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Albany, NY</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">New York State Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071662</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">NewYork_1908</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">152.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1908</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Urbana, IL</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">Illinois Natural History Survey</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071654</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Illinois_1908</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">1004277</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">54.6</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1915</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Urbana, IL</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">Illinois Natural History Survey</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071656</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Illinois_1915_1</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">1004279</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">84.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1915</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Urbana, IL</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">Illinois Natural History Survey</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071658</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Illinois_1915_3</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">1004281</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">12.7</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1915</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Urbana, IL</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">Illinois Natural History Survey</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071659</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Illinois_1915_4</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">1004282</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">16.9</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1919</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">St. Paul, MN</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Minnesota, Insect Collection</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38090828</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Minnesota_1919_1</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1919</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">St. Paul, MN</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Minnesota, Insect Collection</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071687</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Minnesota_1919_2</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">21.6</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1919</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">St. Paul, MN</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Minnesota, Insect Collection</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071688</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Minnesota_1919_3</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">18.9</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1927</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Albany, NY</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">New York State Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071663 </td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">NewYork_1927</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">21.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1930</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Urbana, IL</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">Illinois Natural History Survey</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071660</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Illinois_1930</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">1004283</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">13.6</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1942</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Glassboro, NJ</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">Illinois Natural History Survey</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071655</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">NewJersey_1942</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">1004278</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">10.2</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1950</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Oahu, HI</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Hawaii_1950_1</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1950</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Oahu, HI</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Hawaii_1950_2</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1951</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Honolulu, HI</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Hawaii_1951_1</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1951</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Oahu, HI</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Hawaii_1951_2</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1952</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Kauai, HI</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Hawaii_1952_1</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1953</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Kauai, HI</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071677</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Hawaii_1953_1</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1963</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Lebanon Co, PA</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">Frost Entomological Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071668 </td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Pennsylvania_1963_1</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">66.4</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1963</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Lebanon Co, PA</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">Frost Entomological Museum</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071669</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Pennsylvania_1963_2</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">24.4</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1968</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">St. Cloud, MN</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Minnesota, Insect Collection</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071684</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Minnesota_1968</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">13.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1969</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">St. Cloud, MN</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Minnesota, Insect Collection</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071685</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Minnesota_1969</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">38.6</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">1991</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">St. Cloud, MN</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Minnesota, Insect Collection</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071686</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Minnesota_1991</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">24.4</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">2006</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Davidson, NC</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">The Davidson College Entomology Collection</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071666</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">NorthCarolina_2006_1</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">19.6</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">2006</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Davidson, NC</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">The Davidson College Entomology Collection</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071667</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">NorthCarolina_2006_2</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">56.8</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">2006</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Davidson, NC</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">The Davidson College Entomology Collection</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">NorthCarolina_2006_3</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. melanogaster  Date Collected" class="gt_row gt_center">2010</td>
+<td headers="D. melanogaster  Location" class="gt_row gt_center">Puslinch Township, Ontario, Canada</td>
+<td headers="D. melanogaster  Donating Institution" class="gt_row gt_center">University of Guelph, Centre for Biodiversity Genomics</td>
+<td headers="D. melanogaster  BioSample" class="gt_row gt_center">SAMN38071680</td>
+<td headers="D. melanogaster  Sample ID" class="gt_row gt_center">Canada_2010_1</td>
+<td headers="D. melanogaster  Museum Accession" class="gt_row gt_center">PHDIP1072-11</td>
+<td headers="D. melanogaster  Storage Type" class="gt_row gt_center">Ethanol</td>
+<td headers="D. melanogaster  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. melanogaster  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="9" class="gt_group_heading" style="font-style: italic;" scope="colgroup" id="D. simulans">D. simulans</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="D. simulans  Date Collected" class="gt_row gt_center">1952</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Kauai, HI</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">Hawaii_1952_2</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">1952</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Kauai, HI</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">Hawaii_1952_3</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">1953</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Kilauea, HI</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">SAMN38071678</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">Hawaii_1953_2</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">1958</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Maui, HI</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">Hawaii_1958</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">1960</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Oahu, HI</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">Hawaii_1960</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">1963</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Lebanon Co, PA</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">Frost Entomological Museum</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">SAMN38071670</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">Pennsylvania_1963_3</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">84.6</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">1963</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Lebanon Co, PA</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">Frost Entomological Museum</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">SAMN38071671</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">Pennsylvania_1963_4</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">48.0</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">1965</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Oahu, HI</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">University of Hawaii, Insect Museum</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">SAMN38071679</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">Hawaii_1965</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">0.0</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">2000</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Santa Barbara, CA</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">Santa Barbara Museum of Natural History</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">SAMN38071683</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">California_2000_1</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">17.8</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">2000</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Santa Barbara, CA</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">Santa Barbara Museum of Natural History</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">SAMN38071682</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">California_2000_2</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">-</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">55.4</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">2010</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Puslinch Township, Ontario, Canada</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">University of Guelph, Centre for Biodiversity Genomics</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">SAMN38071681</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">Canada_2010_2</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">PHDIP946-11</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Ethanol</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">17.8</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">2011</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Ventura Co, CA</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">University of Guelph, Centre for Biodiversity Genomics</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">SAMN38071664</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">California_2011_1</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">BBDIV1549-12</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Ethanol</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">74.2</td></tr>
+    <tr><td headers="D. simulans  Date Collected" class="gt_row gt_center">2011</td>
+<td headers="D. simulans  Location" class="gt_row gt_center">Ventura Co, CA</td>
+<td headers="D. simulans  Donating Institution" class="gt_row gt_center">University of Guelph, Centre for Biodiversity Genomics</td>
+<td headers="D. simulans  BioSample" class="gt_row gt_center">SAMN38071665</td>
+<td headers="D. simulans  Sample ID" class="gt_row gt_center">California_2011_2</td>
+<td headers="D. simulans  Museum Accession" class="gt_row gt_center">BBDIV1550-12</td>
+<td headers="D. simulans  Storage Type" class="gt_row gt_center">Ethanol</td>
+<td headers="D. simulans  Extraction Method" class="gt_row gt_center">Destructive</td>
+<td headers="D. simulans  Concentration (ng/μl)" class="gt_row gt_center">15.9</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="9" class="gt_group_heading" style="font-style: italic;" scope="colgroup" id="D. putrida">D. putrida</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="D. putrida  Date Collected" class="gt_row gt_center">1915</td>
+<td headers="D. putrida  Location" class="gt_row gt_center">Urbana, IL</td>
+<td headers="D. putrida  Donating Institution" class="gt_row gt_center">Illinois Natural History Survey</td>
+<td headers="D. putrida  BioSample" class="gt_row gt_center">SAMN38071657</td>
+<td headers="D. putrida  Sample ID" class="gt_row gt_center">Illinois_1915_2</td>
+<td headers="D. putrida  Museum Accession" class="gt_row gt_center">1004280</td>
+<td headers="D. putrida  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. putrida  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. putrida  Concentration (ng/μl)" class="gt_row gt_center">6.8</td></tr>
+    <tr><td headers="D. putrida  Date Collected" class="gt_row gt_center">2003</td>
+<td headers="D. putrida  Location" class="gt_row gt_center">Lebanon Co, PA</td>
+<td headers="D. putrida  Donating Institution" class="gt_row gt_center">Frost Entomological Museum</td>
+<td headers="D. putrida  BioSample" class="gt_row gt_center">SAMN38071673</td>
+<td headers="D. putrida  Sample ID" class="gt_row gt_center">Pennsylvania_2003_1</td>
+<td headers="D. putrida  Museum Accession" class="gt_row gt_center">4908</td>
+<td headers="D. putrida  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. putrida  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. putrida  Concentration (ng/μl)" class="gt_row gt_center">71.2</td></tr>
+    <tr><td headers="D. putrida  Date Collected" class="gt_row gt_center">2003</td>
+<td headers="D. putrida  Location" class="gt_row gt_center">Lebanon Co, PA</td>
+<td headers="D. putrida  Donating Institution" class="gt_row gt_center">Frost Entomological Museum</td>
+<td headers="D. putrida  BioSample" class="gt_row gt_center">SAMN38071672</td>
+<td headers="D. putrida  Sample ID" class="gt_row gt_center">Pennsylvania_2003_2</td>
+<td headers="D. putrida  Museum Accession" class="gt_row gt_center">4887</td>
+<td headers="D. putrida  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="D. putrida  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="D. putrida  Concentration (ng/μl)" class="gt_row gt_center">13.9</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="9" class="gt_group_heading" style="font-style: italic;" scope="colgroup" id="S. pallida">S. pallida</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="S. pallida  Date Collected" class="gt_row gt_center">2003</td>
+<td headers="S. pallida  Location" class="gt_row gt_center">Lebanon Co, PA</td>
+<td headers="S. pallida  Donating Institution" class="gt_row gt_center">Frost Entomological Museum</td>
+<td headers="S. pallida  BioSample" class="gt_row gt_center">SAMN38071675</td>
+<td headers="S. pallida  Sample ID" class="gt_row gt_center">Pennsylvania_2003_3</td>
+<td headers="S. pallida  Museum Accession" class="gt_row gt_center">5867</td>
+<td headers="S. pallida  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="S. pallida  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="S. pallida  Concentration (ng/μl)" class="gt_row gt_center">42.0</td></tr>
+    <tr><td headers="S. pallida  Date Collected" class="gt_row gt_center">2003</td>
+<td headers="S. pallida  Location" class="gt_row gt_center">Lebanon Co, PA</td>
+<td headers="S. pallida  Donating Institution" class="gt_row gt_center">Frost Entomological Museum</td>
+<td headers="S. pallida  BioSample" class="gt_row gt_center">SAMN38071676</td>
+<td headers="S. pallida  Sample ID" class="gt_row gt_center">Pennsylvania_2003_4</td>
+<td headers="S. pallida  Museum Accession" class="gt_row gt_center">5873</td>
+<td headers="S. pallida  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="S. pallida  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="S. pallida  Concentration (ng/μl)" class="gt_row gt_center">120.0</td></tr>
+    <tr><td headers="S. pallida  Date Collected" class="gt_row gt_center">2003</td>
+<td headers="S. pallida  Location" class="gt_row gt_center">Lebanon Co, PA</td>
+<td headers="S. pallida  Donating Institution" class="gt_row gt_center">Frost Entomological Museum</td>
+<td headers="S. pallida  BioSample" class="gt_row gt_center">SAMN38071674</td>
+<td headers="S. pallida  Sample ID" class="gt_row gt_center">Pennsylvania_2003_5</td>
+<td headers="S. pallida  Museum Accession" class="gt_row gt_center">5863</td>
+<td headers="S. pallida  Storage Type" class="gt_row gt_center">Dried</td>
+<td headers="S. pallida  Extraction Method" class="gt_row gt_center">Non-Destructive</td>
+<td headers="S. pallida  Concentration (ng/μl)" class="gt_row gt_center">25.6</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="9"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> All specimens from USA unless otherwise noted</td>
+    </tr>
+    <tr>
+      <td class="gt_footnote" colspan="9"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>2</sup></span> Specimens that did not yield sufficient sequencing 
+               library were not sequenced and thus have no BioSample ID</td>
+    </tr>
+    <tr>
+      <td class="gt_footnote" colspan="9"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>3</sup></span> Our study sample ID</td>
+    </tr>
+    <tr>
+      <td class="gt_footnote" colspan="9"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>4</sup></span> RNA concentrations below the limit of detection on
+               the Qubit were assigned a concentration of 0</td>
+    </tr>
+    <tr>
+      <td class="gt_footnote" colspan="9"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>5</sup></span> Species identification based on C0-1 mapping (see text)</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</body>
+</html>

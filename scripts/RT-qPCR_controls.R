@@ -65,35 +65,3 @@ fly_ctrl
 ggsave("plots/Figure1/fly_controls.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Figure1/fly_controls.svg", units = "in", width = 10, height = 8)
 ggsave("plots/Figure1/fly_controls.jpg", units = "in", width = 10, height = 8)
-
-# mosquito visualization
-mos_ctrl <- ggplot(filter(controls, target_name %in% 
-                            c("Actin mRNA", "Verdadero virus", 
-                              "Guadeloupe mosquito virus"))) +
-  geom_point(aes(x = as.numeric(week), y = as.numeric(ct), 
-                 color = factor(control_type, 
-                                levels = c("cDNA Positive", "cDNA Negative", 
-                                           "RT-qPCR Negative", "Extraction Negative")), 
-                 shape = positive), size = 3.5, 
-             stroke = 0.1, alpha = 0.6) +
-  scale_color_manual(values = c("darkred", "lightskyblue1", "skyblue4", "paleturquoise3")) +
-  theme_minimal(base_size = 11) +
-  theme(panel.border = element_rect(linetype = "solid", fill = NA),
-        strip.background = element_rect(colour = "black", fill = "white"),
-        #        axis.title = element_text(face = "bold"),
-        #        legend.title = element_text(face = "bold"),
-        strip.text = element_text(face = "bold"),
-        axis.text = element_text(face = "bold"),
-        text = element_text(size = 20)) +
-  facet_wrap(~factor(target_name, levels = c("Actin mRNA", "Verdadero virus", 
-                                             "Guadeloupe mosquito virus")),
-             ncol = 1) +
-  labs(x = "Weeks of Storage", 
-       y = "Cycles to Threshold Detection (ct)", 
-       shape = "RT-qPCR \nPositive Status", color = "Type of control")
-
-mos_ctrl
-# remove # to save plot
-ggsave("plots/Figure1/mos_controls.pdf", units = "in", width = 10, height = 8)
-ggsave("plots/Figure1/mos_controls.svg", units = "in", width = 10, height = 8)
-ggsave("plots/Figure1/mos_controls.jpg", units = "in", width = 10, height = 8)

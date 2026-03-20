@@ -30,7 +30,7 @@ Known,2000,D. simulans,California_2000_1,California,Galbut virus,-,37,2,Galbut v
 Known,2006,D. melanogaster,NorthCarolina_2006_1,North Carolina,Drosophila C virus,OR820583,100,264,Drosophila C virus,98.3,Coding complete sequence,OK188767,1.86E-03,sample
 Known,2006,D. melanogaster,NorthCarolina_2006_2,North Carolina,Bloomfield virus,-,50,0.4-2,Bloomfield virus,99.6 - 100,Partial sequence,"MF416371, KP714091, KP714093, KP714094",-,sample
 Known,2011,D. simulans,California_2011_2,California,Galbut virus,"OR820600, OR820599, OR820601",100,16-18,Galbut virus,83.8 - 99.4,Coding complete sequence,"MH384283, MH384336, MH384366",2.00E-03 - 2.61E-02,sample
-Novel,2003,Unkown Drosophilidae,Pennsylvania_2003_1,Pennsylvania,Drosophila-associated sobemo-like virus,"OR820603, OR820602",100,84-136,"Enontekio sobemo-like virus, Atrato Sobemo-like virus 4",38.1 - 70.6,Coding complete sequence,"UYL94340.1, QHA33877.1",-,sample
+Novel,2003,D. putrida,Pennsylvania_2003_1,Pennsylvania,Drosophila-associated sobemo-like virus,"OR820603, OR820602",100,84-136,"Enontekio sobemo-like virus, Atrato Sobemo-like virus 4",38.1 - 70.6,Coding complete sequence,"UYL94340.1, QHA33877.1",-,sample
 Novel,2010,D. melanogaster,Canada_2010_1,"Ontario, CAN",Puslinch virus,"OR820586, OR820585, OR820584",100,81-188,"Tai virus, Las Maloyas virus",32.8 - 39.1,Coding complete sequence,"YP_009362026.1, YP_010840683.1, YP_009362024.1",-,sample
 known,2022,D. melanogaster,Positive_Control_1,Colorado,Drosophila A virus,-,100,60-75,Drosophila A virus,99,Coding complete sequence,KP969930,-,control
 known,2022,D. melanogaster,Positive_Control_1,Colorado,Galbut virus,-,99.5,32-36,Galbut virus,99.3-100,Coding complete sequence,"MT742164, MT742165, MT742166",-,control
@@ -41,3 +41,6 @@ known,2022,D. melanogaster,Positive_Control_2,Colorado,Galbut virus,-,99.1,15-18
 known,2022,D. melanogaster,Positive_Control_2,Colorado,Chaq virus,-,97.6,18,Chaq virus,100,Coding complete sequence,MT742163,-,control
 known,2022,D. melanogaster,Positive_Control_2,Colorado,La Jolla virus,-,99.6,7-13,La Jolla virus,95.8,Partial sequence,MH384285,-,control
 known,2022,D. melanogaster,Positive_Control_2,Colorado,Thika virus,-,15.8,1-2,Thika virus,88.1,Partial sequence,KP969926,-,control
+na,2022,water,cDNA_Neg,Colorado,,,,,,,,,,
+na,2022,water,NegCtrl_NewPrep,Colorado,,,,,,,,,,
+na,2022,water,Water_NegCtrl,Colorado,,,,,,,,,,

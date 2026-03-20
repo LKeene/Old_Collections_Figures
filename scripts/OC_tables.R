@@ -6,12 +6,13 @@ library(webshot2)
 
 # Old Collections meta data table- Supplemental- full data
 oc_metadata <- read_csv("metadata/LocationData.csv") %>% 
-  select(-c(lat, long, "Fastq ID")) 
+  select(-c(lat, long, "Fastq ID"))
   
 
-oc_metadata %>% gt(groupname_col = "Species") %>% 
+oc_metadata %>% gt(groupname_col = "Sequencing Based Species ID") %>% 
   tab_style(style = list(cell_text(style = "italic")), locations = cells_row_groups()) %>% 
   cols_align(align = "center") %>% 
+  row_group_order(groups = c("D. melanogaster", "D. simulans", "D. putrida", "S. pallida")) %>% 
   tab_footnote(footnote = "All specimens from USA unless otherwise noted", 
                locations = cells_column_labels(columns = `Location`)) %>% 
   tab_footnote(footnote = "Specimens that did not yield sufficient sequencing 
@@ -22,21 +23,26 @@ oc_metadata %>% gt(groupname_col = "Species") %>%
                locations = cells_column_labels(columns = `Concentration (ng/μl)`)) %>% 
   tab_footnote(footnote = "Our study sample ID", 
                locations = cells_column_labels(columns = `Sample ID`)) %>%
+  tab_footnote(footnote = "Samples that were not sequenced are presumed to be the species identified by the donating museum", 
+               locations = cells_column_labels(columns = `Museum Species ID`)) %>%
   tab_footnote(footnote = "RNA quality was assessed using a spectrophotometer", 
                locations = cells_column_labels(columns = `260/280`)) %>% 
   tab_footnote(footnote = "RNA quality was assessed using a spectrophotometer", 
                locations = cells_column_labels(columns = `260/230`)) %>%
-  tab_footnote(footnote = "Galbut virus RNA 1 positive using primer numbers 1948 & 1949 (supplemental table 2)", 
+  tab_footnote(footnote = "Galbut virus RNA 1 positive using primer numbers 1948 & 1949 (supplemental table 3)", 
                locations = cells_column_labels(columns = `Galbut virus RT-qPCR Result`)) %>% 
-  gtsave("plots/Tables/MetaData_Supp.png", vwidth = 3000)
+  tab_footnote(footnote = "Species identification based on C0-1 mapping (see text)",
+               locations = cells_row_groups(groups = "D. melanogaster")) %>% 
+  gtsave(filename = "plots/Tables/MetaData_Supp.png", expand = 15)
 
 # Old Collections meta data table- Main
 oc_metadata2 <- read_csv("metadata/LocationData.csv") %>% 
-  select(-c("Galbut virus RT-qPCR Result", "Fastq ID", lat, long, "260/280", "260/230"))
+  select(-c("Museum Species ID", "Galbut virus RT-qPCR Result", "Fastq ID", lat, long, "260/280", "260/230"))
 
-oc_metadata2 %>% gt(groupname_col = "Species") %>% 
+oc_metadata2 %>% gt(groupname_col = "Sequencing Based Species ID") %>% 
   tab_style(style = list(cell_text(style = "italic")), locations = cells_row_groups()) %>% 
   cols_align(align = "center") %>% 
+  row_group_order(groups = c("D. melanogaster", "D. simulans", "D. putrida", "S. pallida")) %>% 
   tab_footnote(footnote = "All specimens from USA unless otherwise noted", 
                locations = cells_column_labels(columns = `Location`)) %>% 
   tab_footnote(footnote = "Specimens that did not yield sufficient sequencing 
@@ -47,7 +53,10 @@ oc_metadata2 %>% gt(groupname_col = "Species") %>%
   tab_footnote(footnote = "RNA concentrations below the limit of detection on
                the Qubit were assigned a concentration of 0", 
                locations = cells_column_labels(columns = `Concentration (ng/μl)`)) %>% 
-  gtsave("plots/Tables/MetaData.png", vwidth = 3000)
+  tab_footnote(footnote = "Species identification based on C0-1 mapping (see text)",
+               locations = cells_row_groups(groups = "D. melanogaster")) %>% 
+  row_group_order(groups = c("D. melanogaster", "D. simulans", "D. putrida", "S. pallida")) %>% 
+  gtsave("plots/Tables/MetaData.html")
 
 # other viruses- known
 others <- read_csv("metadata/OtherViruses_known.csv")
@@ -106,9 +115,9 @@ oc_dates %>% gt() %>%
   cols_align(align = "center") %>% 
   tab_footnote(footnote = "Select specimens sequenced a second time to increase
                coverage of virus sequecnes", 
-               locations = cells_column_labels(columns = `Secondary Library Preparation Date`)) %>% 
+               locations = cells_column_labels(columns = `Second Library Preparation Date`)) %>% 
   tab_footnote(footnote = "Select specimens sequenced a second or third time to
                increase coverage of virus sequences", 
-               locations = cells_column_labels(columns = `Tertiary Library Preparation Date`)) %>% 
+               locations = cells_column_labels(columns = `Third Library Preparation Date`)) %>% 
   gtsave("plots/Tables/Date_Supp.png", vwidth = 3000)
 

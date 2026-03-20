@@ -46,10 +46,15 @@ ggsave("plots/Figure2/OC_qPCR.svg", units = "in", width = 10, height = 8)
 ggsave("plots/Figure2/OC_qPCR.jpg", units = "in", width = 10, height = 8)
 
 OC_ctrs <- OC %>% 
-  filter(status == "control")
+  filter(status == "control") %>% 
+  mutate(step = str_replace(step, "extraction", "Extraction"),
+         step = str_replace(step, "cDNA", "RT"),
+         step = str_replace(step, "qPCR", "qPCR Negative")) %>% 
+  mutate(step = factor(step, levels = c("Extraction", "RT",
+                                        "qPCR Negative")))
 
 # OC qPCR Controls
-OC_ctrl <- ggplot(filter(OC, status == "control")) +
+OC_ctrl <- ggplot(OC_ctrs) +
   geom_point(aes(x = step, y = CT, color = control_type, 
                  shape = overall_positive), size = 6, stroke = 0.1, alpha = 0.7) +
   scale_color_manual(values = c("skyblue4", "darkred")) +

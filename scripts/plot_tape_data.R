@@ -5,6 +5,7 @@
 library(bioanalyzeR)
 library(tidyverse)
 library(svglite)
+library(readxl)
 
 rna_time_1 <- read.electrophoresis("tapestation/2022-08-05 - 11-17-40-HSRNA.xml")
 rna_time_2 <- read.electrophoresis("tapestation/2022-08-05 - 11-49-24-HSRNA.xml")
@@ -85,4 +86,36 @@ ggsave("plots/Supplemental3/RNAVsTime_Bioanalyzer.pdf", height=10, width=7, unit
 ggsave("plots/Supplemental3/RNAVsTime_Bioanalyzer.svg", width=10, height=7, units="in")
 ggsave("plots/Supplemental3/RNAVsTime_Bioanalyzer.jpg", width=10, height=7, units="in")
 
+# Make the same figure but with OC data
+df7 <- rna_OC$data %>% 
+  filter(sample.index != 1) %>% 
+  mutate(sample.index = factor(sample.index, levels = c(17, 7, 14, 16, 4, 8, 15,
+                                                        3, 2, 11, 5, 6, 12, 10, 9, 13)))
 
+metadata_fly <- read_excel("tapestation/tape_metadata_tidy.xlsx")
+metadata_fly <- metadata_fly %>% mutate(id = str_c(tape_id, sample.index)) %>% 
+  filter(tape_id == "oc")
+
+df_oc <- left_join(df7, metadata_fly, by="sample.index")
+
+oc_plot <- ggplot(filter(df_oc, length > lower_marker_length_max)) +       
+  geom_line(aes(x=length, y=fluorescence, group=sample.index, colour = sample_name)) +
+  # add in coloring under the lines: 
+  # length < lower_marker_mlength_max will produce a T/F value, which we can color with scale_fill_manual
+  geom_area(aes(x=length, y=fluorescence, fill = length <= lower_marker_length_max)) +
+  scale_fill_manual(values=c("grey60", "lightsteelblue")) +
+  # get rid of the ugly legend
+  theme_classic(base_size=10) +
+  # scale_x_log10(lim = c(0,1000)) +
+  scale_x_log10() +
+  labs(x = "RNA Length (nt)", y = "Fluorescence (arbitrary units)") +
+  facet_wrap(~factor(sample.index, levels = c(17, 7, 14, 16, 4, 8, 15,
+                                              3, 2, 11, 5, 6, 12, 10, 9, 13)), ncol=1, scales = "free_y") +
+  theme(
+        strip.text.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.y  = element_blank()) 
+
+
+oc_plot
+ggsave("plots/OC_tape_trace/OC_Bioanalyzer.pdf", height=10, width=7, units="in")
