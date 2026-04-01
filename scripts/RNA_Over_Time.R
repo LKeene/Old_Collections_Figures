@@ -63,20 +63,54 @@ fly_fc <- fly_data3 %>%
          sd_dct = sd(delta_ct, na.rm = TRUE)) 
 
 # Stats
-fly_fc %>% 
+# some timepoint/targets don't have 3 samples, complicating stats
+# samples per timepoint/group/target
+fly_fc <- fly_fc %>% 
   group_by(target, group, week) %>% 
-  shapiro_test(delta_ct)
-# Couldn't do because some groups do not have 3 or more sample sizes
+  mutate(n = n(),
+         wt = paste0(week, target))
+
+# timepoint/targets with not enough samples for stats
+groups_to_filter <- fly_fc %>% filter(n < 3) %>% group_by(wt) %>% summarize() %>% pull(wt)
+
+# these timepoint/targets all have enough samples
+fly_fc_enough_for_stats <- fly_fc %>% filter(! wt %in% groups_to_filter)
+
+# check for normality
+fly_fc_enough_for_stats %>% 
+  filter(n >= 3) %>%
+  group_by(target, group, week) %>% 
+  shapiro_test(delta_ct) %>%
+  filter(p < 0.05)
+
+# result: data at some timepoints not consistent with normal distribution
+# so will use Wilcoxon rank sum tests (Mann-Whitney U) instead of t test
+
+# perform Wilcoxon tests for all week/target groups 
+# do multiple testing correction, with the number of 
+# hypotheses = the number of week x target combinations (N=58 combinations / hypotheses)
+fly_fc_stats <- fly_fc_enough_for_stats %>% 
+  group_by(week, target) %>% wilcox_test(delta_ct ~ group, paired=F)  %>% 
+  adjust_pvalue(method = "holm") 
+
+# are any of the adjusted p-values signficant?
+filter(fly_fc_stats, p.adj < 0.05)
+
+# answer: NO
 
 # delta ct - three targets
-rel_fly_dct <- ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus", "RpL32 mRNA")),
+rel_fly_dct <- ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus", "RpL32 mRNA")) %>% ungroup(),
        aes(x = week)) +
   geom_point(aes(y = delta_ct, fill = group), shape = 21, size = 1.35, 
              stroke = 0.1, color = "black", alpha = 0) +
-#  stat_compare_means(aes(y= delta_ct, group = group), method = "t.test", label = "p.signif", 
-#                     hide.ns = TRUE, label.y = 7, size = 3.5, alpha = 0.75, symnum.args = 
-#                       list(cutpoints = c(0, 0.0001, 0.001, 0.01, 0.05, Inf), 
-#                            symbols = c("D", "C", "B", "A", "ns"))) +
+  # note that stat_compare_means does not account for multiple testing 
+  # stat_compare_means(aes(y= delta_ct, group = group), method = "wilcox.test", label = "p.signif",
+                     # hide.ns = TRUE, label.y = 7, size = 3.5, alpha = 0.75, 
+                     # p.adjust.method = "holm",
+                     # symnum.args =
+                      # list(cutpoints = c(0, 0.0001, 0.001, 0.01, 0.05, Inf),
+                           # symbols = c("D", "C", "B", "A", "ns"))) +
+                           # symbols = c("****", "***", "**", "*", "ns"))) +
   geom_line(aes(y = mean_dct, group = group, linetype = group, colour = group), 
             linewidth = 0.75, alpha = 1) +
   scale_fill_manual(values = c("firebrick", "navyblue")) +
@@ -98,6 +132,7 @@ rel_fly_dct <- ggplot(filter(fly_fc, target %in% c("Galbut virus", "Nora virus",
        fill = "Sample Storage", linetype = "Sample Storage", colour = "Sample Storage")
 
 rel_fly_dct
+
 # remove # to save plot
 ggsave("plots/Figure1/Relative_fly_dct_3targets.pdf", units = "in", width = 10, height = 8)
 ggsave("plots/Figure1/Relative_fly_dct_3targets.svg", units = "in", width = 10, height = 8)
